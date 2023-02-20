@@ -8,9 +8,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pidev.tn.aurora.entities.Forum.Publication;
-import pidev.tn.aurora.services.Shop.IForumService;
+import pidev.tn.aurora.services.Forum.IForumService;
 
-import javax.websocket.server.PathParam;
 import java.util.List;
 
 @RestController
@@ -52,5 +51,39 @@ public class ForumController {
     })
     public List<Publication> DisplayPublication() {
         return iForumService.DisplayPublication();
+    }
+    @PostMapping("/update")
+    @ResponseBody
+    @Operation(description = "update publication", summary = "Show all 📦")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Publication Updated ✅",
+                    content = {@Content(mediaType = "application/json")}),
+            @ApiResponse(responseCode = "404",
+                    description = "Error must be fixed ❌",
+                    content = @Content),
+            @ApiResponse(responseCode = "500",
+                    description = "Code Correct ✅ But there is a Cascad Problem ⚠",
+                    content = @Content)
+    })
+    public Publication update(Publication pub) {
+        return iForumService.update(pub);
+    }
+    @PostMapping("/delete")
+    @ResponseBody
+    @Operation(description = "Delete Publication", summary = "Show all 📦")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Publication Deleted ✅",
+                    content = {@Content(mediaType = "application/json")}),
+            @ApiResponse(responseCode = "404",
+                    description = "Error must be fixed ❌",
+                    content = @Content),
+            @ApiResponse(responseCode = "500",
+                    description = "Code Correct ✅ But there is a Cascad Problem ⚠",
+                    content = @Content)
+    })
+    public void delete(Publication pub) {
+        iForumService.delete(pub);
     }
 }
