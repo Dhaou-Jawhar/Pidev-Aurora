@@ -34,8 +34,8 @@ public class OpenAPIConfig {
                 .build();}
     @Bean
     public GroupedOpenApi departementPublicApi() {
-        return GroupedOpenApi.builder().group("Islem | ")
-                .pathsToMatch("/**/**")
+        return GroupedOpenApi.builder().group("Islem | Forum 🎀 ")
+                .pathsToMatch("/Forum/**")
                 .pathsToExclude("**")
                 .build();}
     @Bean
