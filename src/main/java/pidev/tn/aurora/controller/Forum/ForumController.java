@@ -83,7 +83,8 @@ public class ForumController {
                     description = "Code Correct ✅ But there is a Cascad Problem ⚠",
                     content = @Content)
     })
-    public void delete(Publication pub) {
-        iForumService.delete(pub);
+
+    public void delete(Integer id) {
+        iForumService.delete(id);
     }
 }

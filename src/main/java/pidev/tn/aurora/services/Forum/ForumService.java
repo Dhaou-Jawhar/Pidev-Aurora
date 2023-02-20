@@ -32,8 +32,8 @@ public class ForumService implements IForumService {
     }
 
     @Override
-    public void delete(Publication pub) {
-        publicationRepository.delete(pub);
+    public void delete(Integer id) {
+        publicationRepository.deleteById(id);
     }
 
 }

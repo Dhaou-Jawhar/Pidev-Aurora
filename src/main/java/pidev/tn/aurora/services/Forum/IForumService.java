@@ -9,5 +9,5 @@ public interface IForumService {
 Publication addPub (Publication pub);
     List<Publication> DisplayPublication();
     Publication update(Publication pub);
-    void delete(Publication pub);
+    void delete(Integer id);
 }
