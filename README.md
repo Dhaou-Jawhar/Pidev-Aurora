@@ -6,7 +6,7 @@
     An awesome Projet built with Spring and JAVA
   <br/>
 <div align="center">
-  <a href="https://github.com/Dhaou-Jawhar/APP-SMART-ESPRIT/blob/master/pixmaps/User-Guide-SMART-ESPRIT.pdf">
+  <a href="https://github.com/Dhaou-Jawhar/Pidev-Aurora/blob/master/src/main/resources/templates/assets/aurora.pdf">
     <img src="https://github.com/Dhaou-Jawhar/Pidev-Aurora/blob/master/src/main/resources/templates/assets/logo.gif" alt="Logo" />
   </a>
   
