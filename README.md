@@ -64,3 +64,21 @@ This Projet Built By : <br>
 <img src="https://github.com/Dhaou-Jawhar/Pidev-Aurora/blob/master/src/main/resources/templates/assets/class-diag.png" alt="Intro" />
 </p>
 
+<!-- CONTACT -->
+## Contact
+
+<table style="background-color:#F5F5DC">
+<div>
+<tr>
+<td>
+<img src="https://github.com/Dhaou-Jawhar/Dhaou-Jawhar/blob/main/be259bd5-577b-4aa8-b27a-250649810988.png" width="180"/>
+
+Dhaou Jawhar
+
+<p align="center">
+<a href = "https://github.com/Dhaou-Jawhar"><img src = "https://github.com/harshalrj25/MasterAssetsRepo/blob/master/gitHubLogo.png" width="32" height = "33"/></a>
+<a href = "https://www.linkedin.com/in/dhaou-jawhar/"><img src = "https://github.com/harshalrj25/MasterAssetsRepo/blob/master/linkedInLogo.svg" width="36" height="36"/></a>
+</p>
+</td>
+</tr> 
+</table>
