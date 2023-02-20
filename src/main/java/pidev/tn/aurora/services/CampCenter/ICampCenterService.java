@@ -7,8 +7,11 @@ import java.util.List;
 
 public interface ICampCenterService extends Serializable {
 
-    CampCenter addcenter (CampCenter c);
+    CampCenter addorupdatecenter (CampCenter c);
 
+    CampCenter retrieveCenter (Integer idcenter);
     List<CampCenter> AllCenters ();
+    void removeCenter(Integer idcenter);
+
 
 }
