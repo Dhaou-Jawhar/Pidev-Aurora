@@ -52,7 +52,7 @@ public class ForumController {
     public List<Publication> DisplayPublication() {
         return iForumService.DisplayPublication();
     }
-    @PostMapping("/update")
+    @PutMapping ("/update")
     @ResponseBody
     @Operation(description = "update publication", summary = "Show all 📦")
     @ApiResponses(value = {
@@ -66,10 +66,10 @@ public class ForumController {
                     description = "Code Correct ✅ But there is a Cascad Problem ⚠",
                     content = @Content)
     })
-    public Publication update(Publication pub) {
+    public Publication update(@RequestBody Publication pub) {
         return iForumService.update(pub);
     }
-    @PostMapping("/delete")
+    @DeleteMapping("/delete")
     @ResponseBody
     @Operation(description = "Delete Publication", summary = "Show all 📦")
     @ApiResponses(value = {
