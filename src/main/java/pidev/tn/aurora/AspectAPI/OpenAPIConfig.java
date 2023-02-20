@@ -23,9 +23,9 @@ public class OpenAPIConfig {
     @Bean
     public GroupedOpenApi JawharPublicApi() {
         return GroupedOpenApi.builder().group("Jawhar | E-SHOP 🏪")
-                                .pathsToMatch("/shop/**")
-                                .pathsToExclude("**")
-                                .build();}
+                .pathsToMatch("/shop/**")
+                .pathsToExclude("**")
+                .build();}
 
     @Bean
     public GroupedOpenApi HanenPublicApi() {
@@ -40,20 +40,17 @@ public class OpenAPIConfig {
                 .pathsToMatch("/camp/**")
                 .pathsToExclude("**")
                 .build();}
-
     @Bean
     public GroupedOpenApi IslemPublicApi() {
         return GroupedOpenApi.builder().group("test")
                 .pathsToMatch("/**/**")
                 .pathsToExclude("**")
                 .build();}
-
     @Bean
     public GroupedOpenApi HazemPublicApi() {
         return GroupedOpenApi.builder().group("test3")
                 .pathsToMatch("/**/**")
                 .pathsToExclude("**")
                 .build();}
-
 
 }
