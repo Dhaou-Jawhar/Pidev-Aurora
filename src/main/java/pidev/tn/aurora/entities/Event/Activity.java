@@ -20,15 +20,24 @@ public class Activity {
     private Integer id;
 
     @Column(name = "price")
-    private String price;
+    private Float price;
 
-    @Column(name = "manager_ev")
-    private String managerEv;
+    @Column(name = "state")
+    private Boolean state;
 
-    @Column(name = "picture_ev")
-    private String pictureEv;
+    @Column(name = "capacity")
+    private Integer capacity;
 
-    @Column(name = "name_ev")
-    private String nameEv;
+    @Column(name = "description")
+    private String description;
+
+    @Column(name = "coach_ac")
+    private String coachAc;
+
+    @Column(name = "picture_ac")
+    private String pictureAc;
+
+    @Column(name = "name_ac")
+    private String nameAc;
 
 }
