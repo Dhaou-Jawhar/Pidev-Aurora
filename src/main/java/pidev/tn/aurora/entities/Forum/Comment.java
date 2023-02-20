@@ -12,14 +12,13 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-@Table(name = "publication")
-public class Publication {
+@Table(name = "comment")
+public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private Integer idPub;
-    @Column(name = "publication")
-    private String publication;
-
+    @Column(name = "idComment", nullable = false)
+    private Integer idComment;
+    @Column(name = "comment")
+    private String comment;
 
 }

@@ -12,14 +12,16 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-@Table(name = "publication")
-public class Publication {
+@Table(name = "reaction")
+public class Reaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private Integer idPub;
-    @Column(name = "publication")
-    private String publication;
+    @Column(name = "idReaction", nullable = false)
+    private Integer idReaction;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "reactType")
+    private ReactType reactType;
+
 
 
 }
