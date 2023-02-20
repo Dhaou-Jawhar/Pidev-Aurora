@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pidev.tn.aurora.entities.Event.Activity;
+import pidev.tn.aurora.entities.Event.Events;
 import pidev.tn.aurora.repository.Event.ActivityRepository;
 import pidev.tn.aurora.repository.Event.EventsRepository;
 
@@ -43,5 +44,33 @@ public class ActivityService implements IActivityService {
     @Override
     public void removeAc(Integer id) {
         activityRepository.deleteById(id);
+    }
+
+    @Override
+    public Events addEv(Events ev) {
+        return eventsRepository.save(ev);
+    }
+
+    @Override
+    public Events updateEv(Events ev) {
+        return eventsRepository.save(ev);
+    }
+
+    @Override
+    public Events retrieveEv(Integer idev) {
+        return eventsRepository.findById(idev).get();
+    }
+
+    @Override
+    public List<Events> retrieveAllEv() {
+        List<Events> events= new ArrayList<>();
+        eventsRepository.findAll().forEach(events::add);
+        return events;
+    }
+
+    @Override
+    public void removeEv(Integer idev) {
+        eventsRepository.deleteById(idev);
+
     }
 }
