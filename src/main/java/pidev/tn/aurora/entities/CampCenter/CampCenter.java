@@ -22,8 +22,8 @@ public class CampCenter {
     @Column(name = "price")
     private Double price;
 
-    @Column(name = "descprition")
-    private String descprition;
+    @Column(name = "description")
+    private String description;
 
     @Column(name = "address")
     private String address;
