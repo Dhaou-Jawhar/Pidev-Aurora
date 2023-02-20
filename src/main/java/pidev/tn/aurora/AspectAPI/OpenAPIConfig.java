@@ -22,33 +22,33 @@ public class OpenAPIConfig {
 
     @Bean
     public GroupedOpenApi JawharPublicApi() {
-        return GroupedOpenApi.builder().group("Jawhar | E-SHOP 🏪")
+        return GroupedOpenApi.builder().group("💎 Jawhar | E-SHOP 🏪")
                 .pathsToMatch("/shop/**")
                 .pathsToExclude("**")
                 .build();}
 
     @Bean
     public GroupedOpenApi HanenPublicApi() {
-        return GroupedOpenApi.builder().group("test2")
+        return GroupedOpenApi.builder().group("Hanen | Event 🎆🎭")
                 .pathsToMatch("/**/**")
                 .pathsToExclude("**")
                 .build();}
 
     @Bean
     public GroupedOpenApi InesPublicApi() {
-        return GroupedOpenApi.builder().group("Ines |")
+        return GroupedOpenApi.builder().group("Ines | Camping Center 🏕")
                 .pathsToMatch("/camp/**")
                 .pathsToExclude("**")
                 .build();}
     @Bean
     public GroupedOpenApi IslemPublicApi() {
-        return GroupedOpenApi.builder().group("test")
+        return GroupedOpenApi.builder().group("Islem | Forum 🎙")
                 .pathsToMatch("/**/**")
                 .pathsToExclude("**")
                 .build();}
     @Bean
     public GroupedOpenApi HazemPublicApi() {
-        return GroupedOpenApi.builder().group("test3")
+        return GroupedOpenApi.builder().group("Hazem | User-Claim 👩‍💻")
                 .pathsToMatch("/**/**")
                 .pathsToExclude("**")
                 .build();}
