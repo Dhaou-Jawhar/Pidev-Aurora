@@ -30,7 +30,7 @@ public class OpenAPIConfig {
     @Bean
     public GroupedOpenApi HanenPublicApi() {
         return GroupedOpenApi.builder().group("Hanen | Event 🎆🎭")
-                .pathsToMatch("/**/**")
+                .pathsToMatch("/event/**")
                 .pathsToExclude("**")
                 .build();}
 
@@ -43,7 +43,7 @@ public class OpenAPIConfig {
     @Bean
     public GroupedOpenApi IslemPublicApi() {
         return GroupedOpenApi.builder().group("Islem | Forum 🎙")
-                .pathsToMatch("/**/**")
+                .pathsToMatch("/Forum/**")
                 .pathsToExclude("**")
                 .build();}
     @Bean
