@@ -21,35 +21,39 @@ public class OpenAPIConfig {
         }
 
     @Bean
-    public GroupedOpenApi etudiantPublicApi() {
+    public GroupedOpenApi JawharPublicApi() {
         return GroupedOpenApi.builder().group("Jawhar | E-SHOP 🏪")
                                 .pathsToMatch("/shop/**")
                                 .pathsToExclude("**")
                                 .build();}
+
     @Bean
-    public GroupedOpenApi universityPublicApi() {
-        return GroupedOpenApi.builder().group("Hazem | ")
+    public GroupedOpenApi HanenPublicApi() {
+        return GroupedOpenApi.builder().group("test2")
                 .pathsToMatch("/**/**")
                 .pathsToExclude("**")
                 .build();}
+
     @Bean
-    public GroupedOpenApi departementPublicApi() {
-        return GroupedOpenApi.builder().group("Islem | ")
-                .pathsToMatch("/**/**")
-                .pathsToExclude("**")
-                .build();}
-    @Bean
-    public GroupedOpenApi contratPublicApi() {
-        return GroupedOpenApi.builder().group("Hanen | ")
-                .pathsToMatch("/**/**")
-                .pathsToExclude("**")
-                .build();
-    }
-    @Bean
-    public GroupedOpenApi equipePublicApi() {
-        return GroupedOpenApi.builder().group("Ines | CampCenter ")
+    public GroupedOpenApi InesPublicApi() {
+        return GroupedOpenApi.builder().group("Ines |")
                 .pathsToMatch("/camp/**")
                 .pathsToExclude("**")
-                .build();
-    }
+                .build();}
+
+    @Bean
+    public GroupedOpenApi IslemPublicApi() {
+        return GroupedOpenApi.builder().group("test")
+                .pathsToMatch("/**/**")
+                .pathsToExclude("**")
+                .build();}
+
+    @Bean
+    public GroupedOpenApi HazemPublicApi() {
+        return GroupedOpenApi.builder().group("test3")
+                .pathsToMatch("/**/**")
+                .pathsToExclude("**")
+                .build();}
+
+
 }

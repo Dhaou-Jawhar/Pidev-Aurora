@@ -14,6 +14,11 @@ public class CampController {
     @Autowired
     private ICampCenterService iCampCenterService;
 
+    @Autowired
+    CampController(ICampCenterService iCampCenterService){
+        this.iCampCenterService = iCampCenterService;
+    }
+
     @PostMapping("add")
     @ResponseBody
     public CampCenter addcenter(@RequestBody CampCenter c) {
