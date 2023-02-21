@@ -114,5 +114,8 @@ public class ActivityController {
         return iActivityService.assignActivityToEvent(idac,idEv);
     }
     /*-----------------------------------CRUD WISHLISTEV---------------------------------*/
-
+    @PutMapping("assignAcToWishListEv/{idac}/{idwishlistev}")
+    public Activity assignActivityToWidhLishEv(@PathVariable("idac") Integer idac,@PathVariable("idwishlistev")Integer idWishListEv) {
+        return iActivityService.assignActivityToWidhLishEv(idac,idWishListEv);
+    }
 }

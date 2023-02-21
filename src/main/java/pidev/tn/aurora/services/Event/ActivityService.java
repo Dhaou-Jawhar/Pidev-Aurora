@@ -21,8 +21,8 @@ public class ActivityService implements IActivityService {
     private ActivityRepository activityRepository;
     @Autowired
     private EventsRepository eventsRepository;
-
-    /*-----------------------------------CRUD ACTIVITY---------------------------------*/
+    @Autowired
+    private WishListEvRepository wishListEvRepository;
     @Override
     public Activity addAc(Activity activity) {
         return activityRepository.save(activity);
@@ -49,8 +49,6 @@ public class ActivityService implements IActivityService {
     public void removeAc(Integer id) {
         activityRepository.deleteById(id);
     }
-    /*-----------------------------------CRUD EVENT---------------------------------*/
-
 /*----------------------------ASSIGNMENT ACT-TO-EVENT-------------------------*/
   @Override
     public Activity assignActivityToEvent(Integer idac, Integer idEv) {
@@ -59,6 +57,11 @@ public class ActivityService implements IActivityService {
         activity.setEvents(events);
         return activityRepository.save(activity);
     }
-
-
+    /*----------------------------ASSIGNMENT ACT-TO-WishListEv-------------------------*/
+    public  Activity assignActivityToWidhLishEv(Integer idac,Integer idWishListEv){
+        Activity activity=activityRepository.findById(idac).orElse(null);
+        WishListEv wishListEv=wishListEvRepository.findById(idWishListEv).orElse(null);
+        activity.setWishListEv(wishListEv);
+        return activityRepository.save(activity);
+    }
 }

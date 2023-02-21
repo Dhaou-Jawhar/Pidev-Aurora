@@ -15,8 +15,5 @@ public interface IActivityService extends Serializable {
     List<Activity> retrieveAllAc();
     void removeAc(Integer id);
     Activity assignActivityToEvent(Integer idac,Integer idEv);
-
-
-
-
+    Activity assignActivityToWidhLishEv(Integer idac,Integer idWishListEv);
 }
