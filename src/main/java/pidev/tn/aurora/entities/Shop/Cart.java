@@ -13,28 +13,21 @@ import java.util.Date;
 @Getter
 @Setter
 @Entity
-@Table(name = "order")
-public class Order {
+@Table(name = "carte")
+public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "createdate")
-    private Date createdate;
+    @Column(name = "createdat")
+    private Date createdat;
 
-    @Column(name = "totalprice")
-    private Double totalprice;
+    @Column(name = "quantity")
+    private Integer quantity;
 
-    @OneToOne(mappedBy = "order")
-    private Product product;
-    @OneToOne
-    @JoinColumn(name = "facture_id")
-    private Facture facture;
-
-    @OneToOne
-    @JoinColumn(name = "carte_id")
-    private Cart cart;
+    @OneToOne(mappedBy = "cart")
+    private Order order;
 
 }
