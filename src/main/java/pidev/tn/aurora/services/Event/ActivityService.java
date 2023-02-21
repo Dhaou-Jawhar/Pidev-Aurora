@@ -5,8 +5,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pidev.tn.aurora.entities.Event.Activity;
 import pidev.tn.aurora.entities.Event.Events;
+import pidev.tn.aurora.entities.Event.WishListEv;
 import pidev.tn.aurora.repository.Event.ActivityRepository;
 import pidev.tn.aurora.repository.Event.EventsRepository;
+import pidev.tn.aurora.repository.Event.WishListEvRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +21,8 @@ public class ActivityService implements IActivityService {
     private ActivityRepository activityRepository;
     @Autowired
     private EventsRepository eventsRepository;
+
+    /*-----------------------------------CRUD ACTIVITY---------------------------------*/
     @Override
     public Activity addAc(Activity activity) {
         return activityRepository.save(activity);
@@ -45,32 +49,16 @@ public class ActivityService implements IActivityService {
     public void removeAc(Integer id) {
         activityRepository.deleteById(id);
     }
+    /*-----------------------------------CRUD EVENT---------------------------------*/
 
-    @Override
-    public Events addEv(Events ev) {
-        return eventsRepository.save(ev);
+/*----------------------------ASSIGNMENT ACT-TO-EVENT-------------------------*/
+  @Override
+    public Activity assignActivityToEvent(Integer idac, Integer idEv) {
+        Activity activity=activityRepository.findById(idac).orElse(null);
+        Events events=eventsRepository.findById(idEv).orElse(null);
+        activity.setEvents(events);
+        return activityRepository.save(activity);
     }
 
-    @Override
-    public Events updateEv(Events ev) {
-        return eventsRepository.save(ev);
-    }
 
-    @Override
-    public Events retrieveEv(Integer idev) {
-        return eventsRepository.findById(idev).get();
-    }
-
-    @Override
-    public List<Events> retrieveAllEv() {
-        List<Events> events= new ArrayList<>();
-        eventsRepository.findAll().forEach(events::add);
-        return events;
-    }
-
-    @Override
-    public void removeEv(Integer idev) {
-        eventsRepository.deleteById(idev);
-
-    }
 }

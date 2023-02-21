@@ -1,5 +1,6 @@
 package pidev.tn.aurora.entities.Event;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -39,9 +40,13 @@ public class Activity {
 
     @Column(name = "name_ac")
     private String nameAc;
-
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "events_id")
     private Events events;
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "wish_list_ev_id")
+    private WishListEv wishListEv;
 
 }
