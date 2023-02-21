@@ -23,9 +23,11 @@ public class Review {
     @Column(name = "comment")
     private String comment;
 
+    @Column(name = "date")
     @Temporal(TemporalType.DATE)
     Date date;
 
+    @Column(name = "note")
     @Enumerated(EnumType.STRING)
     Note note;
 

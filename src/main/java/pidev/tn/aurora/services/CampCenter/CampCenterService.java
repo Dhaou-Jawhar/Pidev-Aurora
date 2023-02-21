@@ -23,7 +23,7 @@ public class CampCenterService implements ICampCenterService{
 
     @Override
     public CampCenter retrieveCenter(Integer idcenter) {
-        return null;
+        return campCenterRepository.findById(idcenter).orElse(null);
     }
 
     @Override
