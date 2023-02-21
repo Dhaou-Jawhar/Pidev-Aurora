@@ -40,4 +40,8 @@ public class Activity {
     @Column(name = "name_ac")
     private String nameAc;
 
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "events_id")
+    private Events events;
+
 }
