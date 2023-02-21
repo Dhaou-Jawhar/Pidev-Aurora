@@ -43,7 +43,7 @@ public class ShopController {
     }
 
 
-    @PostMapping("/displayAll")
+    @GetMapping("/displayAll")
     @ResponseBody
     @Operation(description = "Show all Products", summary = "Show all 📦")
     @ApiResponses(value = {
@@ -59,5 +59,29 @@ public class ShopController {
     })
     public List<Product> DisplayProduct() {
         return iShopService.DisplayProduct();
+    }
+
+    @DeleteMapping("deleteBy/{id}")
+    @ResponseBody
+    @Operation(description = "Delete Product", summary = "Delete 📦")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Product Deleted ✅",
+                    content = {@Content(mediaType = "application/json")}),
+            @ApiResponse(responseCode = "404",
+                    description = "Error must be fixed ❌",
+                    content = @Content),
+            @ApiResponse(responseCode = "500",
+                    description = "Code Correct ✅ But there is a Cascad Problem ⚠",
+                    content = @Content)
+    })
+    public void DeleteProduct(@PathVariable("id") Integer prod_id) {
+        iShopService.DeleteProduct(prod_id);
+    }
+
+    @GetMapping("DisplayBy/{id}")
+    @ResponseBody
+    public Product DisplayProductByID(@PathVariable("id") Integer prod_id) {
+        return iShopService.DisplayProductByID(prod_id);
     }
 }

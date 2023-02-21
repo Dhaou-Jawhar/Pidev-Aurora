@@ -7,8 +7,11 @@ import java.util.List;
 
 public interface IShopService extends Serializable {
 
+    /*---------[Product]----------*/
     Product addProduct(Product product);
-
     List<Product> DisplayProduct();
+    void DeleteProduct(Integer prod_id);
+
+    Product DisplayProductByID(Integer prod_id);
 
 }

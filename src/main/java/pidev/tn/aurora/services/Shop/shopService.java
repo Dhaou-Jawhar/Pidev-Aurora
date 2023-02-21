@@ -27,5 +27,15 @@ public class shopService implements IShopService{
         productRepository.findAll().forEach(productList::add);
         return productList;
     }
-    //update
+    @Override
+    public void DeleteProduct(Integer prod_id) {
+        productRepository.deleteById(prod_id);
+    }
+
+    @Override
+    public Product DisplayProductByID(Integer prod_id) {
+        return productRepository.findById(prod_id).get();
+    }
+
+
 }
