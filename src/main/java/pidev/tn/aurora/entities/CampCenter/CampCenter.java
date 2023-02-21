@@ -1,11 +1,13 @@
 package pidev.tn.aurora.entities.CampCenter;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -30,5 +32,17 @@ public class CampCenter {
 
     @Column(name = "name")
     private String name;
+
+    @Enumerated(EnumType.STRING)
+    State state;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "campCenter")
+    Set<Review> reviews;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "campCenter")
+    Set<Reservation> reservations;
+
 
 }

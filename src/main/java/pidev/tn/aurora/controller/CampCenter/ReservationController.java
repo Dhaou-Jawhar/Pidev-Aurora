@@ -7,30 +7,29 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import pidev.tn.aurora.entities.CampCenter.CampCenter;
-import pidev.tn.aurora.services.CampCenter.ICampCenterService;
+import pidev.tn.aurora.entities.CampCenter.Reservation;
+import pidev.tn.aurora.services.CampCenter.IReservationService;
 
 import java.util.List;
 
 @RestController
-@Tag(name = "CampCenter ⛺ Management 💹")
-@RequestMapping("camp")
-public class CampController {
+@Tag(name = "CampCenter ⛺ Reservation")
+@RequestMapping("reserv")
+public class ReservationController {
 
     @Autowired
-    private ICampCenterService iCampCenterService;
+    private IReservationService iReservationService;
 
     @Autowired
-    CampController(ICampCenterService iCampCenterService){
-        this.iCampCenterService = iCampCenterService;
-    }
+    ReservationController(IReservationService iReservationService){this.iReservationService = iReservationService;}
+
 
     @PostMapping("add")
     @ResponseBody
-    @Operation(description = "Add Center", summary = "Add ➕")
+    @Operation(description = "Add Reservation", summary = "Add ➕")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
-                    description = "Center Added ✅",
+                    description = "Reservation Added ✅",
                     content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "404",
                     description = "Error must be fixed ❌",
@@ -39,14 +38,14 @@ public class CampController {
                     description = "Code Correct ✅ But there is a Cascad Problem ⚠",
                     content = @Content)
     })
-    public CampCenter addcenter(@RequestBody CampCenter c) {return iCampCenterService.addorupdatecenter(c);}
+    public Reservation addReservation (@RequestBody Reservation r) {return iReservationService.addorupdateRev(r);}
 
     @PutMapping("update")
     @ResponseBody
-    @Operation(description = "Update Center", summary = "Update ♻")
+    @Operation(description = "Update Reservation", summary = "Update ♻")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
-                    description = "Center Updated ✅",
+                    description = "Reservation Updated ✅",
                     content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "404",
                     description = "Error must be fixed ❌",
@@ -55,16 +54,16 @@ public class CampController {
                     description = "Code Correct ✅ But there is a Cascad Problem ⚠",
                     content = @Content)
     })
-    public CampCenter updatecenter(@RequestBody CampCenter c){
-        return iCampCenterService.addorupdatecenter(c);
+    public Reservation updatereservation(@RequestBody Reservation r){
+        return iReservationService.addorupdateRev(r);
     }
 
     @GetMapping("/get/{id}")
     @ResponseBody
-    @Operation(description = "Show a Center", summary = "Show a 🏕")
+        @Operation(description = "Show a Reservation", summary = "Show a 🏕")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
-                    description = "Center Description ✅",
+                    description = "Reservation Description ✅",
                     content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "404",
                     description = "Error must be fixed ❌",
@@ -73,14 +72,14 @@ public class CampController {
                     description = "Code Correct ✅ But there is a Cascad Problem ⚠",
                     content = @Content)
     })
-    public CampCenter getCenter(@PathVariable("id") Integer idC){return iCampCenterService.retrieveCenter(idC);}
+    public Reservation getReservation(@PathVariable("id") Integer id){return iReservationService.retrieveRev(id);}
 
     @GetMapping("/all")
     @ResponseBody
-    @Operation(description = "Show all Centers", summary = "Show all 🏕")
+    @Operation(description = "Show all Reservations", summary = "Show all 🏕")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
-                    description = "Center List ✅",
+                    description = "Reservation List ✅",
                     content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "404",
                     description = "Error must be fixed ❌",
@@ -89,14 +88,14 @@ public class CampController {
                     description = "Code Correct ✅ But there is a Cascad Problem ⚠",
                     content = @Content)
     })
-    public List<CampCenter> getAllcenters() {return iCampCenterService.AllCenters();}
+    public List<Reservation> getAllReservations() {return iReservationService.AllReservations();}
 
     @DeleteMapping ("/delete/{id}")
     @ResponseBody
-    @Operation(description = "Delete Center", summary = "Delete 🏕")
+    @Operation(description = "Delete Reservation", summary = "Delete 🏕")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
-                    description = "Center Deleted ✅",
+                    description = "Reservation Deleted ✅",
                     content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "404",
                     description = "Error must be fixed ❌",
@@ -105,6 +104,14 @@ public class CampController {
                     description = "Code Correct ✅ But there is a Cascad Problem ⚠",
                     content = @Content)
     })
-    void deleteCenter(@PathVariable("id") Integer idC){iCampCenterService.removeCenter(idC);}
+    void deleteReservation(@PathVariable("id") Integer id){iReservationService.removeRev(id);}
 
+    @Operation(description = "Asign Reservation to CenterCamp", summary = "Add ➕")
+    @PutMapping ("/asignReservCen/{idR}/{idCC}")
+    @ResponseBody
+    public Reservation assignReservationToCenter(@PathVariable("idR")Integer idR,
+                                                 @PathVariable("idCC")Integer idCC)
+    {
+        return iReservationService.assignReservationToCenter(idR,idCC);
+    }
 }

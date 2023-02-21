@@ -7,30 +7,27 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import pidev.tn.aurora.entities.CampCenter.CampCenter;
-import pidev.tn.aurora.services.CampCenter.ICampCenterService;
+import pidev.tn.aurora.entities.CampCenter.Reservation;
+import pidev.tn.aurora.entities.CampCenter.Review;
+import pidev.tn.aurora.services.CampCenter.IReviewService;
 
 import java.util.List;
 
 @RestController
-@Tag(name = "CampCenter ⛺ Management 💹")
-@RequestMapping("camp")
-public class CampController {
-
+@Tag(name = "CampCenter ⛺ Review 💹")
+@RequestMapping("rev")
+public class ReviewController {
     @Autowired
-    private ICampCenterService iCampCenterService;
-
+    private IReviewService iReviewService;
     @Autowired
-    CampController(ICampCenterService iCampCenterService){
-        this.iCampCenterService = iCampCenterService;
-    }
+    ReviewController(IReviewService iReviewService){this.iReviewService = iReviewService;}
 
     @PostMapping("add")
     @ResponseBody
-    @Operation(description = "Add Center", summary = "Add ➕")
+    @Operation(description = "Add Review", summary = "Add ➕")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
-                    description = "Center Added ✅",
+                    description = "Review Added ✅",
                     content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "404",
                     description = "Error must be fixed ❌",
@@ -39,14 +36,14 @@ public class CampController {
                     description = "Code Correct ✅ But there is a Cascad Problem ⚠",
                     content = @Content)
     })
-    public CampCenter addcenter(@RequestBody CampCenter c) {return iCampCenterService.addorupdatecenter(c);}
+    public Review addReview (@RequestBody Review r) {return iReviewService.addorupdateRev(r);}
 
     @PutMapping("update")
     @ResponseBody
-    @Operation(description = "Update Center", summary = "Update ♻")
+    @Operation(description = "Update Review", summary = "Update ♻")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
-                    description = "Center Updated ✅",
+                    description = "Review Updated ✅",
                     content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "404",
                     description = "Error must be fixed ❌",
@@ -55,16 +52,14 @@ public class CampController {
                     description = "Code Correct ✅ But there is a Cascad Problem ⚠",
                     content = @Content)
     })
-    public CampCenter updatecenter(@RequestBody CampCenter c){
-        return iCampCenterService.addorupdatecenter(c);
-    }
+    public Review updatereservation(@PathVariable("id") Integer id,@RequestBody Review r){return iReviewService.addorupdateRev(r);}
 
     @GetMapping("/get/{id}")
     @ResponseBody
-    @Operation(description = "Show a Center", summary = "Show a 🏕")
+    @Operation(description = "Show a Review", summary = "Show a 🏕")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
-                    description = "Center Description ✅",
+                    description = "Review Description ✅",
                     content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "404",
                     description = "Error must be fixed ❌",
@@ -73,14 +68,15 @@ public class CampController {
                     description = "Code Correct ✅ But there is a Cascad Problem ⚠",
                     content = @Content)
     })
-    public CampCenter getCenter(@PathVariable("id") Integer idC){return iCampCenterService.retrieveCenter(idC);}
+    public Review getReview(@PathVariable("id") Integer id){return iReviewService.retrieveReview(id);}
+
 
     @GetMapping("/all")
     @ResponseBody
-    @Operation(description = "Show all Centers", summary = "Show all 🏕")
+    @Operation(description = "Show all Reviews", summary = "Show all 🏕")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
-                    description = "Center List ✅",
+                    description = "Review List ✅",
                     content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "404",
                     description = "Error must be fixed ❌",
@@ -89,14 +85,14 @@ public class CampController {
                     description = "Code Correct ✅ But there is a Cascad Problem ⚠",
                     content = @Content)
     })
-    public List<CampCenter> getAllcenters() {return iCampCenterService.AllCenters();}
+    public List<Review> getAllReviews() {return iReviewService.AllReviews();}
 
     @DeleteMapping ("/delete/{id}")
     @ResponseBody
-    @Operation(description = "Delete Center", summary = "Delete 🏕")
+    @Operation(description = "Delete Review", summary = "Delete 🏕")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
-                    description = "Center Deleted ✅",
+                    description = "Review Deleted ✅",
                     content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "404",
                     description = "Error must be fixed ❌",
@@ -105,6 +101,15 @@ public class CampController {
                     description = "Code Correct ✅ But there is a Cascad Problem ⚠",
                     content = @Content)
     })
-    void deleteCenter(@PathVariable("id") Integer idC){iCampCenterService.removeCenter(idC);}
+    void deleteReview(@PathVariable("id") Integer id){iReviewService.removeReview(id);}
 
+
+    @Operation(description = "Asign Review to CenterCamp", summary = "Add ➕")
+    @PutMapping ("/asignRevCen/{idRev}/{idCC}")
+    @ResponseBody
+    public Review assignRevToCenter(@PathVariable("idRev")Integer idRev,
+                                    @PathVariable("idCC")Integer idCC)
+    {
+        return iReviewService.assignReviewToCenter(idRev,idCC);
+    }
 }
