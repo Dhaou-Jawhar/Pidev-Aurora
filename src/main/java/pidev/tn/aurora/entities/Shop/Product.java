@@ -1,9 +1,6 @@
 package pidev.tn.aurora.entities.Shop;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -31,5 +28,9 @@ public class Product {
     @Column(name = "name")
     private String name;
 
+
+    @ManyToOne
+    @JoinColumn(name = "wish_list_id")
+    private WishList wishList;
 
 }
