@@ -1,4 +1,4 @@
-package pidev.tn.aurora.controller.Event;
+package pidev.tn.aurora.controller.CampCenter;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -7,26 +7,29 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import pidev.tn.aurora.entities.Event.Events;
-import pidev.tn.aurora.services.Event.IActivityService;
-import pidev.tn.aurora.services.Event.IEventService;
+import pidev.tn.aurora.entities.CampCenter.Reservation;
+import pidev.tn.aurora.services.CampCenter.IReservationService;
 
 import java.util.List;
-@RestController
-@Tag(name = "Event ⛳🎻🛶 Management 💹")
-@RequestMapping("event")
-public class EventController {
-    @Autowired
-    private IEventService iEventService;
-    @Autowired
-    EventController (IEventService iEventService){this.iEventService=iEventService;}
 
-    @PostMapping("/addEv")
+@RestController
+@Tag(name = "CampCenter ⛺ Reservation")
+@RequestMapping("reserv")
+public class ReservationController {
+
+    @Autowired
+    private IReservationService iReservationService;
+
+    @Autowired
+    ReservationController(IReservationService iReservationService){this.iReservationService = iReservationService;}
+
+
+    @PostMapping("add")
     @ResponseBody
-    @Operation(description = "Add Event", summary = "Add 📦")
+    @Operation(description = "Add Reservation", summary = "Add ➕")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
-                    description = "Event Added ✅",
+                    description = "Reservation Added ✅",
                     content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "404",
                     description = "Error must be fixed ❌",
@@ -35,15 +38,32 @@ public class EventController {
                     description = "Code Correct ✅ But there is a Cascad Problem ⚠",
                     content = @Content)
     })
-    public Events addEv(@RequestBody Events ev) {
-        return iEventService.addEv(ev);
+    public Reservation addReservation (@RequestBody Reservation r) {return iReservationService.addorupdateRev(r);}
+
+    @PutMapping("update")
+    @ResponseBody
+    @Operation(description = "Update Reservation", summary = "Update ♻")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Reservation Updated ✅",
+                    content = {@Content(mediaType = "application/json")}),
+            @ApiResponse(responseCode = "404",
+                    description = "Error must be fixed ❌",
+                    content = @Content),
+            @ApiResponse(responseCode = "500",
+                    description = "Code Correct ✅ But there is a Cascad Problem ⚠",
+                    content = @Content)
+    })
+    public Reservation updatereservation(@RequestBody Reservation r){
+        return iReservationService.addorupdateRev(r);
     }
-    @PutMapping("updateEv")
-    @Operation(description = "update activity",summary = "update 📦")
+
+    @GetMapping("/get/{id}")
     @ResponseBody
+        @Operation(description = "Show a Reservation", summary = "Show a 🏕")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
-                    description = "Event updated ✅",
+                    description = "Reservation Description ✅",
                     content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "404",
                     description = "Error must be fixed ❌",
@@ -52,15 +72,14 @@ public class EventController {
                     description = "Code Correct ✅ But there is a Cascad Problem ⚠",
                     content = @Content)
     })
-    public Events updateEv(@RequestBody Events ev) {
-        return iEventService.updateEv(ev);
-    }
-    @GetMapping("getoneEv/{id}")
-    @Operation(description = "afficher un seul  par ID",summary = "retrieve one 📦")
+    public Reservation getReservation(@PathVariable("id") Integer id){return iReservationService.retrieveRev(id);}
+
+    @GetMapping("/all")
     @ResponseBody
+    @Operation(description = "Show all Reservations", summary = "Show all 🏕")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
-                    description = "get One succe✅",
+                    description = "Reservation List ✅",
                     content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "404",
                     description = "Error must be fixed ❌",
@@ -69,15 +88,14 @@ public class EventController {
                     description = "Code Correct ✅ But there is a Cascad Problem ⚠",
                     content = @Content)
     })
-    public Events retrieveEv(@PathVariable("id") Integer idev) {
-        return iEventService.retrieveEv(idev);
-    }
-    @GetMapping("getallEv")
-    @Operation(description = "afficher tous les Activities",summary = "retrieve all 📦")
+    public List<Reservation> getAllReservations() {return iReservationService.AllReservations();}
+
+    @DeleteMapping ("/delete/{id}")
     @ResponseBody
+    @Operation(description = "Delete Reservation", summary = "Delete 🏕")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
-                    description = "get all succe ✅",
+                    description = "Reservation Deleted ✅",
                     content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "404",
                     description = "Error must be fixed ❌",
@@ -86,24 +104,14 @@ public class EventController {
                     description = "Code Correct ✅ But there is a Cascad Problem ⚠",
                     content = @Content)
     })
-    public List<Events> retrieveAllEv() {
-        return iEventService.retrieveAllEv();
-    }
-    @DeleteMapping("deleteEv/{id}")
-    @Operation(description = "delete Activity",summary = "delete 📦")
+    void deleteReservation(@PathVariable("id") Integer id){iReservationService.removeRev(id);}
+
+    @Operation(description = "Asign Reservation to CenterCamp", summary = "Add ➕")
+    @PutMapping ("/asignReservCen/{idR}/{idCC}")
     @ResponseBody
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200",
-                    description = "Event deleted ✅",
-                    content = {@Content(mediaType = "application/json")}),
-            @ApiResponse(responseCode = "404",
-                    description = "Error must be fixed ❌",
-                    content = @Content),
-            @ApiResponse(responseCode = "500",
-                    description = "Code Correct ✅ But there is a Cascad Problem ⚠",
-                    content = @Content)
-    })
-    public void removeEv(@PathVariable("id") Integer idev) {
-        iEventService.removeEv(idev);
+    public Reservation assignReservationToCenter(@PathVariable("idR")Integer idR,
+                                                 @PathVariable("idCC")Integer idCC)
+    {
+        return iReservationService.assignReservationToCenter(idR,idCC);
     }
 }

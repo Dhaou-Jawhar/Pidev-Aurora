@@ -1,5 +1,6 @@
 package pidev.tn.aurora.entities.Event;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,19 +17,36 @@ import javax.persistence.*;
 public class Activity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id", nullable = false)
     private Integer id;
 
     @Column(name = "price")
-    private String price;
+    private Float price;
 
-    @Column(name = "manager_ev")
-    private String managerEv;
+    @Column(name = "state")
+    private Boolean state;
 
-    @Column(name = "picture_ev")
-    private String pictureEv;
+    @Column(name = "capacity")
+    private Integer capacity;
 
-    @Column(name = "name_ev")
-    private String nameEv;
+    @Column(name = "description")
+    private String description;
+
+    @Column(name = "coach_ac")
+    private String coachAc;
+
+    @Column(name = "picture_ac")
+    private String pictureAc;
+
+    @Column(name = "name_ac")
+    private String nameAc;
+    @JsonIgnore
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "events_id")
+    private Events events;
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "wish_list_ev_id")
+    private WishListEv wishListEv;
 
 }

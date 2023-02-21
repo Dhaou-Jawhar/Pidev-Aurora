@@ -1,11 +1,15 @@
 package pidev.tn.aurora.entities.Forum;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -21,6 +25,15 @@ public class Publication {
     @Column(name = "publication")
     private String publication;
 
-    
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "publication", cascade = CascadeType.PERSIST)
+    private List<Comment> comments = new ArrayList<>();
+
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "publication")
+    private List<Reaction> reactions = new ArrayList<>();
+
 
 }

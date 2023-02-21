@@ -1,4 +1,4 @@
-package pidev.tn.aurora.controller.Event;
+package pidev.tn.aurora.controller.CampCenter;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -7,26 +7,27 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import pidev.tn.aurora.entities.Event.Events;
-import pidev.tn.aurora.services.Event.IActivityService;
-import pidev.tn.aurora.services.Event.IEventService;
+import pidev.tn.aurora.entities.CampCenter.Reservation;
+import pidev.tn.aurora.entities.CampCenter.Review;
+import pidev.tn.aurora.services.CampCenter.IReviewService;
 
 import java.util.List;
-@RestController
-@Tag(name = "Event ⛳🎻🛶 Management 💹")
-@RequestMapping("event")
-public class EventController {
-    @Autowired
-    private IEventService iEventService;
-    @Autowired
-    EventController (IEventService iEventService){this.iEventService=iEventService;}
 
-    @PostMapping("/addEv")
+@RestController
+@Tag(name = "CampCenter ⛺ Review 💹")
+@RequestMapping("rev")
+public class ReviewController {
+    @Autowired
+    private IReviewService iReviewService;
+    @Autowired
+    ReviewController(IReviewService iReviewService){this.iReviewService = iReviewService;}
+
+    @PostMapping("add")
     @ResponseBody
-    @Operation(description = "Add Event", summary = "Add 📦")
+    @Operation(description = "Add Review", summary = "Add ➕")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
-                    description = "Event Added ✅",
+                    description = "Review Added ✅",
                     content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "404",
                     description = "Error must be fixed ❌",
@@ -35,15 +36,14 @@ public class EventController {
                     description = "Code Correct ✅ But there is a Cascad Problem ⚠",
                     content = @Content)
     })
-    public Events addEv(@RequestBody Events ev) {
-        return iEventService.addEv(ev);
-    }
-    @PutMapping("updateEv")
-    @Operation(description = "update activity",summary = "update 📦")
+    public Review addReview (@RequestBody Review r) {return iReviewService.addorupdateRev(r);}
+
+    @PutMapping("update")
     @ResponseBody
+    @Operation(description = "Update Review", summary = "Update ♻")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
-                    description = "Event updated ✅",
+                    description = "Review Updated ✅",
                     content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "404",
                     description = "Error must be fixed ❌",
@@ -52,15 +52,14 @@ public class EventController {
                     description = "Code Correct ✅ But there is a Cascad Problem ⚠",
                     content = @Content)
     })
-    public Events updateEv(@RequestBody Events ev) {
-        return iEventService.updateEv(ev);
-    }
-    @GetMapping("getoneEv/{id}")
-    @Operation(description = "afficher un seul  par ID",summary = "retrieve one 📦")
+    public Review updatereservation(@PathVariable("id") Integer id,@RequestBody Review r){return iReviewService.addorupdateRev(r);}
+
+    @GetMapping("/get/{id}")
     @ResponseBody
+    @Operation(description = "Show a Review", summary = "Show a 🏕")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
-                    description = "get One succe✅",
+                    description = "Review Description ✅",
                     content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "404",
                     description = "Error must be fixed ❌",
@@ -69,15 +68,15 @@ public class EventController {
                     description = "Code Correct ✅ But there is a Cascad Problem ⚠",
                     content = @Content)
     })
-    public Events retrieveEv(@PathVariable("id") Integer idev) {
-        return iEventService.retrieveEv(idev);
-    }
-    @GetMapping("getallEv")
-    @Operation(description = "afficher tous les Activities",summary = "retrieve all 📦")
+    public Review getReview(@PathVariable("id") Integer id){return iReviewService.retrieveReview(id);}
+
+
+    @GetMapping("/all")
     @ResponseBody
+    @Operation(description = "Show all Reviews", summary = "Show all 🏕")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
-                    description = "get all succe ✅",
+                    description = "Review List ✅",
                     content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "404",
                     description = "Error must be fixed ❌",
@@ -86,15 +85,14 @@ public class EventController {
                     description = "Code Correct ✅ But there is a Cascad Problem ⚠",
                     content = @Content)
     })
-    public List<Events> retrieveAllEv() {
-        return iEventService.retrieveAllEv();
-    }
-    @DeleteMapping("deleteEv/{id}")
-    @Operation(description = "delete Activity",summary = "delete 📦")
+    public List<Review> getAllReviews() {return iReviewService.AllReviews();}
+
+    @DeleteMapping ("/delete/{id}")
     @ResponseBody
+    @Operation(description = "Delete Review", summary = "Delete 🏕")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
-                    description = "Event deleted ✅",
+                    description = "Review Deleted ✅",
                     content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "404",
                     description = "Error must be fixed ❌",
@@ -103,7 +101,15 @@ public class EventController {
                     description = "Code Correct ✅ But there is a Cascad Problem ⚠",
                     content = @Content)
     })
-    public void removeEv(@PathVariable("id") Integer idev) {
-        iEventService.removeEv(idev);
+    void deleteReview(@PathVariable("id") Integer id){iReviewService.removeReview(id);}
+
+
+    @Operation(description = "Asign Review to CenterCamp", summary = "Add ➕")
+    @PutMapping ("/asignRevCen/{idRev}/{idCC}")
+    @ResponseBody
+    public Review assignRevToCenter(@PathVariable("idRev")Integer idRev,
+                                    @PathVariable("idCC")Integer idCC)
+    {
+        return iReviewService.assignReviewToCenter(idRev,idCC);
     }
 }
