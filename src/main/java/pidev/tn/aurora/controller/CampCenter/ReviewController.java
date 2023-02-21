@@ -52,7 +52,7 @@ public class ReviewController {
                     description = "Code Correct ✅ But there is a Cascad Problem ⚠",
                     content = @Content)
     })
-    public Review updatereservation(@RequestBody Review r){return iReviewService.addorupdateRev(r);}
+    public Review updatereservation(@PathVariable("id") Integer id,@RequestBody Review r){return iReviewService.addorupdateRev(r);}
 
     @GetMapping("/get/{id}")
     @ResponseBody
@@ -104,12 +104,12 @@ public class ReviewController {
     void deleteReview(@PathVariable("id") Integer id){iReviewService.removeReview(id);}
 
 
-    /*@Operation(description = "Asign Review to CenterCamp", summary = "Add ➕")
+    @Operation(description = "Asign Review to CenterCamp", summary = "Add ➕")
     @PutMapping ("/asignRevCen/{idRev}/{idCC}")
     @ResponseBody
     public Review assignRevToCenter(@PathVariable("idRev")Integer idRev,
                                     @PathVariable("idCC")Integer idCC)
     {
         return iReviewService.assignReviewToCenter(idRev,idCC);
-    }*/
+    }
 }

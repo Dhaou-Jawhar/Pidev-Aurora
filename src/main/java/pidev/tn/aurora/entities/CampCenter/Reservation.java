@@ -34,4 +34,7 @@ public class Reservation {
 
     @Temporal(TemporalType.DATE)
     Date dateFin;
+
+    @ManyToOne
+    CampCenter campCenter;
 }

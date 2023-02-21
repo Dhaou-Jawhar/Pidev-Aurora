@@ -11,4 +11,6 @@ public interface IReservationService extends Serializable {
     Reservation retrieveRev  (Integer idrev);
     List<Reservation> AllReservations ();
     void removeRev (Integer idrev);
+
+    Reservation assignReservationToCenter(Integer idR, Integer idCC);
 }

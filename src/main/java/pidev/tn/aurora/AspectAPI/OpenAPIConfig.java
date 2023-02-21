@@ -37,7 +37,7 @@ public class OpenAPIConfig {
     @Bean
     public GroupedOpenApi InesPublicApi() {
         return GroupedOpenApi.builder().group("Ines | Camping Center 🏕")
-                .pathsToMatch("/camp/**")
+                .pathsToMatch("/camp/**","/rev/**","/reserv/**")
                 .pathsToExclude("**")
                 .build();}
     @Bean

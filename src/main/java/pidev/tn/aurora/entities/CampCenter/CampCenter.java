@@ -40,5 +40,9 @@ public class CampCenter {
     @OneToMany(mappedBy = "campCenter")
     Set<Review> reviews;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "campCenter")
+    Set<Reservation> reservations;
+
 
 }

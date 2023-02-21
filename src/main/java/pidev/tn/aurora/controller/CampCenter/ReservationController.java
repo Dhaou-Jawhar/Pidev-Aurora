@@ -7,9 +7,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import pidev.tn.aurora.entities.CampCenter.CampCenter;
 import pidev.tn.aurora.entities.CampCenter.Reservation;
-import pidev.tn.aurora.services.CampCenter.ICampCenterService;
 import pidev.tn.aurora.services.CampCenter.IReservationService;
 
 import java.util.List;
@@ -107,4 +105,13 @@ public class ReservationController {
                     content = @Content)
     })
     void deleteReservation(@PathVariable("id") Integer id){iReservationService.removeRev(id);}
+
+    @Operation(description = "Asign Reservation to CenterCamp", summary = "Add ➕")
+    @PutMapping ("/asignReservCen/{idR}/{idCC}")
+    @ResponseBody
+    public Reservation assignReservationToCenter(@PathVariable("idR")Integer idR,
+                                                 @PathVariable("idCC")Integer idCC)
+    {
+        return iReservationService.assignReservationToCenter(idR,idCC);
+    }
 }

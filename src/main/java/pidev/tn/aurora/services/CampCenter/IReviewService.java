@@ -13,5 +13,5 @@ public interface IReviewService extends Serializable {
     List<Review> AllReviews ();
     void removeReview(Integer idr);
 
-    //Review assignReviewToCenter(Integer idRev, Integer idCC);
+    Review assignReviewToCenter(Integer idRev, Integer idCC);
 }
