@@ -111,7 +111,9 @@ public class ForumController {
         return iForumService.showPub(id);
     }
 
-    @PostMapping("/add-Comment")
+
+
+    /*@PutMapping("/addAndAsign-Comment/{idCom}/{idPub}")
     @ResponseBody
     @Operation(description = "Add Comment", summary = "Add ✏")
     @ApiResponses(value = {
@@ -125,9 +127,10 @@ public class ForumController {
                     description = "Code Correct ✅ But there is a Cascad Problem ⚠",
                     content = @Content)
     })
-    public Comment addCom(Comment c) {
-        return iForumService.addCom(c);
-    }
+    public Comment addandAsignCom(@PathVariable ("idCom") Integer idCom, @PathVariable("idPub") Integer idPub) {
+        return iForumService.addandAsignCom(idCom, idPub);
+    }*/
+
 
     @PostMapping("/displayAll-Comments")
     @ResponseBody
@@ -199,7 +202,9 @@ public class ForumController {
     public Comment showComment(Integer idComment) {
         return iForumService.showComment(idComment);
     }
-    @PostMapping("/add-Reaction")
+
+
+  /*  @PostMapping("/addAndAsignReaction")
     @ResponseBody
     @Operation(description = "Add Reaction", summary = "Add ✏")
     @ApiResponses(value = {
@@ -213,9 +218,11 @@ public class ForumController {
                     description = "Code Correct ✅ But there is a Cascad Problem ⚠",
                     content = @Content)
     })
-    public Reaction addReact(Reaction reaction) {
-        return iForumService.addReact(reaction);
-    }
+    public Reaction addAndAsignReact(Reaction r, Integer idPub) {
+        return iForumService.addAndAsignReact(r, idPub);
+    }*/
+
+
     @PostMapping("/displayAll-Reactions")
     @ResponseBody
     @Operation(description = "Show all Reactions", summary = "Show all 📦")

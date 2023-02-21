@@ -1,9 +1,6 @@
 package pidev.tn.aurora.entities.Forum;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -22,6 +19,11 @@ public class Reaction {
     @Column(name = "reactType")
     private ReactType reactType;
 
+    @Getter(AccessLevel.NONE)
+    @Setter(AccessLevel.NONE)
+    @ManyToOne
+    @JoinColumn(name = "publication_id")
+    private Publication publication;
 
 
 }

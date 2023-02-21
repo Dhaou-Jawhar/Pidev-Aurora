@@ -1,9 +1,7 @@
 package pidev.tn.aurora.entities.Forum;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -20,5 +18,9 @@ public class Comment {
     private Integer idComment;
     @Column(name = "comment")
     private String comment;
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "publication_id")
+    private Publication publication;
 
 }

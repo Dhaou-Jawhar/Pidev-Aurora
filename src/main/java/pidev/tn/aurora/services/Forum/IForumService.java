@@ -13,12 +13,12 @@ public interface IForumService {
     Publication update(Publication pub);
     void delete(Integer id);
     Publication showPub (Integer id);
-    Comment addCom(Comment c);
+    //Comment addandAsignCom(Comment comment,Integer idPub);
     List<Comment> DisplayComments();
     Comment update (Comment c);
     void deleteCom(Integer idComment);
     Comment showComment(Integer idComment);
-    Reaction addReact (Reaction reaction);
+    //Reaction addAndAsignReact (Reaction r,Integer idPub);
     List <Reaction> DisplayReactions();
     Reaction update (Reaction r);
     void deleteReaction(Integer idReact);

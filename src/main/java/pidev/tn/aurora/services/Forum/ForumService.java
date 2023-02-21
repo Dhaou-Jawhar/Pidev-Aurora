@@ -1,5 +1,6 @@
 package pidev.tn.aurora.services.Forum;
 
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pidev.tn.aurora.entities.Forum.Comment;
@@ -10,9 +11,12 @@ import pidev.tn.aurora.repository.Forum.PublicationRepository;
 import pidev.tn.aurora.repository.Forum.ReactionRepository;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
+@AllArgsConstructor
 public class ForumService implements IForumService {
     @Autowired
     private PublicationRepository publicationRepository;
@@ -47,10 +51,14 @@ public class ForumService implements IForumService {
         return publicationRepository.findById(id).get();
     }
 
-    @Override
-    public Comment addCom(Comment c) {
-        return commentRepository.save(c);
-    }
+    /*@Override
+    public Comment addandAsignCom(Comment comment, Integer idPub) {
+        Comment comment= commentRepository.findById().get();
+        Publication publication= publicationRepository.findById(idPub).get();
+        comment.setPublication(publication);
+        return commentRepository.save(comment);
+    }*/
+
 
     @Override
     public List<Comment> DisplayComments() {
@@ -75,10 +83,15 @@ public class ForumService implements IForumService {
         return commentRepository.findById(idComment).get();
     }
 
-    @Override
-    public Reaction addReact(Reaction reaction) {
-        return reactionRepository.save(reaction);
-    }
+   /* @Override
+    public Reaction addAndAsignReact(Reaction r, Integer idPub) {
+        Publication pub=publicationRepository.findById(idPub).orElse(null);
+        r.setPublication(pub);
+        Reaction re=reactionRepository.save(r);
+
+        return re;
+    }*/
+
 
     @Override
     public List<Reaction> DisplayReactions() {
