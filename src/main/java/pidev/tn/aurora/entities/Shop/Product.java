@@ -28,9 +28,16 @@ public class Product {
     @Column(name = "name")
     private String name;
 
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
 
     @ManyToOne
     @JoinColumn(name = "wish_list_id")
     private WishList wishList;
+
+    @OneToOne
+    @JoinColumn(name = "order_id")
+    private Order order;
 
 }

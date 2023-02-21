@@ -6,7 +6,7 @@ import pidev.tn.aurora.entities.Shop.WishList;
 import java.io.Serializable;
 import java.util.List;
 
-public interface IShopService extends Serializable {
+public interface IProductService extends Serializable {
 
     /*---------[Product]----------*/
 
@@ -17,9 +17,5 @@ public interface IShopService extends Serializable {
     Product DisplayProductByID(Integer prod_id);
 
     Product AddProductToWishList(Integer prod_id , Integer wish_id);
-
-    /*---------[WishList----------*/
-
-    WishList addWhishList(WishList wishList);
 
 }

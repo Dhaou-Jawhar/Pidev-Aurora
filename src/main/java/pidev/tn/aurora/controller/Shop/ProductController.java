@@ -8,7 +8,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pidev.tn.aurora.entities.Shop.Product;
-import pidev.tn.aurora.services.Shop.IShopService;
+import pidev.tn.aurora.services.Shop.IProductService;
 
 import java.util.List;
 
@@ -18,11 +18,11 @@ import java.util.List;
 public class ProductController {
 
     @Autowired
-    private IShopService iShopService;
+    private IProductService iProductService;
 
     @Autowired
-    ProductController(IShopService iShopService){
-        this.iShopService = iShopService;
+    ProductController(IProductService iProductService){
+        this.iProductService = iProductService;
     }
 
     @PostMapping("/add")
@@ -40,7 +40,7 @@ public class ProductController {
                     content = @Content)
     })
     public Product addProduct(@RequestBody Product product) {
-        return iShopService.addProduct(product);
+        return iProductService.addProduct(product);
     }
 
 
@@ -59,7 +59,7 @@ public class ProductController {
                     content = @Content)
     })
     public List<Product> DisplayProduct() {
-        return iShopService.DisplayProduct();
+        return iProductService.DisplayProduct();
     }
 
     @DeleteMapping("deleteBy/{id}")
@@ -77,13 +77,13 @@ public class ProductController {
                     content = @Content)
     })
     public void DeleteProduct(@PathVariable("id") Integer prod_id) {
-        iShopService.DeleteProduct(prod_id);
+        iProductService.DeleteProduct(prod_id);
     }
 
     @GetMapping("DisplayBy/{id}")
     @ResponseBody
     public Product DisplayProductByID(@PathVariable("id") Integer prod_id) {
-        return iShopService.DisplayProductByID(prod_id);
+        return iProductService.DisplayProductByID(prod_id);
     }
 
     @PutMapping("AddProductToWishList/{id_p}/{id_w}")
@@ -101,6 +101,6 @@ public class ProductController {
                     content = @Content)
     })
     public Product AddProductToWishList(@PathVariable("id_p") Integer prod_id, @PathVariable("id_w") Integer wish_id) {
-        return iShopService.AddProductToWishList(prod_id, wish_id);
+        return iProductService.AddProductToWishList(prod_id, wish_id);
     }
 }

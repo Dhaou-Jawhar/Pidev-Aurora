@@ -13,11 +13,10 @@ import java.util.List;
 
 @Service
 @Slf4j
-public class shopService implements IShopService{
+public class ProductService implements IProductService {
 
     @Autowired
     private ProductRepository productRepository;
-
     @Autowired
     private WishListRepository wishListRepository;
 
@@ -49,11 +48,6 @@ public class shopService implements IShopService{
 
         p.setWishList(wishList);
         return productRepository.save(p);
-    }
-
-    @Override
-    public WishList addWhishList(WishList wishList) {
-        return wishListRepository.save(wishList);
     }
 
 

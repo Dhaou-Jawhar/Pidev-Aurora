@@ -8,7 +8,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pidev.tn.aurora.entities.Shop.WishList;
-import pidev.tn.aurora.services.Shop.IShopService;
+import pidev.tn.aurora.services.Shop.IProductService;
+import pidev.tn.aurora.services.Shop.IWishListService;
 
 @RestController
 @Tag(name = "WishList 📑 Management 💹")
@@ -16,7 +17,7 @@ import pidev.tn.aurora.services.Shop.IShopService;
 public class WishListController {
 
     @Autowired
-    IShopService iShopService;
+    IWishListService iWishListService;
 
     @PostMapping("addWishList")
     @ResponseBody
@@ -33,6 +34,6 @@ public class WishListController {
                     content = @Content)
     })
     public WishList addWhishList(@RequestBody WishList wishList) {
-        return iShopService.addWhishList(wishList);
+        return iWishListService.addWhishList(wishList);
     }
 }
