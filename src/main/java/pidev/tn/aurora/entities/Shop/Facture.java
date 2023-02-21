@@ -32,7 +32,5 @@ public class Facture {
     @Column(name = "facture_type")
     private FactureType factureType;
 
-    @OneToOne(mappedBy = "facture")
-    private Order order;
 
 }

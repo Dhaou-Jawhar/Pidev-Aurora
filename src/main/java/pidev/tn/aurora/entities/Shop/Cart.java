@@ -13,7 +13,7 @@ import java.util.Date;
 @Getter
 @Setter
 @Entity
-@Table(name = "carte")
+@Table(name = "cart")
 public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +27,5 @@ public class Cart {
     @Column(name = "quantity")
     private Integer quantity;
 
-    @OneToOne(mappedBy = "cart")
-    private Order order;
 
 }
