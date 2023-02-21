@@ -1,4 +1,4 @@
-package pidev.tn.aurora.entities.CampCenter;
+package pidev.tn.aurora.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,25 +13,28 @@ import java.util.Date;
 @Getter
 @Setter
 @Entity
-@Table(name = "review_camp")
-public class Review {
+@Table(name = "Reservation")
+public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @Column(name = "comment")
-    private String comment;
+    @Column(name = "name")
+    private String name;
 
-    @Column(name = "date")
+    @Column(name = "nbplace")
+    private Integer nbplace ;
+
+    @Column(name = "price")
+    private Double price;
+
     @Temporal(TemporalType.DATE)
-    Date date;
+    Date dateDeb;
 
-    @Column(name = "note")
-    @Enumerated(EnumType.STRING)
-    Note note;
+    @Temporal(TemporalType.DATE)
+    Date dateFin;
 
     @ManyToOne
     CampCenter campCenter;
-
 }

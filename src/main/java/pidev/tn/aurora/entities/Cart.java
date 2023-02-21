@@ -1,4 +1,4 @@
-package pidev.tn.aurora.entities.CampCenter;
+package pidev.tn.aurora.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,28 +13,21 @@ import java.util.Date;
 @Getter
 @Setter
 @Entity
-@Table(name = "Reservation")
-public class Reservation {
+@Table(name = "cart")
+public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @Column(name = "name")
-    private String name;
-
-    @Column(name = "nbplace")
-    private Integer nbplace ;
-
-    @Column(name = "price")
-    private Double price;
-
     @Temporal(TemporalType.DATE)
-    Date dateDeb;
+    @Column(name = "createdat")
+    private Date createdat;
 
-    @Temporal(TemporalType.DATE)
-    Date dateFin;
+    @Column(name = "quantity")
+    private Integer quantity;
 
-    @ManyToOne
-    CampCenter campCenter;
+    @OneToOne
+    private Order_Produit order_produit;
+
 }

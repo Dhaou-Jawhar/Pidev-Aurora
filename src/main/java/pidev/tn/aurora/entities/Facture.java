@@ -1,7 +1,7 @@
-package pidev.tn.aurora.entities.Shop;
+package pidev.tn.aurora.entities;
 
 import lombok.*;
-import pidev.tn.aurora.enumeration.FactureType;
+import pidev.tn.aurora.entities.enumeration.FactureType;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -31,6 +31,9 @@ public class Facture {
     @Enumerated(EnumType.STRING)
     @Column(name = "facture_type")
     private FactureType factureType;
+
+    @OneToOne(mappedBy = "facture")
+    private Order_Produit order_produit;
 
 
 }

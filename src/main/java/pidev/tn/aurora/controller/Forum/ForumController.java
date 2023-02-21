@@ -7,9 +7,9 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import pidev.tn.aurora.entities.Forum.Comment;
-import pidev.tn.aurora.entities.Forum.Publication;
-import pidev.tn.aurora.entities.Forum.Reaction;
+import pidev.tn.aurora.entities.Comment;
+import pidev.tn.aurora.entities.Publication;
+import pidev.tn.aurora.entities.Reaction;
 import pidev.tn.aurora.services.Forum.IForumService;
 
 import java.util.List;
@@ -113,7 +113,7 @@ public class ForumController {
 
 
 
-    /*@PutMapping("/addAndAsign-Comment/{idCom}/{idPub}")
+    @PutMapping("/addAndAsign-Comment/{idPub}")
     @ResponseBody
     @Operation(description = "Add Comment", summary = "Add ✏")
     @ApiResponses(value = {
@@ -127,9 +127,9 @@ public class ForumController {
                     description = "Code Correct ✅ But there is a Cascad Problem ⚠",
                     content = @Content)
     })
-    public Comment addandAsignCom(@PathVariable ("idCom") Integer idCom, @PathVariable("idPub") Integer idPub) {
-        return iForumService.addandAsignCom(idCom, idPub);
-    }*/
+    public Comment addandAsignCom(@RequestBody Comment comment, @PathVariable("idPub") Integer idPub) {
+        return iForumService.addandAsignCom(comment, idPub);
+    }
 
 
     @PostMapping("/displayAll-Comments")

@@ -1,10 +1,10 @@
-package pidev.tn.aurora.entities.Claim;
+package pidev.tn.aurora.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import pidev.tn.aurora.enumeration.ClaimStatus;
+import pidev.tn.aurora.entities.enumeration.ClaimStatus;
 
 import javax.persistence.*;
 import java.util.Date;

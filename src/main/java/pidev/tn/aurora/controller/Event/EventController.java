@@ -7,8 +7,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import pidev.tn.aurora.entities.Event.Events;
-import pidev.tn.aurora.services.Event.IActivityService;
+import pidev.tn.aurora.entities.Events;
 import pidev.tn.aurora.services.Event.IEventService;
 
 import java.util.List;

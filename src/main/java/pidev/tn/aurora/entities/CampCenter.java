@@ -1,4 +1,4 @@
-package pidev.tn.aurora.entities.CampCenter;
+package pidev.tn.aurora.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;

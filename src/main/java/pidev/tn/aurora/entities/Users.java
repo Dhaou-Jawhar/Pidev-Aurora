@@ -1,10 +1,10 @@
-package pidev.tn.aurora.entities.Users;
+package pidev.tn.aurora.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import pidev.tn.aurora.enumeration.Role;
+import pidev.tn.aurora.entities.enumeration.Role;
 
 import javax.persistence.*;
 

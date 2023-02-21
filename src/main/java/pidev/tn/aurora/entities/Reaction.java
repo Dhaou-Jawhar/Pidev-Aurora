@@ -1,4 +1,4 @@
-package pidev.tn.aurora.entities.Forum;
+package pidev.tn.aurora.entities;
 
 import lombok.*;
 

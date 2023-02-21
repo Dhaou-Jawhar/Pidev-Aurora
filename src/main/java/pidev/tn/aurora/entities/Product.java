@@ -1,4 +1,4 @@
-package pidev.tn.aurora.entities.Shop;
+package pidev.tn.aurora.entities;
 
 import lombok.*;
 
@@ -11,6 +11,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "product")
 public class Product {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -35,6 +36,10 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "wish_list_id")
     private WishList wishList;
+
+    @ManyToOne
+    @JoinColumn(name = "order_produit_id")
+    private Order_Produit order_Produit;
 
 
 }

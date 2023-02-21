@@ -1,9 +1,8 @@
 package pidev.tn.aurora.services.Forum;
 
-import pidev.tn.aurora.entities.Forum.Comment;
-import pidev.tn.aurora.entities.Forum.Publication;
-import pidev.tn.aurora.entities.Forum.Reaction;
-import pidev.tn.aurora.entities.Shop.Product;
+import pidev.tn.aurora.entities.Comment;
+import pidev.tn.aurora.entities.Publication;
+import pidev.tn.aurora.entities.Reaction;
 
 import java.util.List;
 
@@ -13,7 +12,7 @@ public interface IForumService {
     Publication update(Publication pub);
     void delete(Integer id);
     Publication showPub (Integer id);
-    //Comment addandAsignCom(Comment comment,Integer idPub);
+    Comment addandAsignCom(Comment comment,Integer idPub);
     List<Comment> DisplayComments();
     Comment update (Comment c);
     void deleteCom(Integer idComment);

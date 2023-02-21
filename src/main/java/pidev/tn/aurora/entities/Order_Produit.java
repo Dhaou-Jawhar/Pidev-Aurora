@@ -1,4 +1,4 @@
-package pidev.tn.aurora.entities.Shop;
+package pidev.tn.aurora.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @AllArgsConstructor
@@ -14,20 +15,27 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "category")
-public class Category {
+@Table(name = "order_produit")
+public class Order_Produit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "totalprice")
+    private String totalprice;
 
-    @Column(name = "description")
-    private String description;
+    @Temporal(TemporalType.DATE)
+    @Column(name = "createddate")
+    private Date createddate;
 
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "order_Produit")
     private List<Product> products = new ArrayList<>();
+
+    @OneToOne
+    private Facture facture;
+
+    @OneToOne(mappedBy = "order_produit")
+    private Cart cart;
 
 }

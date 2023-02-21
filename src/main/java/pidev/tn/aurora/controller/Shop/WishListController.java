@@ -7,8 +7,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import pidev.tn.aurora.entities.Shop.WishList;
-import pidev.tn.aurora.services.Shop.IProductService;
+import pidev.tn.aurora.entities.WishList;
 import pidev.tn.aurora.services.Shop.IWishListService;
 
 @RestController

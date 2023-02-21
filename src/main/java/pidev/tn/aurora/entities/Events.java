@@ -1,4 +1,4 @@
-package pidev.tn.aurora.entities.Event;
+package pidev.tn.aurora.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
@@ -9,7 +9,6 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.Set;
 
 @AllArgsConstructor
@@ -17,19 +16,35 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-@Table(name = "wish_list_ev")
-public class WishListEv {
+@Table(name = "events")
+public class Events {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 
+
+    @Column(name = "description_ev")
+    private String descriptionEv;
+
     @Temporal(TemporalType.DATE)
-    @Column(name = "created_date")
-    private Date created_date;
+    @Column(name = "date_ev")
+    private Date dateEv;
+
+    @Column(name = "price_ev")
+    private Float priceEv;
+
+    @Column(name = "manager")
+    private String manager;
+
+    @Column(name = "picture_ev")
+    private String pictureEv;
+
+    @Column(name = "name_ev")
+    private String nameEv;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "wishListEv", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "events")
     private Set<Activity> activities = new HashSet<>();
 
 }

@@ -3,7 +3,7 @@ package pidev.tn.aurora.services.Users;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pidev.tn.aurora.entities.Users.Users;
+import pidev.tn.aurora.entities.Users;
 import pidev.tn.aurora.repository.Users.UsersRepository;
 
 import java.util.List;
