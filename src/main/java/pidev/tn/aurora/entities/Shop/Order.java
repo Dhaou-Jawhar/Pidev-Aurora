@@ -29,5 +29,8 @@ public class Order {
 
     @OneToOne(mappedBy = "order")
     private Product product;
+    @OneToOne
+    @JoinColumn(name = "facture_id")
+    private Facture facture;
 
 }
