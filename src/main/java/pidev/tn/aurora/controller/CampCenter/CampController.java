@@ -106,4 +106,5 @@ public class CampController {
                     content = @Content)
     })
     void deleteCenter(@PathVariable("id") Integer idC){iCampCenterService.removeCenter(idC);}
+
 }

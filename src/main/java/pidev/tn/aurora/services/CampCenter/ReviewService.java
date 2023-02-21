@@ -3,7 +3,9 @@ package pidev.tn.aurora.services.CampCenter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pidev.tn.aurora.entities.CampCenter.CampCenter;
 import pidev.tn.aurora.entities.CampCenter.Review;
+import pidev.tn.aurora.repository.CampCenter.CampCenterRepository;
 import pidev.tn.aurora.repository.CampCenter.ReviewRepository;
 
 import java.util.ArrayList;
@@ -14,6 +16,7 @@ import java.util.List;
 public class ReviewService implements IReviewService {
     @Autowired
     private ReviewRepository reviewRepository;
+    //private CampCenterRepository campCenterRepository;
 
 
     @Override
@@ -35,6 +38,13 @@ public class ReviewService implements IReviewService {
         reviewRepository.deleteById(idr);
     }
 
+    /*@Override
+    public Review assignReviewToCenter(Integer idRev, Integer idCC) {
+        Review review= reviewRepository.findById(idRev).orElse(null);
+        CampCenter campCenter= campCenterRepository.findById(idCC).orElse(null);
+        review.setCampCenter(campCenter);
+        return reviewRepository.save(review);
+    }*/
 
     @Override
     public Review retrieveReview(Integer idr) {

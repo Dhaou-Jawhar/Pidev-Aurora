@@ -103,4 +103,13 @@ public class ReviewController {
     })
     void deleteReview(@PathVariable("id") Integer id){iReviewService.removeReview(id);}
 
+
+    /*@Operation(description = "Asign Review to CenterCamp", summary = "Add ➕")
+    @PutMapping ("/asignRevCen/{idRev}/{idCC}")
+    @ResponseBody
+    public Review assignRevToCenter(@PathVariable("idRev")Integer idRev,
+                                    @PathVariable("idCC")Integer idCC)
+    {
+        return iReviewService.assignReviewToCenter(idRev,idCC);
+    }*/
 }
