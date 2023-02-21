@@ -1,5 +1,6 @@
 package pidev.tn.aurora.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -29,14 +30,17 @@ public class Product {
     @Column(name = "name")
     private String name;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "wish_list_id")
     private WishList wishList;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "order_produit_id")
     private Order_Produit order_Produit;
