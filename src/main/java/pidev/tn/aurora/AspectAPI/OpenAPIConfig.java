@@ -30,7 +30,7 @@ public class OpenAPIConfig {
     @Bean
     public GroupedOpenApi HanenPublicApi() {
         return GroupedOpenApi.builder().group("Hanen | Event 🎆🎭")
-                .pathsToMatch("/event/**")
+                .pathsToMatch("/activity/**","/event/**","/WishLishEv/**")
                 .pathsToExclude("**")
                 .build();}
 

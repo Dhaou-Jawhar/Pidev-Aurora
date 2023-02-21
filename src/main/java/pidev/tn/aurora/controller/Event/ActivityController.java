@@ -7,23 +7,24 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import pidev.tn.aurora.entities.Event.Activity;
 import pidev.tn.aurora.entities.Event.Events;
+import pidev.tn.aurora.entities.Event.WishListEv;
 import pidev.tn.aurora.services.Event.IActivityService;
-import pidev.tn.aurora.services.Event.IEventService;
 
 import java.util.List;
-@RestController
-@Tag(name = "Event ⛳🎻🛶 Management 💹")
-@RequestMapping("event")
-public class EventController {
-    @Autowired
-    private IEventService iEventService;
-    @Autowired
-    EventController (IEventService iEventService){this.iEventService=iEventService;}
 
-    @PostMapping("/addEv")
+@RestController
+@Tag(name = "Activity ⛳🎻🛶 Management 💹")
+@RequestMapping("activity")
+public class ActivityController {
+    @Autowired
+    private IActivityService iActivityService;
+    @Autowired
+    ActivityController(IActivityService iActivityService){this.iActivityService=iActivityService;}
+    @PostMapping("/add")
     @ResponseBody
-    @Operation(description = "Add Event", summary = "Add 📦")
+    @Operation(description = "Add Event", summary = "Add 🎰")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
                     description = "Event Added ✅",
@@ -35,11 +36,11 @@ public class EventController {
                     description = "Code Correct ✅ But there is a Cascad Problem ⚠",
                     content = @Content)
     })
-    public Events addEv(@RequestBody Events ev) {
-        return iEventService.addEv(ev);
+    public Activity addAc(@RequestBody Activity activity) {
+        return iActivityService.addAc(activity);
     }
-    @PutMapping("updateEv")
-    @Operation(description = "update activity",summary = "update 📦")
+    @PutMapping("update")
+    @Operation(description = "update activity",summary = "update ✨")
     @ResponseBody
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
@@ -52,11 +53,11 @@ public class EventController {
                     description = "Code Correct ✅ But there is a Cascad Problem ⚠",
                     content = @Content)
     })
-    public Events updateEv(@RequestBody Events ev) {
-        return iEventService.updateEv(ev);
+    public Activity updateAc(@RequestBody Activity activity) {
+        return iActivityService.updateAc(activity);
     }
-    @GetMapping("getoneEv/{id}")
-    @Operation(description = "afficher un seul  par ID",summary = "retrieve one 📦")
+    @GetMapping("getone/{id}")
+    @Operation(description = "afficher un seul  par ID",summary = "retrieve one ➕")
     @ResponseBody
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
@@ -69,11 +70,11 @@ public class EventController {
                     description = "Code Correct ✅ But there is a Cascad Problem ⚠",
                     content = @Content)
     })
-    public Events retrieveEv(@PathVariable("id") Integer idev) {
-        return iEventService.retrieveEv(idev);
+    public Activity retrieveAc(@PathVariable("id") Integer id) {
+        return iActivityService.retrieveAc(id);
     }
-    @GetMapping("getallEv")
-    @Operation(description = "afficher tous les Activities",summary = "retrieve all 📦")
+    @GetMapping("getall")
+    @Operation(description = "afficher tous les Activities",summary = "retrieve all ➕➕")
     @ResponseBody
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
@@ -86,24 +87,35 @@ public class EventController {
                     description = "Code Correct ✅ But there is a Cascad Problem ⚠",
                     content = @Content)
     })
-    public List<Events> retrieveAllEv() {
-        return iEventService.retrieveAllEv();
+    public List<Activity> retrieveAllAc() {
+        return iActivityService.retrieveAllAc();
     }
-    @DeleteMapping("deleteEv/{id}")
-    @Operation(description = "delete Activity",summary = "delete 📦")
-    @ResponseBody
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200",
-                    description = "Event deleted ✅",
-                    content = {@Content(mediaType = "application/json")}),
-            @ApiResponse(responseCode = "404",
-                    description = "Error must be fixed ❌",
-                    content = @Content),
-            @ApiResponse(responseCode = "500",
-                    description = "Code Correct ✅ But there is a Cascad Problem ⚠",
-                    content = @Content)
-    })
-    public void removeEv(@PathVariable("id") Integer idev) {
-        iEventService.removeEv(idev);
+@DeleteMapping("delete/{id}")
+@Operation(description = "delete Activity",summary = "delete ✖")
+@ResponseBody
+@ApiResponses(value = {
+        @ApiResponse(responseCode = "200",
+                description = "Event deleted ✅",
+                content = {@Content(mediaType = "application/json")}),
+        @ApiResponse(responseCode = "404",
+                description = "Error must be fixed ❌",
+                content = @Content),
+        @ApiResponse(responseCode = "500",
+                description = "Code Correct ✅ But there is a Cascad Problem ⚠",
+                content = @Content)
+})
+    public void removeAc(@PathVariable("id") Integer id) {
+        iActivityService.removeAc(id);
+    }
+
+    /*----------------------------ASSIGNMENT ACT-TO-EVENT-------------------------*/
+    @PutMapping("assignAcToEv/{idac}/{idev}")
+    public Activity assignActivityToEvent(@PathVariable("idac") Integer idac,@PathVariable("idev") Integer idEv) {
+        return iActivityService.assignActivityToEvent(idac,idEv);
+    }
+    /*-----------------------------------CRUD WISHLISTEV---------------------------------*/
+    @PutMapping("assignAcToWishListEv/{idac}/{idwishlistev}")
+    public Activity assignActivityToWidhLishEv(@PathVariable("idac") Integer idac,@PathVariable("idwishlistev")Integer idWishListEv) {
+        return iActivityService.assignActivityToWidhLishEv(idac,idWishListEv);
     }
 }
