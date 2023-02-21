@@ -25,8 +25,8 @@ public class Facture {
     @Column(name = "price")
     private Double price;
 
-    @Column(name = "numero")
-    private Integer numero;
+    @Column(name = "number")
+    private Long number;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "facture_type")

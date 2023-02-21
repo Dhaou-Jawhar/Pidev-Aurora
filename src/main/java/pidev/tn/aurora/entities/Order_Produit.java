@@ -1,9 +1,6 @@
 package pidev.tn.aurora.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -23,7 +20,7 @@ public class Order_Produit {
     private Integer id;
 
     @Column(name = "totalprice")
-    private String totalprice;
+    private Double totalprice;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "createddate")
