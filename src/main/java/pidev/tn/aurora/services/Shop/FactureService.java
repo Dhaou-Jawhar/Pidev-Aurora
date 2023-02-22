@@ -34,7 +34,7 @@ public class FactureService implements IFactureService {
         double TotalPrice = order.getTotalprice();
         facture.setPrice(TotalPrice);
 
-        // Set the facture type based on the payment method used in the order
+    
         PaymentMethod paymentMethod = order.getPaymentMethod();
         if (paymentMethod == PaymentMethod.PAYPAL) {
             facture.setFactureType(FactureType.INVOICE);
