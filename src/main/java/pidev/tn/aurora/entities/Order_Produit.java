@@ -1,6 +1,7 @@
 package pidev.tn.aurora.entities;
 
 import lombok.*;
+import pidev.tn.aurora.entities.enumeration.PaymentMethod;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -21,6 +22,11 @@ public class Order_Produit {
 
     @Column(name = "totalprice")
     private Double totalprice;
+
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "payment_method")
+    private PaymentMethod paymentMethod;
 
     @Temporal(TemporalType.DATE)
     @Column(name = "createddate")
