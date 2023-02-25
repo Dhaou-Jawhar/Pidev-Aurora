@@ -24,7 +24,7 @@ public class OpenAPIConfig {
     public GroupedOpenApi JawharPublicApi() {
         return GroupedOpenApi.builder().group("💎 Jawhar | E-SHOP 🏪")
                 .pathsToMatch("/product/**","/wishlist/**","/order/**","/category/**","/facture/**","/cart/**","/GPT/**")
-                .pathsToExclude("**")
+                .pathsToExclude("/GPT/**")
                 .build();}
 
     @Bean
