@@ -1,10 +1,8 @@
 package pidev.tn.aurora.entities.Event;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import pidev.tn.aurora.entities.CampCenter.CampCenter;
 import pidev.tn.aurora.entities.Event.Activity;
 
 import javax.persistence.*;
@@ -48,6 +46,8 @@ public class Events {
     @OneToMany(mappedBy = "events")
     private Set<Activity> activities = new HashSet<>();
 
-
+    /*------[Event - CampCenter]---------*/
+    @OneToOne(mappedBy = "events")
+    private CampCenter campCenter;
 
 }

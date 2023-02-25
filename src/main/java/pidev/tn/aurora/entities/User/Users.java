@@ -45,6 +45,7 @@ public class Users {
     @OneToMany(mappedBy = "users")
     private List<Order_Produit> order_Produits = new ArrayList<>();
 
+    /*------[User - Publication]---------*/
     @OneToMany(mappedBy = "users")
     private List<Publication> publications = new ArrayList<>();
 

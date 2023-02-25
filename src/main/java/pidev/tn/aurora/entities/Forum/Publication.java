@@ -32,7 +32,7 @@ public class Publication {
     @OneToMany(mappedBy = "publication")
     private List<Reaction> reactions = new ArrayList<>();
 
-
+    /*------[User - Publication]---------*/
     @ManyToOne
     @JoinColumn(name = "users_id")
     private Users users;
