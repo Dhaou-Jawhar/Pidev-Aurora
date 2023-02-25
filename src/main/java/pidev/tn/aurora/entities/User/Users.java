@@ -4,12 +4,15 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import pidev.tn.aurora.entities.CampCenter.CampCenter;
+import pidev.tn.aurora.entities.Forum.Publication;
 import pidev.tn.aurora.entities.Shop.Order_Produit;
 import pidev.tn.aurora.entities.enumeration.Role;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -41,5 +44,12 @@ public class Users {
 
     @OneToMany(mappedBy = "users")
     private List<Order_Produit> order_Produits = new ArrayList<>();
+
+    @OneToMany(mappedBy = "users")
+    private List<Publication> publications = new ArrayList<>();
+
+    /*------[User - CampCenter]---------*/
+    @ManyToMany(cascade = CascadeType.ALL)
+    private Set<CampCenter> campCenter;
 
 }

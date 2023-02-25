@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import pidev.tn.aurora.entities.User.Users;
 import pidev.tn.aurora.entities.enumeration.State;
 
 import javax.persistence.*;
@@ -44,6 +45,12 @@ public class CampCenter {
     @JsonIgnore
     @OneToMany(mappedBy = "campCenter")
     Set<Reservation> reservations;
+
+    /*------[User - CampCenter]---------*/
+    @ManyToMany(mappedBy = "campCenter", cascade = CascadeType.ALL)
+    private Set<Users> users;
+
+
 
 
 }

@@ -48,4 +48,6 @@ public class Events {
     @OneToMany(mappedBy = "events")
     private Set<Activity> activities = new HashSet<>();
 
+
+
 }
