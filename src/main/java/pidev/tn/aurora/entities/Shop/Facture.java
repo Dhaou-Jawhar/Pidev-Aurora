@@ -1,6 +1,7 @@
-package pidev.tn.aurora.entities;
+package pidev.tn.aurora.entities.Shop;
 
 import lombok.*;
+import pidev.tn.aurora.entities.Shop.Order_Produit;
 import pidev.tn.aurora.entities.enumeration.FactureType;
 
 import javax.persistence.*;

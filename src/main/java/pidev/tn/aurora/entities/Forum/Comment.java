@@ -1,7 +1,8 @@
-package pidev.tn.aurora.entities;
+package pidev.tn.aurora.entities.Forum;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import pidev.tn.aurora.entities.Forum.Publication;
 
 import javax.persistence.*;
 

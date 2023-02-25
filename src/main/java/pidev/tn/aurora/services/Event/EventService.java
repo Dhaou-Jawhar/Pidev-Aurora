@@ -3,7 +3,7 @@ package pidev.tn.aurora.services.Event;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pidev.tn.aurora.entities.Events;
+import pidev.tn.aurora.entities.Event.Events;
 import pidev.tn.aurora.repository.Event.EventsRepository;
 
 import java.util.ArrayList;

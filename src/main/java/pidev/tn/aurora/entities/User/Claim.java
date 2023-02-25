@@ -1,4 +1,4 @@
-package pidev.tn.aurora.entities;
+package pidev.tn.aurora.entities.User;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,8 +1,8 @@
 package pidev.tn.aurora.services.Forum;
 
-import pidev.tn.aurora.entities.Comment;
-import pidev.tn.aurora.entities.Publication;
-import pidev.tn.aurora.entities.Reaction;
+import pidev.tn.aurora.entities.Forum.Comment;
+import pidev.tn.aurora.entities.Forum.Publication;
+import pidev.tn.aurora.entities.Forum.Reaction;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
 package pidev.tn.aurora.services.Shop;
 
-import pidev.tn.aurora.entities.Product;
+import pidev.tn.aurora.entities.Shop.Product;
 
 import java.io.Serializable;
 import java.util.List;

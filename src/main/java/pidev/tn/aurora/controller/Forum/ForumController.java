@@ -7,9 +7,9 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import pidev.tn.aurora.entities.Comment;
-import pidev.tn.aurora.entities.Publication;
-import pidev.tn.aurora.entities.Reaction;
+import pidev.tn.aurora.entities.Forum.Comment;
+import pidev.tn.aurora.entities.Forum.Publication;
+import pidev.tn.aurora.entities.Forum.Reaction;
 import pidev.tn.aurora.services.Forum.IForumService;
 
 import java.util.List;

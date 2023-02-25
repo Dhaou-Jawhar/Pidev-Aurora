@@ -1,9 +1,10 @@
-package pidev.tn.aurora.entities;
+package pidev.tn.aurora.entities.Shop;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import pidev.tn.aurora.entities.Shop.Order_Produit;
 
 import javax.persistence.*;
 import java.util.Date;

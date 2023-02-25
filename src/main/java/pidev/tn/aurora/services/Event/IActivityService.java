@@ -1,6 +1,6 @@
 package pidev.tn.aurora.services.Event;
 
-import pidev.tn.aurora.entities.Activity;
+import pidev.tn.aurora.entities.Event.Activity;
 
 import java.io.Serializable;
 import java.util.List;

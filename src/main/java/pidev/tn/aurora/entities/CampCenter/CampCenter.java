@@ -1,10 +1,11 @@
-package pidev.tn.aurora.entities;
+package pidev.tn.aurora.entities.CampCenter;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import pidev.tn.aurora.entities.enumeration.State;
 
 import javax.persistence.*;
 import java.util.Set;

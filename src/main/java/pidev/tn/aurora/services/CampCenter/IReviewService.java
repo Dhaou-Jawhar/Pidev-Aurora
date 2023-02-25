@@ -1,7 +1,7 @@
 package pidev.tn.aurora.services.CampCenter;
 
 
-import pidev.tn.aurora.entities.Review;
+import pidev.tn.aurora.entities.CampCenter.Review;
 
 import java.io.Serializable;
 import java.util.List;

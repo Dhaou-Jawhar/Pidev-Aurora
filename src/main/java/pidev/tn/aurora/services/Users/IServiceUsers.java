@@ -1,6 +1,6 @@
 package pidev.tn.aurora.services.Users;
 
-import pidev.tn.aurora.entities.Users;
+import pidev.tn.aurora.entities.User.Users;
 
 import java.io.Serializable;
 import java.util.List;

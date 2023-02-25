@@ -1,5 +1,5 @@
 package pidev.tn.aurora.services.CampCenter;
-import pidev.tn.aurora.entities.Reservation;
+import pidev.tn.aurora.entities.CampCenter.Reservation;
 
 import java.io.Serializable;
 import java.util.List;

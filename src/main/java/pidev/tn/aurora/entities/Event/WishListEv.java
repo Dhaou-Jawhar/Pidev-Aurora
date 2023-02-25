@@ -1,10 +1,11 @@
-package pidev.tn.aurora.entities;
+package pidev.tn.aurora.entities.Event;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import pidev.tn.aurora.entities.Event.Activity;
 
 import javax.persistence.*;
 import java.util.Date;

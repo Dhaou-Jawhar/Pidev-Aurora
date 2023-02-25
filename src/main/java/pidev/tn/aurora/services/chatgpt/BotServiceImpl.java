@@ -1,5 +1,6 @@
 package pidev.tn.aurora.services.chatgpt;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -10,11 +11,15 @@ import pidev.tn.aurora.AspectAPI.ChatGptConfig;
 import pidev.tn.aurora.entities.chatGPT.request.BotRequest;
 import pidev.tn.aurora.entities.chatGPT.request.ChatGptRequest;
 import pidev.tn.aurora.entities.chatGPT.response.ChatGptResponse;
+import pidev.tn.aurora.repository.ResponsRepository;
 
 @Service
 public class BotServiceImpl implements BotService {
 
     private static RestTemplate restTemplate = new RestTemplate();
+
+    @Autowired
+    private ResponsRepository responsRepository;
 
     //    Build headers
     public HttpEntity<ChatGptRequest> buildHttpEntity(ChatGptRequest chatRequest) {
@@ -45,9 +50,5 @@ public class BotServiceImpl implements BotService {
                                 ChatGptConfig.TOP_P)));
     }
 }
-
-
-
-
 
 

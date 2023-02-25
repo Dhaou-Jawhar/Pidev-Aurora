@@ -1,4 +1,4 @@
-package pidev.tn.aurora.entities;
+package pidev.tn.aurora.entities.Shop;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;

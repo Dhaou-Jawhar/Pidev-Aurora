@@ -3,14 +3,13 @@ package pidev.tn.aurora.services.Shop;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pidev.tn.aurora.entities.Facture;
-import pidev.tn.aurora.entities.Order_Produit;
+import pidev.tn.aurora.entities.Shop.Facture;
+import pidev.tn.aurora.entities.Shop.Order_Produit;
 import pidev.tn.aurora.entities.enumeration.FactureType;
 import pidev.tn.aurora.entities.enumeration.PaymentMethod;
 import pidev.tn.aurora.repository.Shop.FactureRepository;
 import pidev.tn.aurora.repository.Shop.OrderRepository;
 
-import javax.persistence.criteria.Order;
 import java.util.Date;
 
 @Service

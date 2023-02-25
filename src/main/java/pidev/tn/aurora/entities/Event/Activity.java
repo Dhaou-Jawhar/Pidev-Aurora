@@ -1,4 +1,4 @@
-package pidev.tn.aurora.entities;
+package pidev.tn.aurora.entities.Event;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
