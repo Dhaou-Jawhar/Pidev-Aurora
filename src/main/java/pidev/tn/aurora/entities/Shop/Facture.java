@@ -1,7 +1,8 @@
 package pidev.tn.aurora.entities.Shop;
 
 import lombok.*;
-import pidev.tn.aurora.enumeration.FactureType;
+import pidev.tn.aurora.entities.Shop.Order_Produit;
+import pidev.tn.aurora.entities.enumeration.FactureType;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -25,12 +26,15 @@ public class Facture {
     @Column(name = "price")
     private Double price;
 
-    @Column(name = "numero")
-    private Integer numero;
+    @Column(name = "number")
+    private Long number;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "facture_type")
     private FactureType factureType;
+
+    @OneToOne(mappedBy = "facture")
+    private Order_Produit order_produit;
 
 
 }

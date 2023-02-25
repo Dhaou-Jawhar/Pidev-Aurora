@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import pidev.tn.aurora.entities.Shop.Product;
 
 import javax.persistence.*;
 import java.util.ArrayList;

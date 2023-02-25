@@ -11,9 +11,7 @@ import pidev.tn.aurora.repository.Forum.PublicationRepository;
 import pidev.tn.aurora.repository.Forum.ReactionRepository;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Service
 @AllArgsConstructor
@@ -51,13 +49,13 @@ public class ForumService implements IForumService {
         return publicationRepository.findById(id).get();
     }
 
-    /*@Override
+    @Override
     public Comment addandAsignCom(Comment comment, Integer idPub) {
-        Comment comment= commentRepository.findById().get();
+        Comment cm = commentRepository.save(comment);
         Publication publication= publicationRepository.findById(idPub).get();
-        comment.setPublication(publication);
-        return commentRepository.save(comment);
-    }*/
+        cm.setPublication(publication);
+        return commentRepository.save(cm);
+    }
 
 
     @Override

@@ -1,6 +1,8 @@
 package pidev.tn.aurora.entities.Forum;
 
 import lombok.*;
+import pidev.tn.aurora.entities.Forum.Publication;
+import pidev.tn.aurora.entities.enumeration.ReactType;
 
 import javax.persistence.*;
 

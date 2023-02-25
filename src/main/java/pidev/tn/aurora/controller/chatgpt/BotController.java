@@ -1,29 +1,31 @@
-package pidev.tn.aurora.controller.Shop;
+package pidev.tn.aurora.controller.chatgpt;
+
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import pidev.tn.aurora.entities.Shop.WishList;
-import pidev.tn.aurora.services.Shop.IWishListService;
+import pidev.tn.aurora.entities.chatGPT.request.BotRequest;
+import pidev.tn.aurora.entities.chatGPT.response.ChatGptResponse;
+import pidev.tn.aurora.services.chatgpt.BotService;
 
 @RestController
-@Tag(name = "WishList 📑 Management 💹")
-@RequestMapping("wishlist")
-public class WishListController {
+@Tag(name = "Chat GPT 🖥")
+@RequestMapping("GPT")
+@ResponseBody
+@RequiredArgsConstructor
+public class BotController {
 
-    @Autowired
-    IWishListService iWishListService;
+    private final BotService botService;
 
-    @PostMapping("addWishList")
-    @ResponseBody
-    @Operation(description = "Add WishList", summary = "Add 📑")
+    @PostMapping("Ask Aurora")
+    @Operation(description = "Ask Aurora", summary = "Ask Aurora 👨‍🏫")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
-                    description = "WishList Deleted ✅",
+                    description = "Product Added ✅",
                     content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "404",
                     description = "Error must be fixed ❌",
@@ -32,7 +34,10 @@ public class WishListController {
                     description = "Code Correct ✅ But there is a Cascad Problem ⚠",
                     content = @Content)
     })
-    public WishList addWhishList(@RequestBody WishList wishList) {
-        return iWishListService.addWhishList(wishList);
+    public ChatGptResponse sendMessage(@RequestBody BotRequest botRequest) {
+        return botService.askQuestion(botRequest);
     }
 }
+
+
+

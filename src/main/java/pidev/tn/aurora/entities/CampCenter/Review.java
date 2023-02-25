@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import pidev.tn.aurora.entities.CampCenter.CampCenter;
+import pidev.tn.aurora.entities.enumeration.Note;
 
 import javax.persistence.*;
 import java.util.Date;

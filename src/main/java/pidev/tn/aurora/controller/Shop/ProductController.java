@@ -103,4 +103,16 @@ public class ProductController {
     public Product AddProductToWishList(@PathVariable("id_p") Integer prod_id, @PathVariable("id_w") Integer wish_id) {
         return iProductService.AddProductToWishList(prod_id, wish_id);
     }
+
+
+    @GetMapping("suggestBy/{id}")
+    @ResponseBody
+    public List<Product> suggestProductsByCategory(@PathVariable("id") Integer prod_id) {
+        return iProductService.suggestProductsByCategory(prod_id);
+    }
+
+    @PostMapping("AddandAssProductToCat/{id}")
+    public Product AddandAssProductToCategory(@RequestBody Product product,@PathVariable("id") Integer cat_id) {
+        return iProductService.AddandAssProductToCategory(product, cat_id);
+    }
 }

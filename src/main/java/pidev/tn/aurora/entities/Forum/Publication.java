@@ -1,15 +1,12 @@
 package pidev.tn.aurora.entities.Forum;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import pidev.tn.aurora.entities.User.Users;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -35,5 +32,9 @@ public class Publication {
     @OneToMany(mappedBy = "publication")
     private List<Reaction> reactions = new ArrayList<>();
 
+    /*------[User - Publication]---------*/
+    @ManyToOne
+    @JoinColumn(name = "users_id")
+    private Users users;
 
 }

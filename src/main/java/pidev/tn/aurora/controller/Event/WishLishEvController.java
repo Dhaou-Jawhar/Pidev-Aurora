@@ -4,7 +4,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pidev.tn.aurora.entities.Event.WishListEv;
-import pidev.tn.aurora.services.Event.IEventService;
 import pidev.tn.aurora.services.Event.IWishListEvService;
 
 @RestController

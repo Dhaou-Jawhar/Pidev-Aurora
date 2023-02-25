@@ -7,10 +7,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
-import pidev.tn.aurora.entities.Users.Users;
-import pidev.tn.aurora.services.Event.IEventService;
+import pidev.tn.aurora.entities.User.Users;
 import pidev.tn.aurora.services.Users.IServiceUsers;
 
 @RestController

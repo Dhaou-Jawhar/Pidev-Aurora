@@ -113,7 +113,7 @@ public class ForumController {
 
 
 
-    /*@PutMapping("/addAndAsign-Comment/{idCom}/{idPub}")
+    @PutMapping("/addAndAsign-Comment/{idPub}")
     @ResponseBody
     @Operation(description = "Add Comment", summary = "Add ✏")
     @ApiResponses(value = {
@@ -127,9 +127,9 @@ public class ForumController {
                     description = "Code Correct ✅ But there is a Cascad Problem ⚠",
                     content = @Content)
     })
-    public Comment addandAsignCom(@PathVariable ("idCom") Integer idCom, @PathVariable("idPub") Integer idPub) {
-        return iForumService.addandAsignCom(idCom, idPub);
-    }*/
+    public Comment addandAsignCom(@RequestBody Comment comment, @PathVariable("idPub") Integer idPub) {
+        return iForumService.addandAsignCom(comment, idPub);
+    }
 
 
     @PostMapping("/displayAll-Comments")

@@ -1,5 +1,6 @@
 package pidev.tn.aurora.entities.Shop;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -11,6 +12,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "product")
 public class Product {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -28,13 +30,19 @@ public class Product {
     @Column(name = "name")
     private String name;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "wish_list_id")
     private WishList wishList;
 
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "cart_id")
+    private Cart cart;
 
 }
