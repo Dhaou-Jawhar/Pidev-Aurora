@@ -1,10 +1,12 @@
 package pidev.tn.aurora.entities.CampCenter;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import pidev.tn.aurora.entities.CampCenter.CampCenter;
+import pidev.tn.aurora.entities.User.Users;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -36,6 +38,11 @@ public class Reservation {
     @Temporal(TemporalType.DATE)
     Date dateFin;
 
+    @JsonIgnore
     @ManyToOne
     CampCenter campCenter;
+
+    @JsonIgnore
+    @ManyToOne
+    Users users;
 }

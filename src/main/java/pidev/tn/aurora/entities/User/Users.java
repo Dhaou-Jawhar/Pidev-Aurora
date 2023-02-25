@@ -1,10 +1,12 @@
 package pidev.tn.aurora.entities.User;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import pidev.tn.aurora.entities.CampCenter.CampCenter;
+import pidev.tn.aurora.entities.CampCenter.Reservation;
 import pidev.tn.aurora.entities.Forum.Publication;
 import pidev.tn.aurora.entities.Shop.Order_Produit;
 import pidev.tn.aurora.entities.enumeration.Role;
@@ -42,15 +44,18 @@ public class Users {
     @Column(name = "first_name")
     private String firstName;
 
+
     @OneToMany(mappedBy = "users")
     private List<Order_Produit> order_Produits = new ArrayList<>();
 
     /*------[User - Publication]---------*/
+
     @OneToMany(mappedBy = "users")
     private List<Publication> publications = new ArrayList<>();
 
-    /*------[User - CampCenter]---------*/
-    @ManyToMany(cascade = CascadeType.ALL)
-    private Set<CampCenter> campCenter;
+    /*------[User - Reservation]---------*/
+    @JsonIgnore
+    @OneToMany(mappedBy = "users")
+    Set<Reservation> reservations;
 
 }
