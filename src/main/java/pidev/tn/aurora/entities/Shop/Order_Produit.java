@@ -1,6 +1,7 @@
 package pidev.tn.aurora.entities.Shop;
 
 import lombok.*;
+import pidev.tn.aurora.entities.User.Users;
 import pidev.tn.aurora.entities.enumeration.PaymentMethod;
 
 import javax.persistence.*;
@@ -32,13 +33,14 @@ public class Order_Produit {
     @Column(name = "createddate")
     private Date createddate;
 
-    @OneToMany(mappedBy = "order_Produit")
-    private List<Product> products = new ArrayList<>();
-
     @OneToOne
     private Facture facture;
 
-    @OneToOne(mappedBy = "order_produit")
-    private Cart cart;
+    @OneToMany(mappedBy = "order_Produit")
+    private List<Cart> carts = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "users_id")
+    private Users users;
 
 }

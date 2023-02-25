@@ -40,10 +40,9 @@ public class Product {
     @JoinColumn(name = "wish_list_id")
     private WishList wishList;
 
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "order_produit_id")
-    private Order_Produit order_Produit;
 
+    @ManyToOne
+    @JoinColumn(name = "cart_id")
+    private Cart cart;
 
 }

@@ -1,13 +1,12 @@
 package pidev.tn.aurora.entities.Shop;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import pidev.tn.aurora.entities.Shop.Order_Produit;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -28,7 +27,11 @@ public class Cart {
     @Column(name = "quantity")
     private Integer quantity;
 
-    @OneToOne
-    private Order_Produit order_produit;
+    @OneToMany(mappedBy = "cart")
+    private List<Product> products = new ArrayList<>();
+
+    @ManyToOne
+    @JoinColumn(name = "order_produit_id")
+    private Order_Produit order_Produit;
 
 }
