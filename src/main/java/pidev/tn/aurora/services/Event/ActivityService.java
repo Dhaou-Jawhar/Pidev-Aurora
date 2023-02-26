@@ -79,10 +79,14 @@ public class ActivityService implements IActivityService {
         for (Events eve:events) {
            List<Activity> activitylist = eve.getActivities();
            for (Activity act : activitylist){
-           // String ActivityType= act.getActivityType();
-              if(act.getActivityType().equals(campc.getCampcenterType())) {
+          ActivityType ActivityType= act.getActivityType();
+              if((act.getActivityType()== ActivityType.sea)&&(campc.getCampcenterType() == campcenterType.sea)) {
                    suggact.add(act);
-               }
+               } else if ((act.getActivityType() == ActivityType.forest) &&(campc.getCampcenterType() == campcenterType.forest) ) {
+                  suggact.add(act);
+              } else if ((act.getActivityType() == ActivityType.desert) &&(campc.getCampcenterType() == campcenterType.desert) ) {
+                  suggact.add(act);
+              }
            }
         }
         return suggact;

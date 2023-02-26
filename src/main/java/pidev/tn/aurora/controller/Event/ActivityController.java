@@ -124,9 +124,9 @@ public class ActivityController {
     public Activity assignActivityToWidhLishEv(@PathVariable("idac") Integer idac,@PathVariable("idwishlistev")Integer idWishListEv) {
         return iActivityService.assignActivityToWidhLishEv(idac,idWishListEv);
     }
-    @GetMapping("ass/{id}")
+    @GetMapping("assAct/{idcampcenter}")
     @ResponseBody
-    public List<Activity> suggestActivityToAdd(@PathVariable("id") Integer centreid) {
+    public List<Activity> suggestActivityToAdd(@PathVariable("idcampcenter") Integer centreid) {
         return iActivityService.suggestActivityToAdd(centreid);
     }
 }

@@ -46,6 +46,7 @@ public class CampCenter {
     Set<Reservation> reservations;
 
     /*------[User - CampCenter]---------*/
+    @JsonIgnore
     @ManyToMany(mappedBy = "campCenter", cascade = CascadeType.ALL)
     private Set<Users> users;
 
