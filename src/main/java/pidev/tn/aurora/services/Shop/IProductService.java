@@ -13,7 +13,7 @@ public interface IProductService extends Serializable {
 
     Product DisplayProductByID(Integer prod_id);
 
-    Product AddWishListandAddProductToIt(Integer prod_id);
+    Product AddWishListandAddProductToIt(Integer prod_id, Integer user_id);
 
     List<Product> suggestProductsByCategory(Integer prod_id);
 

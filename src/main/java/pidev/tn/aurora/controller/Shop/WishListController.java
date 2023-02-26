@@ -35,8 +35,9 @@ public class WishListController {
                     description = "Code Correct ✅ But there is a Cascad Problem ⚠",
                     content = @Content)
     })
-    @PutMapping ("AddWishListandProduct/{id}")
-    public Product AddWishListandAddProductToIt(@PathVariable("id") Integer prod_id) {
-        return iProductService.AddWishListandAddProductToIt(prod_id);
+    @PutMapping ("AddWishListandProduct/{prod_id}/{user_id}")
+
+    public Product AddWishListandAddProductToIt(@PathVariable("prod_id") Integer prod_id,@PathVariable("user_id") Integer user_id) {
+        return iProductService.AddWishListandAddProductToIt(prod_id, user_id);
     }
 }

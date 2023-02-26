@@ -1,10 +1,8 @@
 package pidev.tn.aurora.entities.Shop;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import pidev.tn.aurora.entities.User.Users;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -29,7 +27,11 @@ public class WishList {
 
 
     @JsonIgnore
-    @OneToMany(mappedBy = "wishList")
+    @OneToMany(mappedBy = "wishList" , fetch = FetchType.EAGER)
     private List<Product> products = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToOne(mappedBy = "wishList")
+    private Users users;
 
 }
