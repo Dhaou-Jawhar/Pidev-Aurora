@@ -31,11 +31,6 @@ public class ProductService implements IProductService {
     private FactureService factureService;
 
     @Override
-    public Product addProduct(Product product) {
-        return productRepository.save(product);
-    }
-
-    @Override
     public List<Product> DisplayProduct() {
         List<Product> productList = new ArrayList<>();
         productRepository.findAll().forEach(productList::add);
@@ -81,10 +76,10 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public Product AddandAssProductToCategory(Product product, Integer cat_id) {
+    public Product AddandAssProductToCategory(Product product, Integer id) {
 
         Product p = productRepository.save(product);
-        Category cat = categoryRepository.findById(cat_id).get();
+        Category cat = categoryRepository.findById(id).get();
 
         p.setCategory(cat);
 

@@ -25,25 +25,6 @@ public class ProductController {
         this.iProductService = iProductService;
     }
 
-    @PostMapping("/add")
-    @ResponseBody
-    @Operation(description = "Add Product", summary = "Add 📦")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200",
-                    description = "Product Added ✅",
-                    content = {@Content(mediaType = "application/json")}),
-            @ApiResponse(responseCode = "404",
-                    description = "Error must be fixed ❌",
-                    content = @Content),
-            @ApiResponse(responseCode = "500",
-                    description = "Code Correct ✅ But there is a Cascad Problem ⚠",
-                    content = @Content)
-    })
-    public Product addProduct(@RequestBody Product product) {
-        return iProductService.addProduct(product);
-    }
-
-
     @GetMapping("/displayAll")
     @ResponseBody
     @Operation(description = "Show all Products", summary = "Show all 📦")
@@ -92,25 +73,8 @@ public class ProductController {
         return iProductService.suggestProductsByCategory(prod_id);
     }
 
-    @PostMapping("AddandAssProductToCat/{id}")
-    public Product AddandAssProductToCategory(@RequestBody Product product,@PathVariable("id") Integer cat_id) {
-        return iProductService.AddandAssProductToCategory(product, cat_id);
-    }
-
-    @Operation(description = "Add Product To WishList", summary = "Add 📦 To 📑")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200",
-                    description = "Product Added ✅",
-                    content = {@Content(mediaType = "application/json")}),
-            @ApiResponse(responseCode = "404",
-                    description = "Error must be fixed ❌",
-                    content = @Content),
-            @ApiResponse(responseCode = "500",
-                    description = "Code Correct ✅ But there is a Cascad Problem ⚠",
-                    content = @Content)
-    })
-    @PostMapping("AddWishListandProduct/{id}")
-    public Product AddWishListandAddProductToIt(@PathVariable("id") Integer prod_id) {
-        return iProductService.AddWishListandAddProductToIt(prod_id);
+    @PostMapping("AddandAssProductToCat/{cat_id}")
+    public Product AddandAssProductToCategory(@RequestBody Product product, @PathVariable("cat_id") Integer id) {
+        return iProductService.AddandAssProductToCategory(product, id);
     }
 }

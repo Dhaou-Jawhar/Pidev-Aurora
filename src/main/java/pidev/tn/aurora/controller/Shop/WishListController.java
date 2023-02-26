@@ -7,7 +7,9 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import pidev.tn.aurora.entities.Shop.Product;
 import pidev.tn.aurora.entities.Shop.WishList;
+import pidev.tn.aurora.services.Shop.IProductService;
 import pidev.tn.aurora.services.Shop.IWishListService;
 
 @RestController
@@ -18,12 +20,13 @@ public class WishListController {
     @Autowired
     IWishListService iWishListService;
 
-    @PostMapping("addWishList")
-    @ResponseBody
-    @Operation(description = "Add WishList", summary = "Add 📑")
+    @Autowired
+    private IProductService iProductService;
+
+    @Operation(description = "Add Product To WishList", summary = "Add 📦 To 📑")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
-                    description = "WishList Deleted ✅",
+                    description = "Product Added ✅",
                     content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "404",
                     description = "Error must be fixed ❌",
@@ -32,7 +35,8 @@ public class WishListController {
                     description = "Code Correct ✅ But there is a Cascad Problem ⚠",
                     content = @Content)
     })
-    public WishList addWhishList(@RequestBody WishList wishList) {
-        return iWishListService.addWhishList(wishList);
+    @PutMapping ("AddWishListandProduct/{id}")
+    public Product AddWishListandAddProductToIt(@PathVariable("id") Integer prod_id) {
+        return iProductService.AddWishListandAddProductToIt(prod_id);
     }
 }
