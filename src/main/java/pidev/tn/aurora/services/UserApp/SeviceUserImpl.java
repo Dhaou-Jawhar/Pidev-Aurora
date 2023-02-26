@@ -2,6 +2,10 @@ package pidev.tn.aurora.services.UserApp;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import pidev.tn.aurora.entities.UserApp.Role;
 import pidev.tn.aurora.entities.UserApp.UserApp;
@@ -9,16 +13,31 @@ import pidev.tn.aurora.entities.enumeration.TypeRole;
 import pidev.tn.aurora.repository.UserApp.RoleRepository;
 import pidev.tn.aurora.repository.UserApp.UserAppRepository;
 
-import java.util.List;
+import java.util.*;
 
 @Service
 @Slf4j
-public class SeviceUserImpl implements IServiceUser {
+public class SeviceUserImpl implements IServiceUser, UserDetailsService {
 
     @Autowired
     public UserAppRepository userAppRepository;
     @Autowired
     public RoleRepository roleRepository;
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        UserApp userApp=userAppRepository.findByUsername(username);
+        if (userApp == null){
+            log.error("User not found in the datbase");
+            throw new UsernameNotFoundException("User not found in the datbase");
+        }else {
+            log.info("User found in the datbase:{}",username);
+        }
+        Collection<SimpleGrantedAuthority> authorities= new ArrayList<>();
+        Role role = userApp.getRole();
+        authorities.add(new SimpleGrantedAuthority(role.getTypeRole().name()));
+        return new org.springframework.security.core.userdetails.User(userApp.getUsername(),userApp.getPassword(),authorities);
+    }
 
     /*------[ServicesUserApp]---------*/
     @Override
@@ -57,4 +76,6 @@ public class SeviceUserImpl implements IServiceUser {
         userAppRepository.save(user);
 
     }
+
+
 }

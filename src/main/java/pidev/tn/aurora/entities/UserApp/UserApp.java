@@ -24,7 +24,7 @@ public class UserApp {
     private Integer id;
 
     @Column(name = "email")
-    private String email;
+    private String username;
 
     @Column(name = "num_tel")
     private Integer numTel;
