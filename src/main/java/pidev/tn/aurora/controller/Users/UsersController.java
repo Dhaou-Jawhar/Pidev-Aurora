@@ -37,4 +37,16 @@ public class UsersController {
     public Users addOrUpdateUser(@RequestBody Users users) {
         return iServiceUsers.addOrUpdateUser(users);
     }
+
+
+    @GetMapping("GetB")
+    public Users BestBuyer() {
+        return iServiceUsers.BestBuyer();
+    }
+
+
+    @GetMapping("GetBPrice")
+    public Users BestBuyerTotalPrice() {
+        return iServiceUsers.BestBuyerTotalPrice();
+    }
 }

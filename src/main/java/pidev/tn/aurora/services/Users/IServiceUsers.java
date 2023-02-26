@@ -10,5 +10,9 @@ public interface IServiceUsers extends Serializable {
     public List<Users> GetAllUser();
     public Users GetUser(Integer id);
     public void remove(Integer id);
-    
+
+    public Users BestBuyer();
+
+    public Users BestBuyerTotalPrice();
+
 }

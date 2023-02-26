@@ -40,6 +40,9 @@ public class Users {
     @Column(name = "first_name")
     private String firstName;
 
+    @Column(name = "discount")
+    private Integer discount;
+
     @OneToMany(mappedBy = "users")
     private List<Order_Produit> order_Produits = new ArrayList<>();
 
