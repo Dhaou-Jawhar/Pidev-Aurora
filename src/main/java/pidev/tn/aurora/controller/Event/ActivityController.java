@@ -8,7 +8,10 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pidev.tn.aurora.entities.Event.Activity;
+import pidev.tn.aurora.entities.enumeration.campcenterType;
+import pidev.tn.aurora.services.CampCenter.ICampCenterService;
 import pidev.tn.aurora.services.Event.IActivityService;
+import pidev.tn.aurora.services.Event.IEventService;
 
 import java.util.List;
 
@@ -18,6 +21,11 @@ import java.util.List;
 public class ActivityController {
     @Autowired
     private IActivityService iActivityService;
+    @Autowired
+    private ICampCenterService iCampCenterService;
+    @Autowired
+    private IEventService iEventService;
+
     @Autowired
     ActivityController(IActivityService iActivityService){this.iActivityService=iActivityService;}
     @PostMapping("/add")
@@ -115,5 +123,10 @@ public class ActivityController {
     @PutMapping("assignAcToWishListEv/{idac}/{idwishlistev}")
     public Activity assignActivityToWidhLishEv(@PathVariable("idac") Integer idac,@PathVariable("idwishlistev")Integer idWishListEv) {
         return iActivityService.assignActivityToWidhLishEv(idac,idWishListEv);
+    }
+    @GetMapping("ass/{id}")
+    @ResponseBody
+    public List<Activity> suggestActivityToAdd(@PathVariable("id") Integer centreid) {
+        return iActivityService.suggestActivityToAdd(centreid);
     }
 }

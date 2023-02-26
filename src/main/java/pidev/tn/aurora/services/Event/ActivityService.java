@@ -3,9 +3,13 @@ package pidev.tn.aurora.services.Event;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pidev.tn.aurora.entities.CampCenter.CampCenter;
 import pidev.tn.aurora.entities.Event.Activity;
 import pidev.tn.aurora.entities.Event.Events;
 import pidev.tn.aurora.entities.Event.WishListEv;
+import pidev.tn.aurora.entities.enumeration.ActivityType;
+import pidev.tn.aurora.entities.enumeration.campcenterType;
+import pidev.tn.aurora.repository.CampCenter.CampCenterRepository;
 import pidev.tn.aurora.repository.Event.ActivityRepository;
 import pidev.tn.aurora.repository.Event.EventsRepository;
 import pidev.tn.aurora.repository.Event.WishListEvRepository;
@@ -23,6 +27,8 @@ public class ActivityService implements IActivityService {
     private EventsRepository eventsRepository;
     @Autowired
     private WishListEvRepository wishListEvRepository;
+    @Autowired
+    private CampCenterRepository campCenterRepository;
     @Override
     public Activity addAc(Activity activity) {
         return activityRepository.save(activity);
@@ -63,5 +69,22 @@ public class ActivityService implements IActivityService {
         WishListEv wishListEv=wishListEvRepository.findById(idWishListEv).orElse(null);
         activity.setWishListEv(wishListEv);
         return activityRepository.save(activity);
+    }
+
+    @Override
+    public List<Activity> suggestActivityToAdd(Integer centreid) {
+        List<Activity> suggact= new ArrayList<>();
+        CampCenter campc= campCenterRepository.findById(centreid).get();
+        List<Events> events=eventsRepository.findByCampCenter(campc);
+        for (Events eve:events) {
+           List<Activity> activitylist = eve.getActivities();
+           for (Activity act : activitylist){
+           // String ActivityType= act.getActivityType();
+              if(act.getActivityType().equals(campc.getCampcenterType())) {
+                   suggact.add(act);
+               }
+           }
+        }
+        return suggact;
     }
 }

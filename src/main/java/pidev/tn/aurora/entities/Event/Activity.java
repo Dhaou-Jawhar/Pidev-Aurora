@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import pidev.tn.aurora.entities.enumeration.ActivityType;
 
 import javax.persistence.*;
 
@@ -31,6 +32,10 @@ public class Activity {
 
     @Column(name = "description")
     private String description;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "activity_type")
+    private ActivityType activityType;
 
     @Column(name = "coach_ac")
     private String coachAc;
