@@ -109,13 +109,14 @@ public class ReservationController {
     })
     void deleteReservation(@PathVariable("id") Integer id){iReservationService.removeRev(id);}
 
-    @Operation(description = "Asign Reservation to CenterCamp", summary = "Add ➕")
-    @PutMapping ("/asignReservCen/{idR}/{idCC}")
+    @Operation(description = "Add and Assign Reservation to CenterCamp and User", summary = "Add ➕")
+    @PutMapping ("/addassignR/{idCC}/{idU}")
     @ResponseBody
-    public Reservation assignReservationToCenter(@PathVariable("idR")Integer idR,
-                                                 @PathVariable("idCC")Integer idCC)
+    public Reservation assignReservationToCenter(@RequestBody Reservation r,
+                                                 @PathVariable("idCC")Integer idCC,
+                                                 @PathVariable("idU")Integer idU)
     {
-        return iReservationService.assignReservationToCenter(idR,idCC);
+        return iReservationService.addAndAssignReservationToCenterAndUser(r,idCC,idU);
     }
     @Autowired
     private AdvancedService advancedService;
