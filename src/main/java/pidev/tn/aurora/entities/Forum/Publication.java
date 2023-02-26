@@ -2,7 +2,7 @@ package pidev.tn.aurora.entities.Forum;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
-import pidev.tn.aurora.entities.User.Users;
+import pidev.tn.aurora.entities.UserApp.UserApp;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -35,6 +35,6 @@ public class Publication {
     /*------[User - Publication]---------*/
     @ManyToOne
     @JoinColumn(name = "users_id")
-    private Users users;
+    private UserApp userApp;
 
 }

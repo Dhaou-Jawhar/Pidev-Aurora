@@ -3,7 +3,7 @@ package pidev.tn.aurora.entities.CampCenter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import pidev.tn.aurora.entities.Event.Events;
-import pidev.tn.aurora.entities.User.Users;
+import pidev.tn.aurora.entities.UserApp.UserApp;
 import pidev.tn.aurora.entities.enumeration.State;
 
 import javax.persistence.*;
@@ -46,7 +46,7 @@ public class CampCenter {
 
     /*------[User - CampCenter]---------*/
     @ManyToMany(mappedBy = "campCenter", cascade = CascadeType.ALL)
-    private Set<Users> users;
+    private Set<UserApp> users;
 
     /*------[Event - CampCenter]---------*/
     @OneToOne

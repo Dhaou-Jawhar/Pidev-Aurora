@@ -1,7 +1,7 @@
 package pidev.tn.aurora.entities.Shop;
 
 import lombok.*;
-import pidev.tn.aurora.entities.User.Users;
+import pidev.tn.aurora.entities.UserApp.UserApp;
 import pidev.tn.aurora.entities.enumeration.PaymentMethod;
 
 import javax.persistence.*;
@@ -41,6 +41,6 @@ public class Order_Produit {
 
     @ManyToOne
     @JoinColumn(name = "users_id")
-    private Users users;
+    private UserApp userApp;
 
 }

@@ -1,5 +1,6 @@
-package pidev.tn.aurora.entities.User;
+package pidev.tn.aurora.entities.UserApp;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import pidev.tn.aurora.entities.CampCenter.CampCenter;
 import pidev.tn.aurora.entities.Forum.Publication;
@@ -16,13 +17,11 @@ import java.util.Set;
 @Setter
 @Entity
 @Table(name = "users")
-public class Users {
+public class UserApp {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
-
-
 
     @Column(name = "email")
     private String email;
@@ -40,21 +39,26 @@ public class Users {
     @Column(name = "password")
     private String password;
 
-    @OneToMany(mappedBy = "users")
+    @JsonIgnore
+    @OneToMany(mappedBy = "userApp")
     private List<Order_Produit> order_Produits = new ArrayList<>();
 
-    /*------[User - Publication]---------*/
-    @OneToMany(mappedBy = "users")
-    private List<Publication> publications = new ArrayList<>();
-
-    /*------[User - CampCenter]---------*/
-    @ManyToMany(cascade = CascadeType.ALL)
-    private Set<CampCenter> campCenter;
-
     /*------[User - Role]---------*/
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "role_id")
     private Role role;
+
+
+    /*------[User - Publication]---------*/
+    @JsonIgnore
+    @OneToMany(mappedBy = "userApp")
+    private List<Publication> publications = new ArrayList<>();
+
+    /*------[User - CampCenter]---------*/
+    @JsonIgnore
+    @ManyToMany(cascade = CascadeType.ALL)
+    private Set<CampCenter> campCenter;
 
 
 
