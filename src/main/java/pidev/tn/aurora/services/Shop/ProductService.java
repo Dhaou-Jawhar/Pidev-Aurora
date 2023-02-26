@@ -11,6 +11,7 @@ import pidev.tn.aurora.repository.Shop.ProductRepository;
 import pidev.tn.aurora.repository.Shop.WishListRepository;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -51,11 +52,14 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public Product AddProductToWishList(Integer prod_id, Integer wish_id) {
+    public Product AddWishListandAddProductToIt(Integer prod_id) {
+        WishList wishList = new WishList();
+        wishList.setCreateddate(new Date());
+
         Product p = productRepository.findById(prod_id).get();
-        WishList wishList = wishListRepository.findById(wish_id).get();
 
         p.setWishList(wishList);
+        wishListRepository.save(wishList);
         return productRepository.save(p);
     }
 
@@ -86,6 +90,5 @@ public class ProductService implements IProductService {
 
         return productRepository.save(p);
     }
-
 
 }

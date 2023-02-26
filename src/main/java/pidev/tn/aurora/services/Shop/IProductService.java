@@ -15,7 +15,7 @@ public interface IProductService extends Serializable {
 
     Product DisplayProductByID(Integer prod_id);
 
-    Product AddProductToWishList(Integer prod_id , Integer wish_id);
+    Product AddWishListandAddProductToIt(Integer prod_id);
 
     List<Product> suggestProductsByCategory(Integer prod_id);
 
