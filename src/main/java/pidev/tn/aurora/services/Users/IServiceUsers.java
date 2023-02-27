@@ -1,18 +1,18 @@
 package pidev.tn.aurora.services.Users;
 
-import pidev.tn.aurora.entities.User.Users;
+import pidev.tn.aurora.entities.User.UserApp;
 
 import java.io.Serializable;
 import java.util.List;
 
 public interface IServiceUsers extends Serializable {
-    public Users addOrUpdateUser(Users users);
-    public List<Users> GetAllUser();
-    public Users GetUser(Integer id);
+    public UserApp addOrUpdateUser(UserApp userApp);
+    public List<UserApp> GetAllUser();
+    public UserApp GetUser(Integer id);
     public void remove(Integer id);
 
-    public Users BestBuyer();
+    public UserApp BestBuyer();
 
-    public Users BestBuyerTotalPrice();
+    public UserApp BestBuyerTotalPrice();
 
 }
