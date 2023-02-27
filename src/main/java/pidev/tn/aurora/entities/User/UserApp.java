@@ -36,10 +36,14 @@ public class UserApp {
     @Column(name = "first_name")
     private String firstName;
 
+    @Column(name = "discount")
+    private Integer discount;
+
     @Column(name = "password")
     private String password;
 
     @JsonIgnore
+
     @OneToMany(mappedBy = "userApp")
     private List<Order_Produit> order_Produits = new ArrayList<>();
 
@@ -50,6 +54,7 @@ public class UserApp {
     private Role role;
 
     /*------[User - Publication]---------*/
+    @JsonIgnore
     @OneToMany(mappedBy = "userApp")
     private List<Publication> publications = new ArrayList<>();
 

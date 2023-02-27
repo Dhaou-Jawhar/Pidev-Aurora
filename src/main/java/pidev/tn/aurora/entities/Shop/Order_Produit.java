@@ -34,8 +34,10 @@ public class Order_Produit {
     @Column(name = "createddate")
     private Date createddate;
 
+    @JsonIgnore
     @OneToOne
     private Facture facture;
+    
     @JsonIgnore
     @OneToMany(mappedBy = "order_Produit")
     private List<Cart> carts = new ArrayList<>();

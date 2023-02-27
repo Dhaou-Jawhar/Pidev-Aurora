@@ -6,11 +6,14 @@ import org.springframework.stereotype.Service;
 import pidev.tn.aurora.entities.Shop.Category;
 import pidev.tn.aurora.entities.Shop.Product;
 import pidev.tn.aurora.entities.Shop.WishList;
+import pidev.tn.aurora.entities.User.UserApp;
 import pidev.tn.aurora.repository.Shop.CategoryRepository;
 import pidev.tn.aurora.repository.Shop.ProductRepository;
 import pidev.tn.aurora.repository.Shop.WishListRepository;
+import pidev.tn.aurora.repository.Users.UsersRepository;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,12 +30,10 @@ public class ProductService implements IProductService {
     private CategoryRepository categoryRepository;
 
     @Autowired
-    private FactureService factureService;
+    private UsersRepository usersRepository;
 
-    @Override
-    public Product addProduct(Product product) {
-        return productRepository.save(product);
-    }
+    @Autowired
+    private FactureService factureService;
 
     @Override
     public List<Product> DisplayProduct() {
@@ -51,16 +52,22 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public Product AddProductToWishList(Integer prod_id, Integer wish_id) {
-        Product p = productRepository.findById(prod_id).get();
-        WishList wishList = wishListRepository.findById(wish_id).get();
+    public Product AddWishListandAddProductToIt(Integer prod_id , Integer user_id) {
+        WishList wishList = new WishList();
 
+        UserApp u = usersRepository.findById(user_id).get();
+        wishList.setCreateddate(new Date());
+        Product p = productRepository.findById(prod_id).get();
         p.setWishList(wishList);
+        u.setWishList(wishList);
+        wishListRepository.save(wishList);
+        usersRepository.save(u);
         return productRepository.save(p);
     }
 
     @Override
     public List<Product> suggestProductsByCategory(Integer prod_id) {
+
         Product product = productRepository.findById(prod_id).get();
 
         // Récupérer tous les produits de la même catégorie que le produit ajouté
@@ -77,15 +84,14 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public Product AddandAssProductToCategory(Product product, Integer cat_id) {
+    public Product AddandAssProductToCategory(Product product, Integer id) {
 
         Product p = productRepository.save(product);
-        Category cat = categoryRepository.findById(cat_id).get();
+        Category cat = categoryRepository.findById(id).get();
 
         p.setCategory(cat);
 
         return productRepository.save(p);
     }
-
 
 }
