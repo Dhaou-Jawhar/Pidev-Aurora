@@ -8,8 +8,14 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import pidev.tn.aurora.entities.User.Role;
 import pidev.tn.aurora.entities.User.UserApp;
+import pidev.tn.aurora.entities.enumeration.TypeRole;
+
 import pidev.tn.aurora.services.Users.IServiceUsers;
+
+import java.util.List;
 
 @RestController
 @Tag(name = "Users 👤 Management 💹")
@@ -19,7 +25,8 @@ public class UsersController {
     @Autowired
     public IServiceUsers iServiceUsers;
 
-    @Autowired UsersController(IServiceUsers iServiceUsers){this.iServiceUsers=iServiceUsers;}
+    @Autowired
+    UsersController(IServiceUsers iServiceUsers){this.iServiceUsers = iServiceUsers;}
     @PostMapping("/add")
     @ResponseBody
     @Operation(description = "Add User", summary = "Add 👨‍")
@@ -36,5 +43,38 @@ public class UsersController {
     })
     public UserApp addOrUpdateUser(@RequestBody UserApp userApp) {
         return iServiceUsers.addOrUpdateUser(userApp);
+    }
+
+    @GetMapping("GetAllUsers")
+    @ResponseBody
+    public List<UserApp> GetAllUser() {
+        return iServiceUsers.GetAllUser();
+    }
+
+    @GetMapping("GetUser/{id}")
+    @ResponseBody
+    public UserApp GetUser(@PathVariable Integer id) {
+        return iServiceUsers.GetUser(id);
+    }
+
+    @DeleteMapping("/deleteUser/{id}")
+    @ResponseBody
+    public void remove(@PathVariable("id") Integer id) {
+        iServiceUsers.remove(id);
+    }
+
+    /* -----------[AddRole]------------*/
+
+    @PostMapping("addRole/{typeRole}")
+    @ResponseBody
+
+    public Role addRole(@PathVariable ("typeRole")TypeRole typeRole) {
+        return iServiceUsers.addRole(typeRole);
+    }
+
+    @PostMapping("addRoleToUser/{idRole}")
+    @ResponseBody
+    public void affectRoleToUser(@RequestBody UserApp user,@PathVariable("idRole") Integer idRole) {
+        iServiceUsers.affectRoleToUser(user, idRole);
     }
 }
