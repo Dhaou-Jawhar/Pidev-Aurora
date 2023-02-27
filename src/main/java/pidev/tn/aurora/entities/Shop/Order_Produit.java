@@ -46,5 +46,4 @@ public class Order_Produit {
     @ManyToOne
     @JoinColumn(name = "users_id")
     private UserApp userApp;
-
 }

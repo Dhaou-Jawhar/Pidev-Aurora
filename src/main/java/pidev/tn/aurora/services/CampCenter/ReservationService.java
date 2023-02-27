@@ -6,9 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pidev.tn.aurora.entities.CampCenter.CampCenter;
 import pidev.tn.aurora.entities.CampCenter.Reservation;
+import pidev.tn.aurora.entities.User.UserApp;
 import pidev.tn.aurora.repository.CampCenter.CampCenterRepository;
 import pidev.tn.aurora.repository.CampCenter.ReservationRepository;
-
+import pidev.tn.aurora.services.Users.IServiceUsers;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +20,8 @@ public class ReservationService implements IReservationService{
     @Autowired
     private ReservationRepository reservationRepository;
     private CampCenterRepository campCenterRepository;
+    private CampCenterService campCenterService;
+    private IServiceUsers serviceUser;
 
     @Override
     public Reservation addorupdateRev(Reservation rev) {
@@ -42,12 +45,20 @@ public class ReservationService implements IReservationService{
         reservationRepository.deleteById(idrev);
     }
 
-    @Override
+    /*@Override
     public Reservation assignReservationToCenter(Integer idR, Integer idCC) {
 
         Reservation reservation = reservationRepository.findById(idR).get();
         CampCenter campCenter= campCenterRepository.findById(idCC).get();
         reservation.setCampCenter(campCenter);
         return reservationRepository.save(reservation);
+    }*/
+    @Override
+    public Reservation addAndAssignReservationToCenterAndUser(Reservation r, Integer centerId, Integer userId) {
+        CampCenter center = campCenterService.retrieveCenter(centerId);
+        UserApp user = serviceUser.GetUser(userId);
+        r.setCampCenter(center);
+        r.setUserApp(user);
+        return reservationRepository.save(r);
     }
 }
