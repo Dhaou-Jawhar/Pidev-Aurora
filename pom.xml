@@ -67,6 +67,8 @@
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
         </dependency>
+
+        
         <dependency>
             <groupId>com.auth0</groupId>
             <artifactId>java-jwt</artifactId>
@@ -100,5 +102,3 @@
         </plugins>
     </build>
 </project>
-
-
