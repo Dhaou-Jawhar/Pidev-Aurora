@@ -8,9 +8,11 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pidev.tn.aurora.entities.CampCenter.Reservation;
+import pidev.tn.aurora.services.CampCenter.AdvancedService;
 import pidev.tn.aurora.services.CampCenter.IReservationService;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @Tag(name = "CampCenter ⛺ Reservation")
@@ -106,12 +108,23 @@ public class ReservationController {
     })
     void deleteReservation(@PathVariable("id") Integer id){iReservationService.removeRev(id);}
 
-    @Operation(description = "Asign Reservation to CenterCamp", summary = "Add ➕")
-    @PutMapping ("/asignReservCen/{idR}/{idCC}")
+    @Operation(description = "Add and Assign Reservation to CenterCamp and User", summary = "Add ➕")
+    @PutMapping ("/addassignR/{idCC}/{idU}")
     @ResponseBody
-    public Reservation assignReservationToCenter(@PathVariable("idR")Integer idR,
-                                                 @PathVariable("idCC")Integer idCC)
+    public Reservation assignReservationToCenter(@RequestBody Reservation r,
+                                                 @PathVariable("idCC")Integer idCC,
+                                                 @PathVariable("idU")Integer idU)
     {
-        return iReservationService.assignReservationToCenter(idR,idCC);
+        return iReservationService.addAndAssignReservationToCenterAndUser(r,idCC,idU);
+    }
+    @Autowired
+    private AdvancedService advancedService;
+    /*@GetMapping("/users-by-campcenter")
+    public List<List<Users>> getUsersByCampCenter() {
+        return advancedService.matchUsersByCampCenter();
+    }*/
+    @GetMapping("/users-by-camp-center")
+    public List<Map<String, Object>> getUsersByCampCenter() {
+        return advancedService.matchUsersByCampCenter();
     }
 }

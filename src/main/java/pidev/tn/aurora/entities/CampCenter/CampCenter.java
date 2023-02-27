@@ -43,8 +43,8 @@ public class CampCenter {
     @JsonIgnore
     @OneToMany(mappedBy = "campCenter")
     Set<Reservation> reservations;
-
     /*------[Event - CampCenter]---------*/
+    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "events_id")
     private Events events;

@@ -1,6 +1,7 @@
 package pidev.tn.aurora.entities.User;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import pidev.tn.aurora.entities.CampCenter.Reservation;
 import lombok.*;
 import pidev.tn.aurora.entities.Forum.Publication;
 import pidev.tn.aurora.entities.Shop.Order_Produit;
@@ -49,9 +50,13 @@ public class UserApp {
     private Role role;
 
     /*------[User - Publication]---------*/
-    @JsonIgnore
     @OneToMany(mappedBy = "userApp")
     private List<Publication> publications = new ArrayList<>();
+
+    /*------[User - Reservation]---------*/
+    @JsonIgnore
+    @OneToMany(mappedBy = "userApp")
+    Set<Reservation> reservations;
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "wish_list_id")
