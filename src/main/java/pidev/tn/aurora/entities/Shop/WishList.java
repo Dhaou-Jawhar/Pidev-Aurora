@@ -36,4 +36,7 @@ public class WishList {
     @OneToOne(mappedBy = "wishList")
     private UserApp userApp;
 
+    @JsonIgnore
+    @OneToOne(mappedBy = "wishList")
+    private UserApp users;
 }

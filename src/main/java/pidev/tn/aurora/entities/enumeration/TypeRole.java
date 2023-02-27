@@ -1,5 +1,5 @@
 package pidev.tn.aurora.entities.enumeration;
 
-public enum Role {
+public enum TypeRole {
     Customer,CampManager,ShopManager,Admin
 }
