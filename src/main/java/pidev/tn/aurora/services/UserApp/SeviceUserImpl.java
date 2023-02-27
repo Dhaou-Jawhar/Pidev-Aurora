@@ -6,6 +6,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import pidev.tn.aurora.entities.UserApp.Role;
 import pidev.tn.aurora.entities.UserApp.UserApp;
@@ -24,12 +25,15 @@ public class SeviceUserImpl implements IServiceUser, UserDetailsService {
     @Autowired
     public RoleRepository roleRepository;
 
+    @Autowired
+    public PasswordEncoder passwordEncoder;
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserApp userApp=userAppRepository.findByUsername(username);
         if (userApp == null){
-            log.error("User not found in the datbase");
-            throw new UsernameNotFoundException("User not found in the datbase");
+            log.error("User not found in the database");
+            throw new UsernameNotFoundException("User not found in the database");
         }else {
             log.info("User found in the datbase:{}",username);
         }
@@ -42,7 +46,8 @@ public class SeviceUserImpl implements IServiceUser, UserDetailsService {
     /*------[ServicesUserApp]---------*/
     @Override
     public UserApp addOrUpdateUser(UserApp userApp) {
-
+        log.info("Saving new user {} to the database",userApp.getFirstName());
+        userApp.setPassword(passwordEncoder.encode(userApp.getPassword()));
         return userAppRepository.save(userApp);
     }
 
@@ -70,10 +75,13 @@ public class SeviceUserImpl implements IServiceUser, UserDetailsService {
     }
 
     @Override
-    public void affectRoleToUser(UserApp user, Integer idRole) {
+    public void affectRoleToUser(UserApp userApp, Integer idRole) {
         Role role =roleRepository.findById(idRole).get();
-        user.setRole(role);
-        userAppRepository.save(user);
+        userApp.setRole(role);
+        log.info("Saving new user {} to the database",userApp.getFirstName());
+        userApp.setPassword(passwordEncoder.encode(userApp.getPassword()));
+
+        userAppRepository.save(userApp);
 
     }
 
