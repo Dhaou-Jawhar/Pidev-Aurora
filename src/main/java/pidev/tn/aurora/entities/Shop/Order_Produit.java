@@ -1,5 +1,6 @@
 package pidev.tn.aurora.entities.Shop;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import pidev.tn.aurora.entities.UserApp.UserApp;
 import pidev.tn.aurora.entities.enumeration.PaymentMethod;
@@ -35,12 +36,13 @@ public class Order_Produit {
 
     @OneToOne
     private Facture facture;
-
+    @JsonIgnore
     @OneToMany(mappedBy = "order_Produit")
     private List<Cart> carts = new ArrayList<>();
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "users_id")
-    private UserApp userApp;
+    private UserApp users;
 
 }

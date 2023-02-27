@@ -5,6 +5,7 @@ import lombok.*;
 import pidev.tn.aurora.entities.CampCenter.CampCenter;
 import pidev.tn.aurora.entities.Forum.Publication;
 import pidev.tn.aurora.entities.Shop.Order_Produit;
+import pidev.tn.aurora.entities.Shop.WishList;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -55,11 +56,7 @@ public class UserApp {
     @OneToMany(mappedBy = "userApp")
     private List<Publication> publications = new ArrayList<>();
 
-    /*------[User - CampCenter]---------*/
-    @JsonIgnore
-    @ManyToMany(cascade = CascadeType.ALL)
-    private Set<CampCenter> campCenter;
-
-
-
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "wish_list_id")
+    private WishList wishList;
 }

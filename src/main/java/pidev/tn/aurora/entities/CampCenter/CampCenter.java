@@ -44,9 +44,7 @@ public class CampCenter {
     @OneToMany(mappedBy = "campCenter")
     Set<Reservation> reservations;
 
-    /*------[User - CampCenter]---------*/
-    @ManyToMany(mappedBy = "campCenter", cascade = CascadeType.ALL)
-    private Set<UserApp> users;
+
 
     /*------[Event - CampCenter]---------*/
     @OneToOne
