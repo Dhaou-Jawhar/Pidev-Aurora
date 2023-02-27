@@ -75,9 +75,6 @@ This Projet Built By : <br>
 <tr>
 <td>
 <img src="https://github.com/Dhaou-Jawhar/Dhaou-Jawhar/blob/main/be259bd5-577b-4aa8-b27a-250649810988.png" width="180"/>
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
   <p align="center">Dhaou Jawhar</p>
 
 <p align="center">
@@ -88,4 +85,7 @@ This Projet Built By : <br>
 </tr> 
 </table>
 
+
+<div>
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+</div>

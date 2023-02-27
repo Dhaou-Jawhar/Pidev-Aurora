@@ -36,4 +36,5 @@ public class Claim {
     @Column(name = "description")
     private String description;
 
+
 }

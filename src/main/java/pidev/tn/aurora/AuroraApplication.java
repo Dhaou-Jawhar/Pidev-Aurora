@@ -2,6 +2,10 @@ package pidev.tn.aurora;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import sun.security.util.Password;
 
 @SpringBootApplication
 public class AuroraApplication {
@@ -10,4 +14,8 @@ public class AuroraApplication {
         SpringApplication.run(AuroraApplication.class, args);
     }
 
+    @Bean
+    PasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
+    }
 }

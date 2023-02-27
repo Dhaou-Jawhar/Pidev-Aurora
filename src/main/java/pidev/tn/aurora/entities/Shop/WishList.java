@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -28,11 +27,14 @@ public class WishList {
     @Column(name = "createddate")
     private Date createddate;
 
-
     @JsonIgnore
     @OneToMany(mappedBy = "wishList")
     private List<Product> products = new ArrayList<>();
     @JsonIgnore
     @OneToOne(mappedBy = "wishList")
     private UserApp userApp;
+
+    @JsonIgnore
+    @OneToOne(mappedBy = "wishList")
+    private UserApp users;
 }

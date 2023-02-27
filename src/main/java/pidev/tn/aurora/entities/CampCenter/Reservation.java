@@ -38,4 +38,6 @@ public class Reservation {
 
     @ManyToOne
     CampCenter campCenter;
+
+
 }
