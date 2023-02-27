@@ -13,6 +13,7 @@ import pidev.tn.aurora.repository.Forum.ReactionRepository;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @Service
 @AllArgsConstructor
 public class ForumService implements IForumService {
@@ -114,4 +115,26 @@ public class ForumService implements IForumService {
         return reactionRepository.findById(IdReaction).get();
     }
 
-}
+
+
+    //////////////////////////////////////////////////////////////////////////////////////
+
+
+        private final List<String> activeUsers = new ArrayList<>();
+
+        public void addUser(String username) {
+            activeUsers.add(username);
+        }
+
+        public void removeUser(String username) {
+            activeUsers.remove(username);
+        }
+
+        public List<String> getActiveUsers() {
+            return activeUsers;
+        }
+
+    }
+
+
+

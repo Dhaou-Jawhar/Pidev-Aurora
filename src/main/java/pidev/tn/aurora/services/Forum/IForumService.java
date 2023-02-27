@@ -22,5 +22,9 @@ public interface IForumService {
     Reaction update (Reaction r);
     void deleteReaction(Integer idReact);
     Reaction showReaction(Integer IdReaction);
+    /////////////////////////////////////////////////
+    public void addUser(String username);
+    public void removeUser(String username);
+    public List<String> getActiveUsers();
 
 }
