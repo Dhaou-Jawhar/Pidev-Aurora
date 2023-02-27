@@ -3,6 +3,7 @@ package pidev.tn.aurora.entities.CampCenter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import pidev.tn.aurora.entities.Event.Events;
+import pidev.tn.aurora.entities.enumeration.ActivityType;
 import pidev.tn.aurora.entities.enumeration.State;
 
 import javax.persistence.*;
@@ -47,5 +48,9 @@ public class CampCenter {
     @OneToOne
     @JoinColumn(name = "events_id")
     private Events events;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "campcenter_type")
+    private ActivityType campcenterType;
 
 }

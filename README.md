@@ -1,3 +1,5 @@
+<a name="readme-top"></a>
+<!--
 <!-- PROJECT LOGO -->
 
 <h3 align="center">Aurora Application GUIDE</h3>
@@ -63,6 +65,8 @@ This Projet Built By : <br>
 <img src="https://github.com/Dhaou-Jawhar/Pidev-Aurora/blob/master/src/main/resources/templates/assets/class-diag.png" alt="Intro" />
 </p>
 
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 <!-- CONTACT -->
 ## Contact
 
@@ -71,7 +75,6 @@ This Projet Built By : <br>
 <tr>
 <td>
 <img src="https://github.com/Dhaou-Jawhar/Dhaou-Jawhar/blob/main/be259bd5-577b-4aa8-b27a-250649810988.png" width="180"/>
-
   <p align="center">Dhaou Jawhar</p>
 
 <p align="center">
@@ -81,3 +84,8 @@ This Projet Built By : <br>
 </td>
 </tr> 
 </table>
+
+
+<div>
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+</div>
