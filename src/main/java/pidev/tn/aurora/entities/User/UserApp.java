@@ -1,11 +1,9 @@
 package pidev.tn.aurora.entities.User;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import pidev.tn.aurora.entities.CampCenter.CampCenter;
 import pidev.tn.aurora.entities.Forum.Publication;
 import pidev.tn.aurora.entities.Shop.Order_Produit;
 import pidev.tn.aurora.entities.Shop.WishList;
@@ -14,7 +12,6 @@ import pidev.tn.aurora.entities.enumeration.Role;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -22,7 +19,7 @@ import java.util.Set;
 @Setter
 @Entity
 @Table(name = "users")
-public class Users {
+public class UserApp {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -44,11 +41,11 @@ public class Users {
     @Column(name = "first_name")
     private String firstName;
 
-    @OneToMany(mappedBy = "users")
+    @OneToMany(mappedBy = "userApp")
     private List<Order_Produit> order_Produits = new ArrayList<>();
 
     /*------[User - Publication]---------*/
-    @OneToMany(mappedBy = "users")
+    @OneToMany(mappedBy = "userApp")
     private List<Publication> publications = new ArrayList<>();
 
     @OneToOne(fetch = FetchType.EAGER)
