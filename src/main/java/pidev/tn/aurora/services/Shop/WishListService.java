@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import pidev.tn.aurora.entities.Shop.Category;
 import pidev.tn.aurora.entities.Shop.Product;
 import pidev.tn.aurora.entities.Shop.WishList;
-import pidev.tn.aurora.entities.User.Users;
+import pidev.tn.aurora.entities.User.UserApp;
 import pidev.tn.aurora.repository.Shop.ProductRepository;
 import pidev.tn.aurora.repository.Users.UsersRepository;
 import java.util.List;
@@ -26,8 +26,8 @@ public class WishListService implements IWishListService {
 
     @Scheduled(cron = "*/10 * * * * *")
     public void SuggestProductsByWishList() {
-        List<Users> users = usersRepository.findAll();
-        for (Users u : users) {
+        List<UserApp> users = usersRepository.findAll();
+        for (UserApp u : users) {
             WishList w = u.getWishList();
             if (w == null) {
                 log.info("------[Empty WishList]--------");

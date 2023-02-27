@@ -2,14 +2,12 @@ package pidev.tn.aurora.services.Users;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import pidev.tn.aurora.entities.Shop.Order_Produit;
-import pidev.tn.aurora.entities.User.Users;
+import pidev.tn.aurora.entities.User.UserApp;
 import pidev.tn.aurora.repository.Shop.OrderRepository;
 import pidev.tn.aurora.repository.Users.UsersRepository;
 
-import javax.validation.constraints.Max;
 import java.util.List;
 
 @Service
@@ -22,18 +20,18 @@ public class SeviceUser implements IServiceUsers{
     public OrderRepository orderRepository;
 
     @Override
-    public Users addOrUpdateUser(Users users) {
+    public UserApp addOrUpdateUser(UserApp userApp) {
 
-        return usersRepository.save(users);
+        return usersRepository.save(userApp);
     }
 
-    public List<Users>  GetAllUser(){
-       List<Users> listUsers= usersRepository.findAll();
+    public List<UserApp>  GetAllUser(){
+       List<UserApp> listUsers= usersRepository.findAll();
        return  listUsers;
     }
 
     @Override
-    public Users GetUser(Integer id) {
+    public UserApp GetUser(Integer id) {
         return usersRepository.findById(id).orElse(null);
     }
 
@@ -43,11 +41,11 @@ public class SeviceUser implements IServiceUsers{
     }
 
     @Override
-    public Users BestBuyer() {
-        List<Users> usersList = usersRepository.findAll();
-        Users bestBuyer = null;
+    public UserApp BestBuyer() {
+        List<UserApp> userAppList = usersRepository.findAll();
+        UserApp bestBuyer = null;
         double maxOrders = 0;
-        for(Users u : usersList){
+        for(UserApp u : userAppList){
             if ( u.getOrder_Produits().isEmpty()) {
                 log.info("error");
             }
@@ -64,11 +62,11 @@ public class SeviceUser implements IServiceUsers{
     }
 
     @Override
-    public Users BestBuyerTotalPrice() {
-        Users bestBuyer = null;
+    public UserApp BestBuyerTotalPrice() {
+        UserApp bestBuyer = null;
         double MaxPrice = 0;
-        List<Users> usersLists = usersRepository.findAll();
-        for(Users u : usersLists) {
+        List<UserApp> userAppLists = usersRepository.findAll();
+        for(UserApp u : userAppLists) {
             if (u.getOrder_Produits().isEmpty()) {
                 log.info("error");
             }

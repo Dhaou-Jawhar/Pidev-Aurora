@@ -8,7 +8,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import pidev.tn.aurora.entities.User.Users;
+import pidev.tn.aurora.entities.User.UserApp;
 import pidev.tn.aurora.services.Users.IServiceUsers;
 
 @RestController
@@ -34,19 +34,19 @@ public class UsersController {
                     description = "Code Correct ✅ But there is a Cascad Problem ⚠",
                     content = @Content)
     })
-    public Users addOrUpdateUser(@RequestBody Users users) {
-        return iServiceUsers.addOrUpdateUser(users);
+    public UserApp addOrUpdateUser(@RequestBody UserApp userApp) {
+        return iServiceUsers.addOrUpdateUser(userApp);
     }
 
 
     @GetMapping("GetB")
-    public Users BestBuyer() {
+    public UserApp BestBuyer() {
         return iServiceUsers.BestBuyer();
     }
 
 
     @GetMapping("GetBPrice")
-    public Users BestBuyerTotalPrice() {
+    public UserApp BestBuyerTotalPrice() {
         return iServiceUsers.BestBuyerTotalPrice();
     }
 }

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import pidev.tn.aurora.entities.Shop.Category;
 import pidev.tn.aurora.entities.Shop.Product;
 import pidev.tn.aurora.entities.Shop.WishList;
-import pidev.tn.aurora.entities.User.Users;
+import pidev.tn.aurora.entities.User.UserApp;
 import pidev.tn.aurora.repository.Shop.CategoryRepository;
 import pidev.tn.aurora.repository.Shop.ProductRepository;
 import pidev.tn.aurora.repository.Shop.WishListRepository;
@@ -55,7 +55,7 @@ public class ProductService implements IProductService {
     public Product AddWishListandAddProductToIt(Integer prod_id , Integer user_id) {
         WishList wishList = new WishList();
 
-        Users u = usersRepository.findById(user_id).get();
+        UserApp u = usersRepository.findById(user_id).get();
         wishList.setCreateddate(new Date());
         Product p = productRepository.findById(prod_id).get();
         p.setWishList(wishList);
