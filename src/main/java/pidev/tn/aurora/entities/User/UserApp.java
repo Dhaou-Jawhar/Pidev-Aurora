@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import pidev.tn.aurora.entities.CampCenter.CampCenter;
 import pidev.tn.aurora.entities.CampCenter.Reservation;
 import pidev.tn.aurora.entities.Forum.Publication;
 import pidev.tn.aurora.entities.Shop.Order_Produit;
@@ -23,7 +22,7 @@ import java.util.Set;
 @Setter
 @Entity
 @Table(name = "users")
-public class Users {
+public class UserApp {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -46,16 +45,16 @@ public class Users {
     private String firstName;
 
 
-    @OneToMany(mappedBy = "users")
+    @OneToMany(mappedBy = "userApp")
     private List<Order_Produit> order_Produits = new ArrayList<>();
 
     /*------[User - Publication]---------*/
-    @OneToMany(mappedBy = "users")
+    @OneToMany(mappedBy = "userApp")
     private List<Publication> publications = new ArrayList<>();
 
     /*------[User - Reservation]---------*/
     @JsonIgnore
-    @OneToMany(mappedBy = "users")
+    @OneToMany(mappedBy = "userApp")
     Set<Reservation> reservations;
 
     @OneToOne(fetch = FetchType.EAGER)

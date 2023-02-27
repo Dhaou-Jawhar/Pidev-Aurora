@@ -5,8 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import pidev.tn.aurora.entities.CampCenter.CampCenter;
-import pidev.tn.aurora.entities.User.Users;
+import pidev.tn.aurora.entities.User.UserApp;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -44,5 +43,5 @@ public class Reservation {
 
     @JsonIgnore
     @ManyToOne
-    Users users;
+    UserApp userApp;
 }

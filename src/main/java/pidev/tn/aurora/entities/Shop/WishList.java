@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import pidev.tn.aurora.entities.User.Users;
+import pidev.tn.aurora.entities.User.UserApp;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -35,6 +35,6 @@ public class WishList {
 
     @JsonIgnore
     @OneToOne(mappedBy = "wishList")
-    private Users users;
+    private UserApp userApp;
 
 }

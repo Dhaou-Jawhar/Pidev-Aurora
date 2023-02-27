@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pidev.tn.aurora.entities.CampCenter.CampCenter;
 import pidev.tn.aurora.entities.CampCenter.Reservation;
-import pidev.tn.aurora.entities.User.Users;
+import pidev.tn.aurora.entities.User.UserApp;
 import pidev.tn.aurora.repository.CampCenter.CampCenterRepository;
 import pidev.tn.aurora.repository.CampCenter.ReservationRepository;
 import pidev.tn.aurora.services.Users.IServiceUsers;
@@ -56,9 +56,9 @@ public class ReservationService implements IReservationService{
     @Override
     public Reservation addAndAssignReservationToCenterAndUser(Reservation r, Integer centerId, Integer userId) {
         CampCenter center = campCenterService.retrieveCenter(centerId);
-        Users user = serviceUser.GetUser(userId);
+        UserApp user = serviceUser.GetUser(userId);
         r.setCampCenter(center);
-        r.setUsers(user);
+        r.setUserApp(user);
         return reservationRepository.save(r);
     }
 }

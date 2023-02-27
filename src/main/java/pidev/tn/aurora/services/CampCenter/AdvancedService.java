@@ -4,7 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import pidev.tn.aurora.entities.CampCenter.Reservation;
-import pidev.tn.aurora.entities.User.Users;
+import pidev.tn.aurora.entities.User.UserApp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -28,9 +28,9 @@ public class AdvancedService implements IAdvancedService{
         List<Map<String, Object>> groups = new ArrayList<>();
         for (Map.Entry<Integer, List<Reservation>> entry : reservationsByCampCenter.entrySet()) {
             Map<String, Object> group = new HashMap<>();
-            List<Users> users = new ArrayList<>();
+            List<UserApp> users = new ArrayList<>();
             for (Reservation reservation : entry.getValue()) {
-                users.add(reservation.getUsers());
+                users.add(reservation.getUserApp());
             }
             group.put("campCenterName", campCenterService.retrieveCenter(entry.getKey()).getName());
             group.put("users", users);
