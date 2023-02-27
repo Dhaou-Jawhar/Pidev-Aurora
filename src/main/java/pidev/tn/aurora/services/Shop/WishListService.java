@@ -9,7 +9,6 @@ import pidev.tn.aurora.entities.Shop.Product;
 import pidev.tn.aurora.entities.Shop.WishList;
 import pidev.tn.aurora.entities.User.Users;
 import pidev.tn.aurora.repository.Shop.ProductRepository;
-import pidev.tn.aurora.repository.Shop.WishListRepository;
 import pidev.tn.aurora.repository.Users.UsersRepository;
 import java.util.List;
 import java.util.stream.Collectors;

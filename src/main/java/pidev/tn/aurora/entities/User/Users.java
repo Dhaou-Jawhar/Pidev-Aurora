@@ -50,10 +50,6 @@ public class Users {
     @OneToMany(mappedBy = "users")
     private List<Publication> publications = new ArrayList<>();
 
-    /*------[User - CampCenter]---------*/
-    @ManyToMany(cascade = CascadeType.ALL)
-    private Set<CampCenter> campCenter;
-
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "wish_list_id")
     private WishList wishList;
