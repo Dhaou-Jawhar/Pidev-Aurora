@@ -50,7 +50,7 @@ public class Activity {
     @JoinColumn(name = "events_id")
     private Events events;
 
-  @Column(name = "participant")
+    @Column(name = "participant")
     private Integer participant;
 
     @JsonIgnore

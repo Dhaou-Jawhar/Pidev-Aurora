@@ -1,5 +1,6 @@
 package pidev.tn.aurora.entities.User;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,6 +8,7 @@ import lombok.Setter;
 import pidev.tn.aurora.entities.CampCenter.CampCenter;
 import pidev.tn.aurora.entities.Forum.Publication;
 import pidev.tn.aurora.entities.Shop.Order_Produit;
+import pidev.tn.aurora.entities.Shop.WishList;
 import pidev.tn.aurora.entities.enumeration.Role;
 
 import javax.persistence.*;
@@ -49,8 +51,8 @@ public class Users {
     @OneToMany(mappedBy = "users")
     private List<Publication> publications = new ArrayList<>();
 
-    /*------[User - CampCenter]---------*/
-    @ManyToMany(cascade = CascadeType.ALL)
-    private Set<CampCenter> campCenter;
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "wish_list_id")
+    private WishList wishList;
 
 }
