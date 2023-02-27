@@ -6,9 +6,7 @@ import pidev.tn.aurora.entities.CampCenter.CampCenter;
 import pidev.tn.aurora.entities.Event.Activity;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -44,7 +42,7 @@ public class Events {
 
     @JsonIgnore
     @OneToMany(mappedBy = "events")
-    private Set<Activity> activities = new HashSet<>();
+    private List<Activity> activities = new ArrayList<>();
 
     /*------[Event - CampCenter]---------*/
     @OneToOne(mappedBy = "events")

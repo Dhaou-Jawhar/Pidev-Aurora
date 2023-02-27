@@ -9,6 +9,7 @@ import pidev.tn.aurora.entities.CampCenter.CampCenter;
 import pidev.tn.aurora.entities.CampCenter.Reservation;
 import pidev.tn.aurora.entities.Forum.Publication;
 import pidev.tn.aurora.entities.Shop.Order_Produit;
+import pidev.tn.aurora.entities.Shop.WishList;
 import pidev.tn.aurora.entities.enumeration.Role;
 
 import javax.persistence.*;
@@ -49,7 +50,6 @@ public class Users {
     private List<Order_Produit> order_Produits = new ArrayList<>();
 
     /*------[User - Publication]---------*/
-
     @OneToMany(mappedBy = "users")
     private List<Publication> publications = new ArrayList<>();
 
@@ -57,5 +57,9 @@ public class Users {
     @JsonIgnore
     @OneToMany(mappedBy = "users")
     Set<Reservation> reservations;
+
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "wish_list_id")
+    private WishList wishList;
 
 }
