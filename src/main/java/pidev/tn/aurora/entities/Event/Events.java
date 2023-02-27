@@ -45,6 +45,7 @@ public class Events {
     private List<Activity> activities = new ArrayList<>();
 
     /*------[Event - CampCenter]---------*/
+    @JsonIgnore
     @OneToOne(mappedBy = "events")
     private CampCenter campCenter;
 

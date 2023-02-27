@@ -33,7 +33,6 @@ public class UserApp {
     @Column(name = "last_name")
     private String lastName;
 
-
     @Column(name = "first_name")
     private String firstName;
 
@@ -49,7 +48,6 @@ public class UserApp {
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "role_id")
     private Role role;
-
 
     /*------[User - Publication]---------*/
     @OneToMany(mappedBy = "userApp")

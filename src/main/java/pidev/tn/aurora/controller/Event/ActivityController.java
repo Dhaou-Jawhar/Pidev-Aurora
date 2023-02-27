@@ -8,7 +8,10 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pidev.tn.aurora.entities.Event.Activity;
+import pidev.tn.aurora.entities.enumeration.ActivityType;
+import pidev.tn.aurora.services.CampCenter.ICampCenterService;
 import pidev.tn.aurora.services.Event.IActivityService;
+import pidev.tn.aurora.services.Event.IEventService;
 
 import java.util.List;
 
@@ -18,6 +21,11 @@ import java.util.List;
 public class ActivityController {
     @Autowired
     private IActivityService iActivityService;
+    @Autowired
+    private ICampCenterService iCampCenterService;
+    @Autowired
+    private IEventService iEventService;
+
     @Autowired
     ActivityController(IActivityService iActivityService){this.iActivityService=iActivityService;}
     @PostMapping("/add")
@@ -115,5 +123,22 @@ public class ActivityController {
     @PutMapping("assignAcToWishListEv/{idac}/{idwishlistev}")
     public Activity assignActivityToWidhLishEv(@PathVariable("idac") Integer idac,@PathVariable("idwishlistev")Integer idWishListEv) {
         return iActivityService.assignActivityToWidhLishEv(idac,idWishListEv);
+    }
+    @GetMapping("assAct/{idcampcenter}")
+    @ResponseBody
+    public List<Activity> suggestActivityToAdd(@PathVariable("idcampcenter") Integer centreid) {
+        return iActivityService.suggestActivityToAdd(centreid);
+    }
+@GetMapping("filter/{minP}/{maxP}/{minC}/{maxC}/{type}")
+    public List<Activity> filterActivity(@PathVariable("minP") double minPrice, @PathVariable("maxP") double maxPrice, @PathVariable("minC") int minCapacity, @PathVariable("maxC") int maxCapacity,@PathVariable("type") ActivityType activityType) {
+        return iActivityService.filterActivity(minPrice, maxPrice, minCapacity, maxCapacity,activityType);
+    }
+/*@PostMapping("numpbre-of-capacity")
+    public int joinActivity(@RequestBody Activity activity) {
+        return iActivityService.joinActivity(activity);
+    }*/
+@PostMapping("join/{idact}")
+    public int joinActivity(@PathVariable("idact") Integer activityId) {
+        return iActivityService.joinActivity(activityId);
     }
 }

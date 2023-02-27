@@ -8,13 +8,17 @@ import java.io.Serializable;
 import java.util.List;
 
 public interface IServiceUsers extends Serializable {
-
     /*------[IServicesUserApp]---------*/
     public UserApp addOrUpdateUser(UserApp userApp);
+
     public List<UserApp> GetAllUser();
+
     public UserApp GetUser(Integer id);
+
     public void remove(Integer id);
+
     /*------[IServicesRole]---------*/
     public Role addRole(TypeRole typeRole);
-    public void affectRoleToUser(UserApp user,Integer idRole);
+
+    public void affectRoleToUser(UserApp user, Integer idRole);
 }
