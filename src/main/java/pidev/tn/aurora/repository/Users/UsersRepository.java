@@ -8,4 +8,6 @@ public interface UsersRepository extends JpaRepository<UserApp, Integer> {
 
     List<UserApp> findAll();
 
+    UserApp findByUsername(String username);
+
 }

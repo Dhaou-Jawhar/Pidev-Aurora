@@ -49,7 +49,7 @@ public class UsersController {
     @GetMapping("GetBPrice")
     public UserApp BestBuyerTotalPrice() {
         return iServiceUsers.BestBuyerTotalPrice();
-
+    }
     
     @GetMapping("GetAllUsers")
     @ResponseBody

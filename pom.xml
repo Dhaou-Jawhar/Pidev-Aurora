@@ -47,7 +47,6 @@
         <version>1.6.9</version>
     </dependency>
         <!--dependecies for chat-->
-<<<<<<< HEAD
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-websocket</artifactId>
@@ -69,7 +68,6 @@
             <scope>test</scope>
         </dependency>
 
-        
         <dependency>
             <groupId>com.auth0</groupId>
             <artifactId>java-jwt</artifactId>
@@ -84,17 +82,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
-=======
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-websocket</artifactId>
-            </dependency>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-thymeleaf</artifactId>
-            </dependency>
-        <!--end dependecies for chat-->
->>>>>>> 60086e998ebaa15cd419daec666805a49e195078
     </dependencies>
 
     <build>

@@ -24,17 +24,19 @@ import java.util.*;
 public class SeviceUser implements IServiceUsers, UserDetailsService {
 
     @Autowired
-
-    public UserAppRepository userAppRepository;
+    public UsersRepository usersRepository;
     @Autowired
     public RoleRepository roleRepository;
 
     @Autowired
     public PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private OrderRepository orderRepository;
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserApp userApp = userAppRepository.findByUsername(username);
+        UserApp userApp = usersRepository.findByUsername(username);
         if (userApp == null) {
             log.error("User not found in the database");
             throw new UsernameNotFoundException("User not found in the database");
@@ -53,24 +55,24 @@ public class SeviceUser implements IServiceUsers, UserDetailsService {
     public UserApp addOrUpdateUser(UserApp userApp) {
         log.info("Saving new user {} to the database", userApp.getFirstName());
         userApp.setPassword(passwordEncoder.encode(userApp.getPassword()));
-        return userAppRepository.save(userApp);
+        return usersRepository.save(userApp);
     }
 
     public List<UserApp> GetAllUser() {
-        List<UserApp> listUsers = userAppRepository.findAll();
+        List<UserApp> listUsers = usersRepository.findAll();
         return listUsers;
     }
 
     @Override
     public UserApp GetUser(Integer id) {
-        return userAppRepository.findById(id).orElse(null);
+        return usersRepository.findById(id).orElse(null);
 
     }
 
     @Override
     public void remove(Integer id) {
 
-        userAppRepository.deleteById(id);
+        usersRepository.deleteById(id);
     }
 
     @Override
@@ -87,7 +89,7 @@ public class SeviceUser implements IServiceUsers, UserDetailsService {
         log.info("Saving new user {} to the database", userApp.getFirstName());
         userApp.setPassword(passwordEncoder.encode(userApp.getPassword()));
 
-        userAppRepository.save(userApp);
+        usersRepository.save(userApp);
 
     }
 
