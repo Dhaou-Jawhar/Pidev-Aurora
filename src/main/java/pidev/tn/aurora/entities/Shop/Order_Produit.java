@@ -43,6 +43,6 @@ public class Order_Produit {
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "users_id")
-    private UserApp users;
+    private UserApp userApp;
 
 }
