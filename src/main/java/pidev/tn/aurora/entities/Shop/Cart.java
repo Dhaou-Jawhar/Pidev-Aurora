@@ -35,6 +35,4 @@ public class Cart {
     @ManyToOne
     @JoinColumn(name = "order_produit_id")
     private Order_Produit order_Produit;
-
-
 }

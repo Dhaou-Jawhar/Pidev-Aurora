@@ -1,5 +1,6 @@
 package pidev.tn.aurora.services.Event;
 
+import pidev.tn.aurora.entities.Event.Activity;
 import pidev.tn.aurora.entities.Event.Events;
 
 import java.io.Serializable;
@@ -11,4 +12,5 @@ public interface IEventService extends Serializable {
     Events retrieveEv(Integer idev);
     List<Events> retrieveAllEv();
     void removeEv(Integer idev);
+
 }
