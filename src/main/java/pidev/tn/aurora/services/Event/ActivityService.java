@@ -8,7 +8,6 @@ import pidev.tn.aurora.entities.Event.Activity;
 import pidev.tn.aurora.entities.Event.Events;
 import pidev.tn.aurora.entities.Event.WishListEv;
 import pidev.tn.aurora.entities.enumeration.ActivityType;
-import pidev.tn.aurora.entities.enumeration.campcenterType;
 import pidev.tn.aurora.repository.CampCenter.CampCenterRepository;
 import pidev.tn.aurora.repository.Event.ActivityRepository;
 import pidev.tn.aurora.repository.Event.EventsRepository;
@@ -16,6 +15,8 @@ import pidev.tn.aurora.repository.Event.WishListEvRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -80,15 +81,41 @@ public class ActivityService implements IActivityService {
            List<Activity> activitylist = eve.getActivities();
            for (Activity act : activitylist){
           ActivityType ActivityType= act.getActivityType();
-              if((act.getActivityType()== ActivityType.sea)&&(campc.getCampcenterType() == campcenterType.sea)) {
+              if((act.getActivityType()== ActivityType.sea)&&(campc.getCampcenterType() ==ActivityType.sea)) {
                    suggact.add(act);
-               } else if ((act.getActivityType() == ActivityType.forest) &&(campc.getCampcenterType() == campcenterType.forest) ) {
+               } else if ((act.getActivityType() == ActivityType.forest) &&(campc.getCampcenterType() == ActivityType.forest) ) {
                   suggact.add(act);
-              } else if ((act.getActivityType() == ActivityType.desert) &&(campc.getCampcenterType() == campcenterType.desert) ) {
+              } else if ((act.getActivityType() == ActivityType.desert) &&(campc.getCampcenterType() == ActivityType.desert) ) {
                   suggact.add(act);
               }
            }
         }
         return suggact;
+    }
+
+    @Override
+    public List<Activity> filterActivity(double minPrice, double maxPrice, int minCapacity, int maxCapacity,ActivityType activityType ) {
+        List<Activity> allAct =activityRepository.findAll();
+        List<Activity> filterAct = allAct.stream().filter(a->a.getPrice()>= minPrice && a.getPrice()<= maxPrice && a.getCapacity()>= minCapacity && a.getCapacity()<= maxCapacity && a.getActivityType() == activityType)
+                .collect(Collectors.toList());
+        return filterAct;
+    }
+    public int joinActivity(Integer activityId) {
+        Optional<Activity> optionalActivity = activityRepository.findById(activityId);
+        if (optionalActivity.isPresent()) {
+            Activity activity = optionalActivity.get();
+            if (activity.getCapacity() > 0) {
+                activity.setCapacity(activity.getCapacity() - 1);
+                activity.setParticipant(activity.getParticipant() + 1);
+                activityRepository.save(activity);
+                return activity.getCapacity();
+            } else {
+                log.info("La capacité de l'activité est déjà atteinte");
+                return -1;
+            }
+        } else {
+            log.info("Activité introuvable");
+            return -1;
+        }
     }
 }

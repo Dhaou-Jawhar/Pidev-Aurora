@@ -4,8 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import pidev.tn.aurora.entities.Event.Events;
 import pidev.tn.aurora.entities.User.Users;
+import pidev.tn.aurora.entities.enumeration.ActivityType;
 import pidev.tn.aurora.entities.enumeration.State;
-import pidev.tn.aurora.entities.enumeration.campcenterType;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -57,6 +57,6 @@ public class CampCenter {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "campcenter_type")
-    private campcenterType campcenterType;
+    private ActivityType campcenterType;
 
 }

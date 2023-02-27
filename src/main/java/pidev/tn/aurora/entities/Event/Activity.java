@@ -49,6 +49,10 @@ public class Activity {
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "events_id")
     private Events events;
+
+  @Column(name = "participant")
+    private Integer participant;
+
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "wish_list_ev_id")
