@@ -32,6 +32,9 @@ public class WishList {
     @JsonIgnore
     @OneToMany(mappedBy = "wishList")
     private List<Product> products = new ArrayList<>();
+    @JsonIgnore
+    @OneToOne(mappedBy = "wishList")
+    private UserApp userApp;
 
     @JsonIgnore
     @OneToOne(mappedBy = "wishList")
