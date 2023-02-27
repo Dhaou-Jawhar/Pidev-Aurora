@@ -1,13 +1,13 @@
-package pidev.tn.aurora.services.UserApp;
+package pidev.tn.aurora.services.Users;
 
-import pidev.tn.aurora.entities.UserApp.Role;
-import pidev.tn.aurora.entities.UserApp.UserApp;
+import pidev.tn.aurora.entities.User.Role;
+import pidev.tn.aurora.entities.User.UserApp;
 import pidev.tn.aurora.entities.enumeration.TypeRole;
 
 import java.io.Serializable;
 import java.util.List;
 
-public interface IServiceUser extends Serializable {
+public interface IServiceUsers extends Serializable {
 
     /*------[IServicesUserApp]---------*/
     public UserApp addOrUpdateUser(UserApp userApp);

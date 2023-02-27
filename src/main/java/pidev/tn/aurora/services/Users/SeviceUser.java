@@ -1,4 +1,4 @@
-package pidev.tn.aurora.services.UserApp;
+package pidev.tn.aurora.services.Users;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +8,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import pidev.tn.aurora.entities.UserApp.Role;
-import pidev.tn.aurora.entities.UserApp.UserApp;
+import pidev.tn.aurora.entities.User.Role;
+import pidev.tn.aurora.entities.User.UserApp;
 import pidev.tn.aurora.entities.enumeration.TypeRole;
 import pidev.tn.aurora.repository.UserApp.RoleRepository;
 import pidev.tn.aurora.repository.UserApp.UserAppRepository;
@@ -18,7 +18,7 @@ import java.util.*;
 
 @Service
 @Slf4j
-public class SeviceUserImpl implements IServiceUser, UserDetailsService {
+public class SeviceUser implements IServiceUsers, UserDetailsService {
 
     @Autowired
     public UserAppRepository userAppRepository;

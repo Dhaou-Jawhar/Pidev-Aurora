@@ -12,7 +12,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import pidev.tn.aurora.filter.CustomAuthentificationFilter;
-import pidev.tn.aurora.services.UserApp.IServiceUser;
 
 @Configuration
 @EnableWebSecurity

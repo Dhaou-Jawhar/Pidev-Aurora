@@ -2,7 +2,7 @@ package pidev.tn.aurora.entities.Shop;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
-import pidev.tn.aurora.entities.UserApp.UserApp;
+import pidev.tn.aurora.entities.User.UserApp;
 import pidev.tn.aurora.entities.enumeration.PaymentMethod;
 
 import javax.persistence.*;

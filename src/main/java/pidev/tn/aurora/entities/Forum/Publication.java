@@ -2,7 +2,7 @@ package pidev.tn.aurora.entities.Forum;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
-import pidev.tn.aurora.entities.UserApp.UserApp;
+import pidev.tn.aurora.entities.User.UserApp;
 
 import javax.persistence.*;
 import java.util.ArrayList;
