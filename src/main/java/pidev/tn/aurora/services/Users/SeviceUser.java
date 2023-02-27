@@ -49,7 +49,7 @@ public class SeviceUser implements IServiceUsers{
             if ( u.getOrder_Produits().isEmpty()) {
                 log.info("error");
             }
-            int orderCount = orderRepository.countByUsers(u);
+            int orderCount = orderRepository.countByUserApp(u);
             if(orderCount > maxOrders){
                 maxOrders = orderCount;
                 bestBuyer = u;

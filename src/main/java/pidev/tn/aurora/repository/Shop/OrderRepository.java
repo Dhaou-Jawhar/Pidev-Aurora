@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface OrderRepository extends JpaRepository<Order_Produit, Integer> {
 
-    int countByUsers(UserApp u);
-    List<Order_Produit> findByUsers(UserApp u);
+    int countByUserApp(UserApp u);
+    List<Order_Produit> findByUserApp(UserApp u);
 }
