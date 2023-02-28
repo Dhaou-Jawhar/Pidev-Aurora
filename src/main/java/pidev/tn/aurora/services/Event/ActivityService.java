@@ -1,6 +1,7 @@
 package pidev.tn.aurora.services.Event;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pidev.tn.aurora.entities.CampCenter.CampCenter;
@@ -61,9 +62,16 @@ public class ActivityService implements IActivityService {
     public Activity assignActivityToEvent(Integer idac, Integer idEv) {
         Activity activity=activityRepository.findById(idac).orElse(null);
         Events events=eventsRepository.findById(idEv).orElse(null);
-        activity.setEvents(events);
-        return activityRepository.save(activity);
-    }
+        if (activity != null && events != null) {
+            if (events.getActivities().size() < 5) {
+                activity.setEvents(events);
+                activityRepository.save(activity);
+            } else {
+                log.info("The event reaches the maximum number of activities");
+            }
+        }
+      return activityRepository.save(activity);
+  }
     /*----------------------------ASSIGNMENT ACT-TO-WishListEv-------------------------*/
     public  Activity assignActivityToWidhLishEv(Integer idac,Integer idWishListEv){
         Activity activity=activityRepository.findById(idac).orElse(null);
@@ -101,16 +109,18 @@ public class ActivityService implements IActivityService {
         return filterAct;
     }
     public int joinActivity(Integer activityId) {
-        Optional<Activity> optionalActivity = activityRepository.findById(activityId);
-        if (optionalActivity.isPresent()) {
-            Activity activity = optionalActivity.get();
+            Activity activity = activityRepository.findById(activityId).orElse(null);
+           if (activity != null) {
             if (activity.getCapacity() > 0) {
                 activity.setCapacity(activity.getCapacity() - 1);
                 activity.setParticipant(activity.getParticipant() + 1);
+                activity.setState(true);
                 activityRepository.save(activity);
                 return activity.getCapacity();
             } else {
                 log.info("La capacité de l'activité est déjà atteinte");
+                activity.setState(false);
+                activityRepository.save(activity);
                 return -1;
             }
         } else {
