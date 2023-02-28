@@ -109,8 +109,9 @@ public class ActivityService implements IActivityService {
         return filterAct;
     }
     public int joinActivity(Integer activityId) {
-            Activity activity = activityRepository.findById(activityId).orElse(null);
-           if (activity != null) {
+        Optional<Activity> optionalActivity = activityRepository.findById(activityId);
+        if (optionalActivity.isPresent()) {
+            Activity activity = optionalActivity.get();
             if (activity.getCapacity() > 0) {
                 activity.setCapacity(activity.getCapacity() - 1);
                 activity.setParticipant(activity.getParticipant() + 1);
@@ -128,4 +129,20 @@ public class ActivityService implements IActivityService {
             return -1;
         }
     }
+
+    @Override
+    public int disjoinActivity(Integer activityId) {
+        Activity activity = activityRepository.findAvailableActivityById(activityId);
+        if (activity != null) {
+            activity.setParticipant(activity.getParticipant() - 1);
+            activity.setCapacity(activity.getCapacity() + 1);
+            activity.setState(true);
+            activityRepository.save(activity);
+            return activity.getCapacity();
+        } else {
+            log.info("pas de place dans cette activitie");
+            return -1;
+        }
+    }
+
 }

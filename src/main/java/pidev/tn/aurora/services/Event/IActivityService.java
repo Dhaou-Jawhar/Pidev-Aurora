@@ -20,4 +20,5 @@ public interface IActivityService extends Serializable {
     List<Activity> suggestActivityToAdd(Integer centreid);
     List<Activity> filterActivity(double minPrice, double maxPrice, int minCapacity, int maxCapacity, ActivityType activityType);
     int joinActivity(Integer activityId);
+    int disjoinActivity(Integer activityId);
 }

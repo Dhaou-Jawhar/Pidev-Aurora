@@ -141,4 +141,8 @@ public class ActivityController {
     public int joinActivity(@PathVariable("idact") Integer activityId) {
         return iActivityService.joinActivity(activityId);
     }
+    @PostMapping("disjoin/{idact}")
+    public int disjoinActivity(@PathVariable("idact")Integer activityId) {
+        return iActivityService.disjoinActivity(activityId);
+    }
 }
