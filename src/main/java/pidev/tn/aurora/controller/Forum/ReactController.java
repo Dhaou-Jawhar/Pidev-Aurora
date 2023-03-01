@@ -7,23 +7,22 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import pidev.tn.aurora.entities.Forum.Publication;
-import pidev.tn.aurora.services.Forum.IForumService;
+import pidev.tn.aurora.entities.Forum.Reaction;
+import pidev.tn.aurora.services.Forum.IReactService;
 
 import java.util.List;
-
 @RestController
-@Tag(name = "Publication🖼 Management 💹")
+@Tag(name = "React😍 Management 💹")
 @RequestMapping("Forum")
-public class ForumController {
+public class ReactController {
     @Autowired
-    private IForumService iForumService;
-    @PostMapping("/add-Publication")
+    private IReactService iReactService;
+    @PostMapping("/addAndAsignReaction")
     @ResponseBody
-    @Operation(description = "Add Publication", summary = "Add ✏")
+    @Operation(description = "Add Reaction", summary = "Add ✏")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
-                    description = "Publication Added ✅",
+                    description = "Reaction Added ✅",
                     content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "404",
                     description = "Error must be fixed ❌",
@@ -32,15 +31,17 @@ public class ForumController {
                     description = "Code Correct ✅ But there is a Cascad Problem ⚠",
                     content = @Content)
     })
-    public Publication addPub(@RequestBody Publication pub) {
-        return iForumService.addPub(pub);
+    public Reaction addAndAsignReact(Reaction r, Integer idPub) {
+        return iReactService.addAndAsignReact(r, idPub);
     }
-    @PostMapping("/displayAll-Publications")
+
+
+    @PostMapping("/displayAll-Reactions")
     @ResponseBody
-    @Operation(description = "Show all Publications", summary = "Show all 📦")
+    @Operation(description = "Show all Reactions", summary = "Show all 📦")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
-                    description = "Publication List ✅",
+                    description = "Reactions List ✅",
                     content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "404",
                     description = "Error must be fixed ❌",
@@ -49,16 +50,15 @@ public class ForumController {
                     description = "Code Correct ✅ But there is a Cascad Problem ⚠",
                     content = @Content)
     })
-    public List<Publication> DisplayPublication() {
-        return iForumService.DisplayPublication();
+    public List<Reaction> DisplayReactions() {
+        return iReactService.DisplayReactions();
     }
-
-    @PutMapping ("/update-publication")
+    @PutMapping("/update-Reaction")
     @ResponseBody
-    @Operation(description = "update publication", summary = "update ✔")
+    @Operation(description = "update reaction", summary = "update ✔")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
-                    description = "Publication Updated ✅",
+                    description = "Reaction Updated ✅",
                     content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "404",
                     description = "Error must be fixed ❌",
@@ -67,16 +67,15 @@ public class ForumController {
                     description = "Code Correct ✅ But there is a Cascad Problem ⚠",
                     content = @Content)
     })
-    public Publication update(@RequestBody Publication pub) {
-        return iForumService.update(pub);
+    public Reaction update(Reaction r) {
+        return iReactService.update(r);
     }
-
-    @DeleteMapping("/delete-Publication")
+    @DeleteMapping("/delete-Reaction")
     @ResponseBody
-    @Operation(description = "Delete Publication", summary = "Delete publication 🗑")
+    @Operation(description = "Delete Reaction", summary = "Delete reaction 🗑")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
-                    description = "Publication Deleted ✅",
+                    description = "Reaction Deleted ✅",
                     content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "404",
                     description = "Error must be fixed ❌",
@@ -85,17 +84,15 @@ public class ForumController {
                     description = "Code Correct ✅ But there is a Cascad Problem ⚠",
                     content = @Content)
     })
-
-    public void delete(Integer id) {
-        iForumService.delete(id);
+    public void deleteReaction(Integer idReact) {
+        iReactService.deleteReaction(idReact);
     }
-
-    @PostMapping("/show-Publication")
+    @PostMapping("/show-Reaction")
     @ResponseBody
-    @Operation(description = "show Publication", summary = "Find publication 🔍")
+    @Operation(description = "show Reaction", summary = "Find Reaction 🔍")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
-                    description = "Publication existed ✅",
+                    description = "Reaction existed ✅",
                     content = {@Content(mediaType = "application/json")}),
             @ApiResponse(responseCode = "404",
                     description = "Error must be fixed ❌",
@@ -104,9 +101,7 @@ public class ForumController {
                     description = "Code Correct ✅ But there is a Cascad Problem ⚠",
                     content = @Content)
     })
-
-    public Publication showPub(Integer id) {
-        return iForumService.showPub(id);
+    public Reaction showReaction(Integer IdReaction) {
+        return iReactService.showReaction(IdReaction);
     }
-
 }
