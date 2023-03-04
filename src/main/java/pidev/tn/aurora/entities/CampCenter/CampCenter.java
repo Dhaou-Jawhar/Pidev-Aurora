@@ -53,4 +53,15 @@ public class CampCenter {
     @Column(name = "campcenter_type")
     private ActivityType campcenterType;
 
+
+    /*------[CampService - CampCenter]---------*/
+    @JsonIgnore
+    @ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable(
+            name = "camp_center_service",
+            joinColumns = { @JoinColumn(name = "camp_center_id") },
+            inverseJoinColumns = { @JoinColumn(name = "camp_service_id") }
+    )
+    private Set<CampService> services;
+
 }
