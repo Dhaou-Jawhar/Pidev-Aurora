@@ -12,4 +12,5 @@ public interface ICampService extends Serializable {
     CampService retrieveService (Integer idService);
     List<CampService> AllServices ();
     void removeService(Integer idService);
+    public void assignServiceToCampCenter(Integer campCenterId, Integer serviceId);
 }

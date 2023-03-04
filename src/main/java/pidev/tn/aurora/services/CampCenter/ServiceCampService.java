@@ -3,9 +3,12 @@ package pidev.tn.aurora.services.CampCenter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import pidev.tn.aurora.entities.CampCenter.CampCenter;
 import pidev.tn.aurora.entities.CampCenter.CampService;
+import pidev.tn.aurora.repository.CampCenter.CampCenterRepository;
 import pidev.tn.aurora.repository.CampCenter.CampServiceRepository;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +17,8 @@ import java.util.List;
 public class ServiceCampService implements ICampService {
    @Autowired
    private CampServiceRepository campServiceRepository;
-
+    @Autowired
+    private CampCenterRepository campCenterRepository;
 
     @Override
     public CampService addorupdateService(CampService c) {
@@ -39,4 +43,21 @@ public class ServiceCampService implements ICampService {
         campServiceRepository.deleteById(idService);
 
     }
+
+    @Override
+        public void assignServiceToCampCenter(Integer campCenterId, Integer serviceId) {
+            // Retrieve the camp center from the database
+            CampCenter campCenter = campCenterRepository.findById(campCenterId).orElseThrow(EntityNotFoundException::new);
+
+            // Retrieve the service from the database
+            CampService service = campServiceRepository.findById(serviceId).orElseThrow(EntityNotFoundException::new);
+
+            // Add the service to the camp center's list of services
+            campCenter.getServices().add(service);
+
+            // Update the camp center in the database
+            campCenterRepository.save(campCenter);
+        }
+
 }
+

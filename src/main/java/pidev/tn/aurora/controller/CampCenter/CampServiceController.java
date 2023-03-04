@@ -106,4 +106,23 @@ public class CampServiceController {
     })
     void deleteCenter(@PathVariable("id") Integer idS){campService.removeService(idS);}
 
+    @PutMapping ("/assignSToC/{idC}/{idS}")
+    @ResponseBody
+    @Operation(description = "Assign Service To Center ", summary = "Add ➕")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Assignment Added ✅",
+                    content = {@Content(mediaType = "application/json")}),
+            @ApiResponse(responseCode = "404",
+                    description = "Error must be fixed ❌",
+                    content = @Content),
+            @ApiResponse(responseCode = "500",
+                    description = "Code Correct ✅ But there is a Cascad Problem ⚠",
+                    content = @Content)
+    })
+    public void assignServiceToCampCenter(@PathVariable("idC")Integer idC,
+                                          @PathVariable("idS")Integer idS)
+    {
+        campService.assignServiceToCampCenter(idC, idS);
+    }
 }

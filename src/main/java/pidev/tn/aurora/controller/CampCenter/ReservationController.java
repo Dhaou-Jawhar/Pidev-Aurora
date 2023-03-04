@@ -26,9 +26,9 @@ public class ReservationController {
     ReservationController(IReservationService iReservationService){this.iReservationService = iReservationService;}
 
 
-    @PostMapping("add")
+    @PutMapping ("/addassignR/{idCC}/{idU}")
     @ResponseBody
-    @Operation(description = "Add Reservation", summary = "Add ➕")
+    @Operation(description = "Add and Assign Reservation to CenterCamp and User", summary = "Add ➕")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
                     description = "Reservation Added ✅",
@@ -40,7 +40,12 @@ public class ReservationController {
                     description = "Code Correct ✅ But there is a Cascad Problem ⚠",
                     content = @Content)
     })
-    public Reservation addReservation (@RequestBody Reservation r) {return iReservationService.addorupdateRev(r);}
+    public Reservation assignReservationToCenter(@RequestBody Reservation r,
+                                                 @PathVariable("idCC")Integer idCC,
+                                                 @PathVariable("idU")Integer idU)
+    {
+        return iReservationService.addAndAssignReservationToCenterAndUser(r,idCC,idU);
+    }
 
     @PutMapping("update")
     @ResponseBody
@@ -108,15 +113,7 @@ public class ReservationController {
     })
     void deleteReservation(@PathVariable("id") Integer id){iReservationService.removeRev(id);}
 
-    @Operation(description = "Add and Assign Reservation to CenterCamp and User", summary = "Add ➕")
-    @PutMapping ("/addassignR/{idCC}/{idU}")
-    @ResponseBody
-    public Reservation assignReservationToCenter(@RequestBody Reservation r,
-                                                 @PathVariable("idCC")Integer idCC,
-                                                 @PathVariable("idU")Integer idU)
-    {
-        return iReservationService.addAndAssignReservationToCenterAndUser(r,idCC,idU);
-    }
+
     @Autowired
     private AdvancedService advancedService;
     /*@GetMapping("/users-by-campcenter")
