@@ -6,9 +6,13 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pidev.tn.aurora.entities.Forum.Comment;
+import pidev.tn.aurora.services.Forum.ForbiddenWordsDetector;
 import pidev.tn.aurora.services.Forum.ICommentService;
+import pidev.tn.aurora.services.Forum.badWordService;
 
 import java.util.List;
 
@@ -18,6 +22,7 @@ import java.util.List;
 public class CommentController {
     @Autowired
     private ICommentService iCommentService;
+    private ForbiddenWordsDetector forbiddenWordsDetector;
     @PutMapping("/addAndAsign-Comment/{idPub}")
     @ResponseBody
     @Operation(description = "Add Comment", summary = "Add ✏")
@@ -30,10 +35,24 @@ public class CommentController {
                     content = @Content),
             @ApiResponse(responseCode = "500",
                     description = "Code Correct ✅ But there is a Cascad Problem ⚠",
+                    content = @Content),
+            @ApiResponse(responseCode = "403",
+                    description = "Yezi mel klem el zeyed 😡",
                     content = @Content)
     })
-    public Comment addandAsignCom(@RequestBody Comment comment, @PathVariable("idPub") Integer idPub) {
-        return iCommentService.addandAsignCom(comment, idPub);
+    public ResponseEntity<Comment> addandAsignCom(@RequestBody Comment comment, @PathVariable("idPub") Integer idPub) {
+        HttpHeaders responseHeaders = new HttpHeaders();
+        if (test(comment.getComment())) {
+            return new ResponseEntity<>(null,responseHeaders,403) ;
+        }
+
+
+        return new ResponseEntity<>(iCommentService.addandAsignCom(comment, idPub),responseHeaders,200) ;
+    }
+    @GetMapping("/tst")
+    public boolean test(String c){
+        badWordService b=new badWordService();
+         return b.filterText(c);
     }
 
 

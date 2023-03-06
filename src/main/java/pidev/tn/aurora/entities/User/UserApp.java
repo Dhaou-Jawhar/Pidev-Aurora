@@ -3,6 +3,7 @@ package pidev.tn.aurora.entities.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import pidev.tn.aurora.entities.CampCenter.Reservation;
 import lombok.*;
+import pidev.tn.aurora.entities.Forum.Conversation;
 import pidev.tn.aurora.entities.Forum.Publication;
 import pidev.tn.aurora.entities.Shop.Order_Produit;
 import pidev.tn.aurora.entities.Shop.WishList;
@@ -66,4 +67,18 @@ public class UserApp {
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "wish_list_id")
     private WishList wishList;
+
+    @ManyToMany
+    @JoinTable(name = "users_conversation",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "conversation_id"))
+    private List<Conversation> conversations = new ArrayList<>();
+
+    public List<Conversation> getConversations() {
+        return conversations;
+    }
+
+    public void setConversations(List<Conversation> conversations) {
+        this.conversations = conversations;
+    }
 }
