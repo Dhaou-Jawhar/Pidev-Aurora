@@ -45,4 +45,8 @@ public class Product {
     @OneToMany(mappedBy = "product")
     private List<CartItems> cartItemses = new ArrayList<>();
 
+
+    public static String[] fields(){
+        return new String[] {"id","price"};
+    }
 }
