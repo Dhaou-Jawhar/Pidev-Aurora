@@ -28,11 +28,18 @@ public class Cart {
     @Column(name = "quantity")
     private Integer quantity;
 
-    @OneToMany(mappedBy = "cart")
-    private List<Product> products = new ArrayList<>();
+    @Column(name = "totalprice")
+    private Double totalprice;
+
+    @Column(name ="active")
+    private boolean active = true;
 
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "order_produit_id")
     private Order_Produit order_Produit;
+
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.PERSIST)
+    private List<CartItems> cartItemses = new ArrayList<>();
+
 }

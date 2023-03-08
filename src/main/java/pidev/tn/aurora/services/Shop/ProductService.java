@@ -53,16 +53,23 @@ public class ProductService implements IProductService {
 
     @Override
     public Product AddWishListandAddProductToIt(Integer prod_id , Integer user_id) {
-        WishList wishList = new WishList();
-
         UserApp u = usersRepository.findById(user_id).get();
-        wishList.setCreateddate(new Date());
         Product p = productRepository.findById(prod_id).get();
-        p.setWishList(wishList);
-        u.setWishList(wishList);
-        wishListRepository.save(wishList);
-        usersRepository.save(u);
-        return productRepository.save(p);
+        if (u.getWishList() == null) {
+            WishList wishList = new WishList();
+            wishList.setCreateddate(new Date());
+            p.setWishList(wishList);
+            u.setWishList(wishList);
+            wishListRepository.save(wishList);
+            usersRepository.save(u);
+            productRepository.save(p);
+        }
+        else{
+            p.setWishList(u.getWishList());
+            productRepository.save(p);
+        }
+
+            return p;
     }
 
     @Override
