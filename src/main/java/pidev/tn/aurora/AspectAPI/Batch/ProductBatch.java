@@ -35,7 +35,7 @@ public class ProductBatch {
     @Bean
     public FlatFileItemReader<Product> readFromCsv() {
         FlatFileItemReader<Product> reader = new FlatFileItemReader<Product>();
-        reader.setResource(new FileSystemResource("D://price.csv"));
+        reader.setResource(new FileSystemResource("D://4SE5 2nd PART//PIDEV//Aurora//Aurora//src//main//resources//templates//assets//price.csv"));
         //reader.setResource(new ClassPathResource("csv_input.csv"));
         reader.setLineMapper(new DefaultLineMapper<Product>() {
             {
@@ -57,7 +57,7 @@ public class ProductBatch {
     public JdbcBatchItemWriter<Product> writerIntoDB(){
         JdbcBatchItemWriter<Product> writer = new JdbcBatchItemWriter<>();
         writer.setDataSource(dataSource);
-        writer.setSql("insert into Pidev-AURORA (id,price) values (:id,:price)");
+        writer.setSql("insert into product (id,price) values (:id,:price)");
         writer.setItemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<Product>());
         return writer;
     }
