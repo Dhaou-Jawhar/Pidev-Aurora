@@ -47,6 +47,6 @@ public class Product {
 
 
     public static String[] fields(){
-        return new String[] {"id","price"};
+        return new String[] {"id","description","model","name","price"};
     }
 }
