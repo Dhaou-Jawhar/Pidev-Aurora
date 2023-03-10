@@ -7,5 +7,5 @@ import java.io.Serializable;
 
 public interface IFactureService extends Serializable {
 
-    public Facture generateInvoice(Order_Produit order);
+    Facture generateInvoice(Order_Produit order);
 }

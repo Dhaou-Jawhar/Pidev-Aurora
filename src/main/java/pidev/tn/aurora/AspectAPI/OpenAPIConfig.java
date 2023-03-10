@@ -23,8 +23,8 @@ public class OpenAPIConfig {
     @Bean
     public GroupedOpenApi JawharPublicApi() {
         return GroupedOpenApi.builder().group("E-SHOP 🏪")
-                .pathsToMatch("/product/**","/wishlist/**","/order/**","/category/**","/facture/**","/cart/**","/GPT/**","/user/**")
-                .pathsToExclude("/user/add")
+                .pathsToMatch("/product/**","/wishlist/**","/order/**","/facture/**","/cart/**","/GPT/**","/user/GetBPrice","/user/GetB")
+                .pathsToExclude()
                 .build();}
 
     @Bean

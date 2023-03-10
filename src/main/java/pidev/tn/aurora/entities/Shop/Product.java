@@ -2,6 +2,7 @@ package pidev.tn.aurora.entities.Shop;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
+import pidev.tn.aurora.entities.enumeration.Cat;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -33,18 +34,21 @@ public class Product {
     private String name;
 
     @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "category_id")
-    private Category category;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "cat")
+    private Cat cat;
 
+    /*----------[Product -> WishList]-----------*/
     @JsonIgnore
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "wish_list_id")
     private WishList wishList;
 
+
+    /*----------[Product -> Cart Items]-----------*/
+    @JsonIgnore
     @OneToMany(mappedBy = "product")
     private List<CartItems> cartItemses = new ArrayList<>();
-
 
     public static String[] fields() {
         return new String[]{"id", "description", "model", "name", "price"};

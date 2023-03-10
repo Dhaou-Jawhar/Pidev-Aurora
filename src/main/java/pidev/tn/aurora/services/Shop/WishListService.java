@@ -4,10 +4,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import pidev.tn.aurora.entities.Shop.Category;
 import pidev.tn.aurora.entities.Shop.Product;
 import pidev.tn.aurora.entities.Shop.WishList;
 import pidev.tn.aurora.entities.User.UserApp;
+import pidev.tn.aurora.entities.enumeration.Cat;
 import pidev.tn.aurora.repository.Shop.ProductRepository;
 import pidev.tn.aurora.repository.Shop.WishListRepository;
 import pidev.tn.aurora.repository.Users.UsersRepository;
@@ -38,8 +38,8 @@ public class WishListService implements IWishListService {
             }
             if (w != null) {
                 for (Product p : w.getProducts()) {
-                    Category c = p.getCategory();
-                    List<Product> PByCat = productRepository.findByCategory(c);
+                    Cat cat = p.getCat();
+                    List<Product> PByCat = productRepository.findAllByCat(cat);
                     PByCat.remove(p);
                     PByCat = PByCat.stream().limit(5).collect(Collectors.toList());
                     log.info("The User : " + u.getFirstName() + " Puted the Product " + p.getName() + " in WishList");

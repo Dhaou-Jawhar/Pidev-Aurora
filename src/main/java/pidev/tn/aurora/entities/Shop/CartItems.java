@@ -1,5 +1,6 @@
 package pidev.tn.aurora.entities.Shop;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -24,10 +25,14 @@ public class CartItems {
     @Column(name = "created_at")
     private Date createdAt;
 
+    /*----------[Cart Items -> Product]-----------*/
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
-    
+
+    /*----------[Cart Items -> Cart]-----------*/
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "cart_id")
     private Cart cart;

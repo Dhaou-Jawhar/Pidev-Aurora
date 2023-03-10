@@ -3,6 +3,7 @@ package pidev.tn.aurora.entities.Shop;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import pidev.tn.aurora.entities.Shop.Order_Produit;
+import pidev.tn.aurora.entities.User.UserApp;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -34,12 +35,21 @@ public class Cart {
     @Column(name ="active")
     private boolean active = true;
 
+
+    /*----------[Cart -> Cart Items]-----------*/
     @JsonIgnore
-    @ManyToOne
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.PERSIST)
+    private List<CartItems> cartItemses = new ArrayList<>();
+
+    /*----------[Cart -> User]-----------*/
+    @OneToOne
+    @JoinColumn(name = "user_app_id")
+    private UserApp userApp;
+
+    /*----------[Cart -> Order]-----------*/
+    @OneToOne
     @JoinColumn(name = "order_produit_id")
     private Order_Produit order_Produit;
 
-    @OneToMany(mappedBy = "cart", cascade = CascadeType.PERSIST)
-    private List<CartItems> cartItemses = new ArrayList<>();
 
 }

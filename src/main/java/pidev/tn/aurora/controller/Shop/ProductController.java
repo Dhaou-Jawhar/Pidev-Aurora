@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pidev.tn.aurora.entities.Shop.Product;
+import pidev.tn.aurora.entities.enumeration.Cat;
 import pidev.tn.aurora.services.Shop.IProductService;
 
 import java.util.List;
@@ -73,8 +74,8 @@ public class ProductController {
         return iProductService.suggestProductsByCategory(prod_id);
     }
 
-    @PostMapping("AddandAssProductToCat/{cat_id}")
-    public Product AddandAssProductToCategory(@RequestBody Product product, @PathVariable("cat_id") Integer id) {
-        return iProductService.AddandAssProductToCategory(product, id);
+    @PostMapping("AddProduct/{cat}")
+    public Product AddProduct(@RequestBody Product product, @PathVariable("cat")Cat cat) {
+        return iProductService.AddProduct(product, cat);
     }
 }

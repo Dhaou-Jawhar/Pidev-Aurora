@@ -92,7 +92,7 @@ public class SeviceUser implements IServiceUsers, UserDetailsService {
 
     }
 
-    @Override
+   @Override
     public UserApp BestBuyer() {
         List<UserApp> userAppList = usersRepository.findAll();
         UserApp bestBuyer = null;

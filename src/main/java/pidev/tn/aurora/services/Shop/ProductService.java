@@ -3,11 +3,10 @@ package pidev.tn.aurora.services.Shop;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pidev.tn.aurora.entities.Shop.Category;
 import pidev.tn.aurora.entities.Shop.Product;
 import pidev.tn.aurora.entities.Shop.WishList;
 import pidev.tn.aurora.entities.User.UserApp;
-import pidev.tn.aurora.repository.Shop.CategoryRepository;
+import pidev.tn.aurora.entities.enumeration.Cat;
 import pidev.tn.aurora.repository.Shop.ProductRepository;
 import pidev.tn.aurora.repository.Shop.WishListRepository;
 import pidev.tn.aurora.repository.Users.UsersRepository;
@@ -25,9 +24,6 @@ public class ProductService implements IProductService {
     private ProductRepository productRepository;
     @Autowired
     private WishListRepository wishListRepository;
-
-    @Autowired
-    private CategoryRepository categoryRepository;
 
     @Autowired
     private UsersRepository usersRepository;
@@ -78,7 +74,7 @@ public class ProductService implements IProductService {
         Product product = productRepository.findById(prod_id).get();
 
         // Récupérer tous les produits de la même catégorie que le produit ajouté
-        List<Product> suggestedProducts = productRepository.findByCategory(product.getCategory());
+        List<Product> suggestedProducts = productRepository.findAllByCat(product.getCat());
 
         // Supprimer le produit ajouté de la liste de suggestions
         suggestedProducts.remove(product);
@@ -91,14 +87,9 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public Product AddandAssProductToCategory(Product product, Integer id) {
-
-        Product p = productRepository.save(product);
-        Category cat = categoryRepository.findById(id).get();
-
-        p.setCategory(cat);
-
-        return productRepository.save(p);
+    public Product AddProduct(Product product, Cat cat) {
+        product.setCat(cat);
+        return productRepository.save(product);
     }
 
 }
