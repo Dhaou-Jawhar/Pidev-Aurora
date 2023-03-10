@@ -46,7 +46,9 @@ public class Product {
     private List<CartItems> cartItemses = new ArrayList<>();
 
 
-    public static String[] fields(){
-        return new String[] {"id","description","model","name","price"};
+    public static String[] fields() {
+        return new String[]{"id", "description", "model", "name", "price"};
     }
+
+
 }

@@ -24,8 +24,7 @@ public class CartService implements ICartService {
     @Autowired
     private CartItemsRepository cartItemsRepository;
 
-
-    @Override
+   @Override
     public void addItemToCart(Integer prod_id) {
 
         Product p = productRepository.findById(prod_id).get();

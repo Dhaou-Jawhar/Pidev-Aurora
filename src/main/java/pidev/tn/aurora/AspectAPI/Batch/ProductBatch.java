@@ -115,12 +115,12 @@ public class ProductBatch {
         writer.setLineAggregator(aggregator);
         return writer;
     }
-    @Bean
+   @Bean
     public Step executeStep(){
         return stepBuilderFactory.get("executeStep").<Product,Product>chunk(10).reader(reader()).writer(writer()).build();
     }
 
-    @Bean
+   @Bean
     public Job processJob(){
         return jobBuilderFactory.get("processJob").incrementer(new RunIdIncrementer()).flow(executeStep()).end().build();
     }
