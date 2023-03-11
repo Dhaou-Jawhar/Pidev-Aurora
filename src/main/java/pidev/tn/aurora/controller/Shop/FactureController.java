@@ -7,6 +7,8 @@ import pidev.tn.aurora.entities.Shop.Facture;
 import pidev.tn.aurora.entities.Shop.Order_Produit;
 import pidev.tn.aurora.services.Shop.FactureService;
 
+import java.io.IOException;
+
 @RestController
 @Tag(name = "Facture 🏷 Management 💹")
 @RequestMapping("facture")
@@ -17,7 +19,7 @@ public class FactureController {
 
     @PostMapping("GenerateFacture")
     @ResponseBody
-    public Facture generateInvoice(@RequestBody Order_Produit order) {
+    public Facture generateInvoice(@RequestBody Order_Produit order) throws IOException {
         return factureService.generateInvoice(order);
     }
 }
