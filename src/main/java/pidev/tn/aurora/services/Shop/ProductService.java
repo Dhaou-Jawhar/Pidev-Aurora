@@ -3,6 +3,8 @@ package pidev.tn.aurora.services.Shop;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 import pidev.tn.aurora.entities.Shop.Product;
 import pidev.tn.aurora.entities.Shop.WishList;
 import pidev.tn.aurora.entities.User.UserApp;
@@ -11,7 +13,9 @@ import pidev.tn.aurora.repository.Shop.ProductRepository;
 import pidev.tn.aurora.repository.Shop.WishListRepository;
 import pidev.tn.aurora.repository.Users.UsersRepository;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,9 +31,6 @@ public class ProductService implements IProductService {
 
     @Autowired
     private UsersRepository usersRepository;
-
-    @Autowired
-    private FactureService factureService;
 
     @Override
     public List<Product> DisplayProduct() {
@@ -87,9 +88,21 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public Product AddProduct(Product product, Cat cat) {
-        product.setCat(cat);
-        return productRepository.save(product);
+    public String AddProduct(MultipartFile file, Cat cat, Product p) {
+
+        String fileName = StringUtils.cleanPath((file.getOriginalFilename()));
+        if(fileName.contains(".."))
+        {
+            System.out.println("not a a valid file");
+        }
+        try {
+            p.setModel(Base64.getEncoder().encodeToString(file.getBytes()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        productRepository.save(p);
+
+        return "✅ "+file.getOriginalFilename() + " : has uploaded successfully !";
     }
 
 }

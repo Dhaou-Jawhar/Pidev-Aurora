@@ -1,5 +1,6 @@
 package pidev.tn.aurora.services.Shop;
 
+import org.springframework.web.multipart.MultipartFile;
 import pidev.tn.aurora.entities.Shop.Product;
 import pidev.tn.aurora.entities.enumeration.Cat;
 
@@ -18,6 +19,6 @@ public interface IProductService extends Serializable {
 
     List<Product> suggestProductsByCategory(Integer prod_id);
 
-    Product AddProduct(Product product , Cat cat);
+    String AddProduct(MultipartFile file, Cat cat , Product p);
 
 }

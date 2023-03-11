@@ -24,6 +24,7 @@ public class Product {
     @Column(name = "price")
     private Double price;
 
+    @JsonIgnore
     @Column(name = "model")
     private String model;
 
