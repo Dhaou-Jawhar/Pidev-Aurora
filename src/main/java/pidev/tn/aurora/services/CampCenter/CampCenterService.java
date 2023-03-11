@@ -5,15 +5,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pidev.tn.aurora.entities.CampCenter.CampCenter;
 import pidev.tn.aurora.repository.CampCenter.CampCenterRepository;
+import pidev.tn.aurora.repository.CampCenter.ReservationRepository;
+import pidev.tn.aurora.repository.CampCenter.ReviewRepository;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Service
 @Slf4j
 public class CampCenterService implements ICampCenterService{
     @Autowired
     private CampCenterRepository campCenterRepository;
+    @Autowired
+    private ReservationRepository reservationRepository;
+    @Autowired
+    private ReviewRepository reviewRepository;
+
 
 
 
@@ -37,4 +43,7 @@ public class CampCenterService implements ICampCenterService{
     public void removeCenter(Integer idcenter) {
         campCenterRepository.deleteById(idcenter);
     }
+
 }
+
+

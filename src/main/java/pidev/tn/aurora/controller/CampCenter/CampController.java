@@ -6,8 +6,10 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pidev.tn.aurora.entities.CampCenter.CampCenter;
+import pidev.tn.aurora.services.CampCenter.AdvancedService;
 import pidev.tn.aurora.services.CampCenter.ICampCenterService;
 
 import java.util.List;
@@ -106,5 +108,13 @@ public class CampController {
                     content = @Content)
     })
     void deleteCenter(@PathVariable("id") Integer idC){iCampCenterService.removeCenter(idC);}
+
+    @Autowired
+    private AdvancedService advancedService;
+    @GetMapping("/filter")
+    public ResponseEntity<List<CampCenter>> filterCampCenters(@RequestParam String sortBy) {
+        List<CampCenter> filteredCampCenters = advancedService.filterCampCenters(sortBy);
+        return ResponseEntity.ok(filteredCampCenters);
+    }
 
 }

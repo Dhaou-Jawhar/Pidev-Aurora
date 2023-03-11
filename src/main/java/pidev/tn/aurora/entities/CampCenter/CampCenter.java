@@ -64,4 +64,9 @@ public class CampCenter {
     )
     private Set<CampService> services;
 
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "fav_list_id")
+    private FavoritesList favoritesList;
+
 }

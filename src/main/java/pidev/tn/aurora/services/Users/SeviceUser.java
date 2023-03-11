@@ -15,7 +15,6 @@ import pidev.tn.aurora.entities.User.Role;
 import pidev.tn.aurora.entities.User.UserApp;
 import pidev.tn.aurora.entities.enumeration.TypeRole;
 import pidev.tn.aurora.repository.UserApp.RoleRepository;
-import pidev.tn.aurora.repository.UserApp.UserAppRepository;
 
 import java.util.*;
 

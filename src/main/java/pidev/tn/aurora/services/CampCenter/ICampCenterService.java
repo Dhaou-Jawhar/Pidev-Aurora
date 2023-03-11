@@ -13,5 +13,4 @@ public interface ICampCenterService extends Serializable {
     List<CampCenter> AllCenters ();
     void removeCenter(Integer idcenter);
 
-
 }
