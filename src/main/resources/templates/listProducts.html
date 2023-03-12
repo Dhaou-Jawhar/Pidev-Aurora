@@ -109,6 +109,7 @@
             <table class="table">
                 <thead class="thead-dark">
                 <tr>
+                    <th scope="col">id</th>
                     <th scope="col">model</th>
                     <th scope="col">name</th>
                     <th scope="col">description</th>
@@ -118,10 +119,11 @@
                 </thead>
                 <tbody>
                 <tr th:each="product : ${products}">
+                    <td>[[*{product.id}]]</td>
                     <th scope="row"><img th:src="@{'images/'+*{product.model}}" style="width: 100px;height: 100px"></th>
                     <td>[[*{product.name}]]</td>
                     <td>[[*{product.description}]]</td>
-                    <td>[[*{product.price}]]</td>
+                    <td>[[*{product.price}]] DT</td>
                     <td><a th:href="@{/deleteProd/{id}(id= ${product.id})}"
                     class="btn btn-danger">delete</a></td>
                 </tr>

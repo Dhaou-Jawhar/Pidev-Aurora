@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 import pidev.tn.aurora.entities.Shop.Product;
+import pidev.tn.aurora.entities.enumeration.Cat;
 import pidev.tn.aurora.repository.Shop.ProductRepository;
 
 import java.io.File;
@@ -20,7 +21,7 @@ public class ProductWebService {
     private ProductRepository productRepository;
 
 
-    public String AddProduct(MultipartFile file, String name, String description ,Double price) throws IOException {
+    public String AddProduct(MultipartFile file, String name, String description , Double price, Cat cat) throws IOException {
 
         /*Product p = new Product();
         String fileName = StringUtils.cleanPath((file.getOriginalFilename()));
@@ -53,6 +54,7 @@ public class ProductWebService {
         p.setName(name);
         p.setPrice(price);
         p.setModel(file.getOriginalFilename());
+        p.setCat(cat);
         productRepository.save(p);
 
 

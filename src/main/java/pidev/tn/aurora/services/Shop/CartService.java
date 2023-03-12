@@ -37,9 +37,16 @@ public class CartService implements ICartService {
         List<CartItems> cartItemsList = cartItemsRepository.findAll();
         List<Cart> cartList = carteRepository.findAll();
 
+        /*----[All Carts in the List Closed]------*/
+        boolean allInactive = cartList.stream()
+                .allMatch(item -> !item.isActive());
+
+        /*-------[Last Cart in the List Active]--------*/
+        /*(cartList.size() > 0 && cartList.get(cartList.size() - 1).isActive() &&
+                cartList.stream().limit(cartList.size() - 1).allMatch(cart1 -> !cart1.isActive()))*/
 
         /*----[if i don't have any cart Items -> create a new Cart and add it to cart List]----*/
-        if(cartItemsList.isEmpty()){
+        if(cartItemsList.isEmpty() || allInactive){
             Cart c = new Cart();
             c.setCreatedat(new Date());
             c.setActive(true);
@@ -49,8 +56,8 @@ public class CartService implements ICartService {
             carteRepository.save(c);
         }
 
-        /*----[Get the first and the only cart in the list]----*/
-        Cart cart = cartList.get(0);
+        /*----[Get the last cart in the List to add cart items in it]----*/
+        Cart cart = cartList.get(cartList.size()-1);
 
         if(cartItem != null) {
             cartItem.setQuantity(cartItem.getQuantity() + 1);

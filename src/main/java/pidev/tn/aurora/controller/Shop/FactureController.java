@@ -27,8 +27,8 @@ public class FactureController {
         return factureService.generateInvoice(order);
     }
 
-    @PostMapping("OrderCart/{cid}/{payement}")
-    public Facture orderCart(@PathVariable("cid") Integer cartID, @RequestParam("payement") PaymentMethod paymentMethod) throws FileNotFoundException, MalformedURLException {
-        return factureService.orderCart(cartID, paymentMethod);
+    @PostMapping("OrderCart/{cartID}/{payement}/{userID}")
+    public Facture orderCart(@PathVariable("cartID") Integer cartID, @RequestParam("payement") PaymentMethod paymentMethod , @PathVariable("userID")Integer userID) throws FileNotFoundException, MalformedURLException {
+        return factureService.orderCart(cartID, paymentMethod, userID);
     }
 }

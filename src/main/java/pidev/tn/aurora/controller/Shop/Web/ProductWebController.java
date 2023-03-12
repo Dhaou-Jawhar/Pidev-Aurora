@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import pidev.tn.aurora.entities.Shop.Product;
+import pidev.tn.aurora.entities.enumeration.Cat;
 import pidev.tn.aurora.repository.Shop.ProductRepository;
 import pidev.tn.aurora.services.Shop.WebService.ProductWebService;
 
@@ -37,8 +38,9 @@ public class ProductWebController {
     public String AddProduct(@RequestParam("file") MultipartFile file,
                              @RequestParam("pname") String name,
                              @RequestParam("desc") String desc,
-                             @RequestParam("price") Double price) throws IOException {
-        productWebService.AddProduct(file, name, desc, price);
+                             @RequestParam("price") Double price,
+                             @RequestParam("cat")Cat cat) throws IOException {
+        productWebService.AddProduct(file, name, desc, price, cat);
         return "redirect:/listProducts.html";
     }
 

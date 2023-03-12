@@ -24,12 +24,14 @@ import pidev.tn.aurora.entities.Shop.Cart;
 import pidev.tn.aurora.entities.Shop.CartItems;
 import pidev.tn.aurora.entities.Shop.Facture;
 import pidev.tn.aurora.entities.Shop.Order_Produit;
+import pidev.tn.aurora.entities.User.UserApp;
 import pidev.tn.aurora.entities.enumeration.FactureType;
 import pidev.tn.aurora.entities.enumeration.PaymentMethod;
 import pidev.tn.aurora.repository.Shop.CartItemsRepository;
 import pidev.tn.aurora.repository.Shop.CarteRepository;
 import pidev.tn.aurora.repository.Shop.FactureRepository;
 import pidev.tn.aurora.repository.Shop.OrderRepository;
+import pidev.tn.aurora.repository.UserApp.UserAppRepository;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -53,6 +55,9 @@ public class FactureService implements IFactureService {
 
     @Autowired
     private CartItemsRepository cartItemsRepository;
+
+    @Autowired
+    private UserAppRepository userAppRepository;
 
     @Override
     public Facture generateInvoice(Order_Produit order) throws IOException {
@@ -187,9 +192,10 @@ public class FactureService implements IFactureService {
     }
 
     @Override
-    public Facture orderCart(Integer cartID, PaymentMethod paymentMethod) throws FileNotFoundException, MalformedURLException {
+    public Facture orderCart(Integer cartID, PaymentMethod paymentMethod , Integer userID) throws FileNotFoundException, MalformedURLException {
 
         Cart cart = carteRepository.findById(cartID).get();
+        UserApp user = userAppRepository.findById(userID).get();
 
         Order_Produit order = new Order_Produit();
 
@@ -218,11 +224,15 @@ public class FactureService implements IFactureService {
 
         order.setFacture(facture);
         order.setCart(cart);
-
         orderRepository.save(order);
 
+        cart.setActive(false);
+        cart.setOrder_Produit(order);
+        cart.setUserApp(user);
+        carteRepository.save(cart);
+
         /*------------[Creation PDF]---------------*/
-        String path = "D://4SE5 2nd PART//PIDEV//Aurora//Aurora//src//main//resources//templates//assets//facture//facture.pdf";
+        String path = "D://4SE5 2nd PART//PIDEV//Aurora//Aurora//src//main//resources//templates//assets//facture//facture"+user.getUsername()+".pdf";
         PdfWriter pdfWriter = new PdfWriter(path);
         PdfDocument pdfDocument = new PdfDocument(pdfWriter);
         pdfDocument.addNewPage();
@@ -251,7 +261,7 @@ public class FactureService implements IFactureService {
                 .setFontSize(30f)
                 .setBorder(Border.NO_BORDER)
         );
-        table.addCell(new Cell().add("Aurora E-SHOP\n#2083 ESPRIT\nN°24232423")
+        table.addCell(new Cell().add("Aurora E-SHOP\n#2083 ESPRIT\nN° "+facture.getNumber())
                 .setTextAlignment(TextAlignment.RIGHT)
                 .setMarginTop(30f)
                 .setMarginBottom(30f)
@@ -265,7 +275,7 @@ public class FactureService implements IFactureService {
                 .add("Customer Information")
                 .setBold());
         customerInfoTable.addCell(new Cell().add("Name :").setBorder(Border.NO_BORDER));
-        customerInfoTable.addCell(new Cell().add("Dhaou Jawhar").setBorder(Border.NO_BORDER));
+        customerInfoTable.addCell(new Cell().add(user.getLastName() + " " + user.getFirstName()).setBorder(Border.NO_BORDER));
         customerInfoTable.addCell(new Cell().add("Invoice No.").setBorder(Border.NO_BORDER));
         customerInfoTable.addCell(new Cell().add(String.valueOf(facture.getNumber())).setBorder(Border.NO_BORDER));
         customerInfoTable.addCell(new Cell().add("Total Price").setBorder(Border.NO_BORDER));
@@ -322,6 +332,8 @@ public class FactureService implements IFactureService {
         document.add(new Paragraph("\n"));
         document.add(itemInfoTable);
         document.close();
+
+        cartItemsRepository.deleteAll();
 
         return facture;
     }

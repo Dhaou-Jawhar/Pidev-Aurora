@@ -13,5 +13,5 @@ public interface IFactureService extends Serializable {
 
     Facture generateInvoice(Order_Produit order) throws IOException;
 
-    Facture orderCart(Integer cartID , PaymentMethod paymentMethod) throws FileNotFoundException, MalformedURLException;
+    Facture orderCart(Integer cartID , PaymentMethod paymentMethod, Integer userID) throws FileNotFoundException, MalformedURLException;
 }
