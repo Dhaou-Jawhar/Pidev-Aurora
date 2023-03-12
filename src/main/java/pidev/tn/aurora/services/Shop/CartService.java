@@ -24,95 +24,49 @@ public class CartService implements ICartService {
     @Autowired
     private CartItemsRepository cartItemsRepository;
 
-   @Override
-    public void addItemToCart(Integer prod_id) {
-
-        Product p = productRepository.findById(prod_id).get();
-        Cart cart = carteRepository.findByProductId(prod_id);
-        CartItems cartItem = cartItemsRepository.findByProductId(prod_id);
-        if (cart == null){
-            Cart c = new Cart();
-            CartItems cItems = new CartItems();
-            cItems.setQuantity(1);
-            cItems.setCreatedAt(new Date());
-            cItems.setProduct(p);
-            cItems.setCart(c);
-            c.getCartItemses().add(cItems);
-            c.setQuantity(cItems.getQuantity());
-            c.setCreatedat(new Date());
-            c.setTotalprice(cItems.getProduct().getPrice());
-            carteRepository.save(c);
-            cartItemsRepository.save(cItems);
-        }
-        else if (cart != null){
-            if(cartItem.getProduct().equals(p)){
-                cartItem.setQuantity(cartItem.getQuantity()+1);
-                cartItemsRepository.save(cartItem);
-                cart.setQuantity(cartItem.getQuantity());
-                cart.setTotalprice(cartItem.getProduct().getPrice()+cartItem.getProduct().getPrice());
-                carteRepository.save(cart);
-                System.out.println("quantity = " +cartItem.getQuantity());
-            }
-            else if(cartItem.getProduct().equals(null)){
-                CartItems cItems1 = new CartItems();
-                cItems1.setQuantity(1);
-                cItems1.setCreatedAt(new Date());
-                cItems1.setProduct(p);
-                cItems1.setCart(cart);
-                cItems1.setCart(cart);
-                cart.getCartItemses().add(cItems1);;
-                carteRepository.save(cart);
-                cart.setTotalprice(cItems1.getProduct().getPrice() + cart.getTotalprice());
-                cartItemsRepository.save(cItems1);
-            }
-        }
-    }
 
     @Override
     public void addToCart(Integer Pid) {
-        Product p = productRepository.findById(Pid).orElseThrow(() -> new RuntimeException("Product not found"));
 
-        // Check if any cart contains this product
-        List<Cart> cartList = carteRepository.findListByProductId(Pid);
+        Product p = productRepository.findById(Pid)
+                .orElseThrow(() -> new IllegalArgumentException("Product not found"));
+        // Check if the product is already in the cart
+        CartItems cartItem = cartItemsRepository.findByProductId(Pid);
 
-        if (cartList.isEmpty()){
+
+        List<CartItems> cartItemsList = cartItemsRepository.findAll();
+        List<Cart> cartList = carteRepository.findAll();
+
+
+        /*----[if i don't have any cart Items -> create a new Cart and add it to cart List]----*/
+        if(cartItemsList.isEmpty()){
             Cart c = new Cart();
-            CartItems cItems = new CartItems();
-            cItems.setQuantity(1);
-            cItems.setCreatedAt(new Date());
-            cItems.setProduct(p);
-            cItems.setCart(c);
-            c.getCartItemses().add(cItems);
-            c.setQuantity(cItems.getQuantity());
             c.setCreatedat(new Date());
-            c.setTotalprice(cItems.getProduct().getPrice());
+            c.setActive(true);
+            c.setQuantity(0);
+            c.setTotalprice(0.0);
+            cartList.add(c);
             carteRepository.save(c);
-            cartItemsRepository.save(cItems);
         }
-        else {
-            CartItems cartItems = null;
-                for (Cart c : cartList){
-                    CartItems ci = cartItemsRepository.findByCartIDandProductID(c.getId(),Pid);
-                    if(ci != null){
-                        ci.setQuantity(cartItems.getQuantity()+1);
-                        cartItemsRepository.save(ci);
-                        break;
-                    }
-                }
 
-                if (cartItems == null){
-                    Cart c1 = carteRepository.findByProductId(Pid);
-                    CartItems cItems1 = new CartItems();
-                    cItems1.setQuantity(1);
-                    cItems1.setCreatedAt(new Date());
-                    cItems1.setProduct(p);
-                    cItems1.setCart(c1);
-                    cItems1.setCart(c1);
-                    c1.getCartItemses().add(cItems1);;
-                    carteRepository.save(c1);
-                    c1.setTotalprice(cItems1.getProduct().getPrice() + c1.getTotalprice());
-                    cartItemsRepository.save(cItems1);
-                }
+        /*----[Get the first and the only cart in the list]----*/
+        Cart cart = cartList.get(0);
+
+        if(cartItem != null) {
+            cartItem.setQuantity(cartItem.getQuantity() + 1);
+            cart.setTotalprice((cart.getTotalprice() + cartItem.getProduct().getPrice()));
+            cartItemsRepository.save(cartItem);
+        } else {
+            // Create a new cart item and add it to the cart
+            cartItem = new CartItems();
+            cartItem.setProduct(p);
+            cartItem.setQuantity(1);
+            cartItem.setCreatedAt(new Date());
+            cartItem.setCart(cart);
+            cart.setTotalprice(cart.getTotalprice() + cartItem.getProduct().getPrice());
+
+            cartItemsList.add(cartItem);
+            cartItemsRepository.save(cartItem);
         }
     }
 }

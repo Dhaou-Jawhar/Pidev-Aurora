@@ -16,14 +16,9 @@ public class CarteController {
     @Autowired
     private CartService cartService;
 
-    @PostMapping("addPtoCart/{id}")
-    public void addItemToCart(@PathVariable("id") Integer prod_id) {
-        cartService.addItemToCart(prod_id);
-    }
-
-
     @PostMapping("addProducttoCart/{id}")
     public void addToCart(@PathVariable("id") Integer Pid) {
         cartService.addToCart(Pid);
     }
+
 }

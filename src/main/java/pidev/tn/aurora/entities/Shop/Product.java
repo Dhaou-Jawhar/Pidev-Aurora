@@ -24,7 +24,6 @@ public class Product {
     @Column(name = "price")
     private Double price;
 
-    @JsonIgnore
     @Column(name = "model")
     private String model;
 
@@ -45,11 +44,10 @@ public class Product {
     @JoinColumn(name = "wish_list_id")
     private WishList wishList;
 
-
     /*----------[Product -> Cart Items]-----------*/
-    @JsonIgnore
     @OneToMany(mappedBy = "product")
     private List<CartItems> cartItemses = new ArrayList<>();
+
 
     public static String[] fields() {
         return new String[]{"id", "description", "model", "name", "price"};

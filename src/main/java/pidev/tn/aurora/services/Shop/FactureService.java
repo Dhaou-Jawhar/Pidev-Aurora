@@ -72,7 +72,7 @@ public class FactureService implements IFactureService {
         orderRepository.save(order);
 
         /*------------[Creation PDF]---------------*/
-        String path = "D://4SE5 2nd PART//PIDEV//Aurora//Aurora//src//main//resources//templates//assets//facture.pdf";
+        String path = "D://4SE5 2nd PART//PIDEV//Aurora//Aurora//src//main//resources//templates//assets//facture//facture.pdf";
         PdfWriter pdfWriter = new PdfWriter(path);
         PdfDocument pdfDocument = new PdfDocument(pdfWriter);
         pdfDocument.addNewPage();

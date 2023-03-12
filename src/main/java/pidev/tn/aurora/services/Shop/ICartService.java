@@ -7,7 +7,8 @@ import java.io.Serializable;
 
 public interface ICartService extends Serializable {
 
-       void addItemToCart(Integer productId);
+
         void addToCart(Integer Pid);
+
 
 }

@@ -16,7 +16,7 @@ public class OpenAPIConfig {
             return new Info().title("Aurora 🏕").description("Taking it step by step, bit by bit") .contact(contactAPI());}
 
         public Contact contactAPI() {
-            Contact contact = new Contact().name("Jawhar Contact") .email("jawher.dhaou@esprit.tn").url("https://dhaou-jawhar.github.io");
+            Contact contact = new Contact().name("Jawhar Contact") .email("jawher.dhaou@esprit.tn").url("http://localhost:8083/aurora/index.html");
             return contact;
         }
 

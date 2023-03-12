@@ -4,7 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -26,7 +28,6 @@ public class CartItems {
     private Date createdAt;
 
     /*----------[Cart Items -> Product]-----------*/
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
@@ -36,5 +37,7 @@ public class CartItems {
     @ManyToOne
     @JoinColumn(name = "cart_id")
     private Cart cart;
+
+
 
 }

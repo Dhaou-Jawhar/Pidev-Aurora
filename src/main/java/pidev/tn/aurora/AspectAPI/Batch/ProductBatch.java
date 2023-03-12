@@ -48,8 +48,7 @@ public class ProductBatch {
     @Bean
     public FlatFileItemReader<Product> readFromCsv() {
         FlatFileItemReader<Product> reader = new FlatFileItemReader<Product>();
-        reader.setResource(new FileSystemResource("D://4SE5 2nd PART//PIDEV//Aurora//Aurora//src//main//resources//templates//assets//price.csv"));
-        //reader.setResource(new ClassPathResource("csv_input.csv"));
+        reader.setResource(new FileSystemResource("D://4SE5 2nd PART//PIDEV//Aurora//Aurora//src//main//resources//templates//assets//Product//price.csv"));
         reader.setLineMapper(new DefaultLineMapper<Product>() {
             {
                 setLineTokenizer(new DelimitedLineTokenizer() {
@@ -107,7 +106,7 @@ public class ProductBatch {
     @Bean
     public FlatFileItemWriter<Product> writer(){
         FlatFileItemWriter<Product> writer = new FlatFileItemWriter<Product>();
-        writer.setResource(new FileSystemResource("D://4SE5 2nd PART//PIDEV//Aurora//Aurora//src//main//resources//templates//assets//product.csv"));
+        writer.setResource(new FileSystemResource("D://4SE5 2nd PART//PIDEV//Aurora//Aurora//src//main//resources//templates//assets//Product//product.csv"));
         DelimitedLineAggregator<Product> aggregator = new DelimitedLineAggregator<>();
         BeanWrapperFieldExtractor<Product> fieldExtractor = new BeanWrapperFieldExtractor<>();
         fieldExtractor.setNames(new String[] {"id","description","model","name","price"});
