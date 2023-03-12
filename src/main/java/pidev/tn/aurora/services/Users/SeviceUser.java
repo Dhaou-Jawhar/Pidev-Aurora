@@ -15,7 +15,6 @@ import pidev.tn.aurora.entities.User.Role;
 import pidev.tn.aurora.entities.User.UserApp;
 import pidev.tn.aurora.entities.enumeration.TypeRole;
 import pidev.tn.aurora.repository.UserApp.RoleRepository;
-import pidev.tn.aurora.repository.UserApp.UserAppRepository;
 
 import java.util.*;
 
@@ -64,8 +63,8 @@ public class SeviceUser implements IServiceUsers, UserDetailsService {
     }
 
     @Override
-    public UserApp GetUser(Integer id) {
-        return usersRepository.findById(id).orElse(null);
+    public UserApp GetUserByUsername(String username) {
+        return usersRepository.findByUsername(username);
 
     }
 
@@ -91,6 +90,11 @@ public class SeviceUser implements IServiceUsers, UserDetailsService {
 
         usersRepository.save(userApp);
 
+    }
+
+    @Override
+    public UserApp GetUser(Integer id) {
+        return usersRepository.findById(id).get();
     }
 
     @Override

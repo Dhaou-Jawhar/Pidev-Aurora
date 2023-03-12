@@ -9,6 +9,7 @@ import pidev.tn.aurora.entities.enumeration.TypeRole;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -31,6 +32,7 @@ public class Role {
 
     @OneToMany(mappedBy = "role", cascade = CascadeType.PERSIST)
     private List<UserApp> users = new ArrayList<>();
+
 
 
 }

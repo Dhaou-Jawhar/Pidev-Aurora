@@ -19,7 +19,7 @@ public interface IServiceUsers extends Serializable {
 
     public List<UserApp> GetAllUser();
 
-    public UserApp GetUser(Integer id);
+    public UserApp GetUserByUsername(String username);
 
     public void remove(Integer id);
 
@@ -27,4 +27,6 @@ public interface IServiceUsers extends Serializable {
     public Role addRole(TypeRole typeRole);
 
     public void affectRoleToUser(UserApp user, Integer idRole);
+    public UserApp GetUser(Integer id);
+
 }
