@@ -9,7 +9,8 @@ public interface IAdvancedService {
     //List<List<Users>> matchUsersByCampCenter();
     List<Map<String, Object>> matchUsersByCampCenter();
 
-    public List<CampCenter> filterCampCenters(String sortBy);
+    List<CampCenter> filterCampCenters(String sortBy);
+    List<CampCenter> suggestCampCentersBasedOnFavorites(Integer userId);
 }
 
 

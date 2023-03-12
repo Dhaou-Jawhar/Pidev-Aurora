@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import pidev.tn.aurora.entities.CampCenter.CampCenter;
 import pidev.tn.aurora.entities.CampCenter.Reservation;
 import pidev.tn.aurora.entities.User.UserApp;
+import pidev.tn.aurora.entities.enumeration.ActivityType;
 import pidev.tn.aurora.repository.CampCenter.CampCenterRepository;
+import pidev.tn.aurora.repository.UserApp.UserAppRepository;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -21,6 +23,9 @@ public class AdvancedService implements IAdvancedService{
     private IReservationService reservationService;
     @Autowired
     private CampCenterRepository campCenterRepository;
+    @Autowired
+    private UserAppRepository userRepository;
+
     @Override
 
     public List<Map<String, Object>> matchUsersByCampCenter() {
@@ -72,7 +77,7 @@ public class AdvancedService implements IAdvancedService{
                         .collect(Collectors.toList());
                 break;
             case "rate":
-                // Sort by average rating, for example, by calculating the average rating of all reviews
+                // Sort by average rating, by calculating the average rating of all reviews
                 filteredCampCenters = allCampCenters.stream()
                         .sorted(Comparator.comparingDouble(campCenter -> {
                             DoubleSummaryStatistics stats = campCenter.getReviews().stream()
@@ -99,8 +104,18 @@ public class AdvancedService implements IAdvancedService{
                 filteredCampCenters = allCampCenters;
                 break;
         }
-
         return filteredCampCenters;
+    }
+    @Override
+    public List<CampCenter> suggestCampCentersBasedOnFavorites(Integer userId) {
+        List<CampCenter> favorites = campCenterRepository.findFavoriteCampCentersByUserId(userId);
+
+        if (favorites.isEmpty()) {
+            return campCenterRepository.findTop5ByOrderByPriceAsc();
+        } else {
+            ActivityType activityType = favorites.get(0).getCampcenterType();
+            return campCenterRepository.findTop5ByCampcenterTypeOrderByPriceAsc(activityType);
+        }
     }
 
 }

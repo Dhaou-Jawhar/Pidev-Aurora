@@ -8,8 +8,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import pidev.tn.aurora.entities.CampCenter.CampCenter;
 import pidev.tn.aurora.entities.Shop.Order_Produit;
 import pidev.tn.aurora.repository.Shop.OrderRepository;
+import pidev.tn.aurora.repository.UserApp.UserAppRepository;
 import pidev.tn.aurora.repository.Users.UsersRepository;
 import pidev.tn.aurora.entities.User.Role;
 import pidev.tn.aurora.entities.User.UserApp;
@@ -32,6 +34,9 @@ public class SeviceUser implements IServiceUsers, UserDetailsService {
 
     @Autowired
     private OrderRepository orderRepository;
+
+    @Autowired
+    public UserAppRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -138,4 +143,5 @@ public class SeviceUser implements IServiceUsers, UserDetailsService {
         }
         return usersRepository.save(bestBuyer);
     }
+
 }

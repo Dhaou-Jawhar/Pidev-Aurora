@@ -19,9 +19,11 @@ public class FavoritesList {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "favoritesList")
     private List<CampCenter> campCenters;
 
+    /*------[FavoritesList - User]---------*/
     @JsonIgnore
     @OneToOne(mappedBy = "favoritesList")
     private UserApp users;
