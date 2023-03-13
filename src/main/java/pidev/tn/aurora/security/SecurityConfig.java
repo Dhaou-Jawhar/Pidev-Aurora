@@ -22,6 +22,13 @@ import static org.springframework.http.HttpMethod.POST;
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    private static final String[] PUBLIC_URL={
+            "/v3/api-docs/**",
+            "/swagger-ui/**",
+            "/swagger-resources/**",
+            "/webjars/**"
+    };
     private final UserDetailsService userDetailsService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     @Override
@@ -34,7 +41,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         CustomAuthentificationFilter customAuthentificationFilter = new CustomAuthentificationFilter((authenticationManagerBean()));
         customAuthentificationFilter.setFilterProcessesUrl("/api/login");
         http.csrf().disable();
-        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+                        .authorizeRequests().antMatchers(PUBLIC_URL).permitAll();
         http.authorizeRequests().antMatchers("/api/login/**","/api/token/refresh/**").permitAll();
         http.authorizeRequests().antMatchers(GET,"/api/user/**").hasAnyAuthority("Customer");
         http.authorizeRequests().antMatchers(POST,"/api/addUser/{idRole}/**").hasAnyAuthority("Customer","CampManager","ShopManager");
