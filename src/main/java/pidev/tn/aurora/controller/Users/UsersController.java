@@ -11,11 +11,21 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import pidev.tn.aurora.entities.User.Role;
 import pidev.tn.aurora.entities.User.UserApp;
 import pidev.tn.aurora.entities.enumeration.TypeRole;
+import pidev.tn.aurora.filter.CustomAuthentificationFilter;
 import pidev.tn.aurora.services.Users.IServiceUsers;
+
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -31,6 +41,9 @@ public class UsersController {
 
     @Autowired
     public IServiceUsers iServiceUsers;
+
+    @Autowired
+    private AuthenticationManager authenticationManager;
 
     @Autowired
     UsersController(IServiceUsers iServiceUsers) {
@@ -124,5 +137,33 @@ public class UsersController {
         }else {
             throw new RuntimeException("Refresh token is missing");
         }
+    }
+    @PostMapping("/login")
+    public ResponseEntity<String> authenticateUser(@RequestParam(value = "username") String username, @RequestParam(value = "password") String password, HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) {
+
+        // Créer un objet UsernamePasswordAuthenticationToken
+        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username, password);
+
+        // Vérifier l'authentification
+        Authentication authentication = authenticationManager.authenticate(authToken);
+
+        // Créer un CustomAuthentificationFilter pour générer le token JWT
+        CustomAuthentificationFilter authFilter = new CustomAuthentificationFilter(authenticationManager);
+        try {
+            authFilter.successfulAuthentication(request, response, filterChain, authentication);
+        } catch (IOException | ServletException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>("Failed to authenticate user", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+        // Récupérer le token JWT généré par CustomAuthentificationFilter
+        String token = response.getHeader("access_token");
+
+        // Ajouter le token dans l'en-tête Authorization
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", "Bearer " + token);
+
+        // Retourner la réponse avec le token dans l'en-tête
+        return new ResponseEntity<>("User authenticated successfully", headers, HttpStatus.OK);
     }
 }
