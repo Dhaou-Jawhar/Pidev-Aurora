@@ -64,6 +64,7 @@ public class FactureService implements IFactureService {
 
         Cart cart = carteRepository.findById(cartID).get();
         UserApp user = userAppRepository.findById(userID).get();
+        List<CartItems> cartItems = cartItemsRepository.findAll();
 
         Order_Produit order = new Order_Produit();
 
@@ -88,6 +89,7 @@ public class FactureService implements IFactureService {
         }
 
         facture.setDate(new Date());
+        facture.setState(true);
 
         factureRepository.save(facture);
 
@@ -113,7 +115,6 @@ public class FactureService implements IFactureService {
         pdfDocument.setDefaultPageSize(PageSize.A4);
 
 
-
         /*---[Water Mark]----*/
         String waterMark = "src/main/resources/templates/assets/logo.png";
         ImageData imageData = ImageDataFactory.create(waterMark);
@@ -128,6 +129,12 @@ public class FactureService implements IFactureService {
         banImg.setFixedPosition(pdfDocument.getDefaultPageSize().getWidth()/2-250, pdfDocument.getDefaultPageSize().getHeight()/2-160);
         banImg.setOpacity(0.6f);
 
+        /*----[Signature]----*/
+        String Sign = "src/main/resources/templates/assets/signature.png";
+        ImageData signdata = ImageDataFactory.create(Sign);
+        Image signimg = new Image(signdata);
+        signimg.setFixedPosition(pdfDocument.getDefaultPageSize().getWidth()/2-150, pdfDocument.getDefaultPageSize().getHeight()/2-160);
+        signimg.setOpacity(0.6f);
 
 
         float col = 280f;
@@ -178,8 +185,6 @@ public class FactureService implements IFactureService {
         itemInfoTable.addCell(new Cell().add("Type").setBackgroundColor(new DeviceRgb(63, 169, 219))
                 .setFontColor(Color.WHITE));
 
-        List<CartItems> cartItems = cartItemsRepository.findAll();
-
 
         /*--[Parcourir la list de Products dans la cart]--*/
 
@@ -221,11 +226,27 @@ public class FactureService implements IFactureService {
         document.add(itemInfoTable);
         if (cartItems.isEmpty()){
             document.add(banImg);
+            facture.setState(false);
         }
+        document.add(signimg);
         document.close();
 
         cartItemsRepository.deleteAll();
 
         return facture;
+    }
+    @Scheduled(cron = "*/20 * * * * *")
+    public String deleteFile(){
+        List<Facture> factureList = factureRepository.findAllByState(false);
+
+        for(Facture f : factureList) {
+            String fileName = "facture"+f.getOrder_produit().getUserApp().getFirstName()+f.getId()+".pdf";
+            String directoryPath = "src/main/resources/templates/assets/facture";
+            File fileToDelete = new File(directoryPath + File.separator + fileName);
+            fileToDelete.delete();
+            log.info("-------[ All Facture With BAN STAMP ]-------");
+            log.info("Facture : "+"facture"+f.getOrder_produit().getUserApp().getFirstName()+f.getId()+".pdf"+" Successfully deleted");
+        }
+        return "False Factures Are Deleted";
     }
 }
