@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import pidev.tn.aurora.entities.User.UserApp;
 
 import javax.persistence.*;
 
@@ -26,5 +27,8 @@ public class Comment {
     @ManyToOne
     @JoinColumn(name = "publication_id")
     private Publication publication;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private UserApp user;
 
 }

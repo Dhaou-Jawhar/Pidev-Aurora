@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pidev.tn.aurora.entities.Forum.Reaction;
 import pidev.tn.aurora.services.Forum.IReactService;
+import pidev.tn.aurora.services.Users.IServiceUsers;
 
 import java.util.List;
 @RestController
@@ -17,7 +18,10 @@ import java.util.List;
 public class ReactController {
     @Autowired
     private IReactService iReactService;
-    @PostMapping("/addAndAsignReaction")
+
+    @Autowired
+    private IServiceUsers iServiceUsers;
+    @PutMapping("/addAndAsignReaction/{idU}/{idP}")
     @ResponseBody
     @Operation(description = "Add Reaction", summary = "Add ✏")
     @ApiResponses(value = {
@@ -31,8 +35,8 @@ public class ReactController {
                     description = "Code Correct ✅ But there is a Cascad Problem ⚠",
                     content = @Content)
     })
-    public Reaction addAndAsignReact(Reaction r, Integer idPub) {
-        return iReactService.addAndAsignReact(r, idPub);
+    public Reaction addAndAsignReact(Reaction r, Integer idPub, Integer idU) {
+        return iReactService.addAndAsignReact(r, idPub,idU);
     }
 
 

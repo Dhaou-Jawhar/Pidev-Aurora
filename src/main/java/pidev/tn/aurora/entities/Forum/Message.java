@@ -15,6 +15,11 @@ import javax.persistence.*;
 @Entity
 @Table(name = "message")
 public class Message {
+
+    public Message(String contenu, UserApp sender){
+        this.contenu = contenu;
+        this.sender = sender;
+    }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
