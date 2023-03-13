@@ -70,24 +70,6 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public List<Product> suggestProductsByCategory(Integer prod_id) {
-
-        Product product = productRepository.findById(prod_id).get();
-
-        // Récupérer tous les produits de la même catégorie que le produit ajouté
-        List<Product> suggestedProducts = productRepository.findAllByCat(product.getCat());
-
-        // Supprimer le produit ajouté de la liste de suggestions
-        suggestedProducts.remove(product);
-
-        //Limiter le nombre de produits suggérés à 5
-        suggestedProducts = suggestedProducts.stream().limit(5).collect(Collectors.toList());
-
-        // Renvoyer la liste de produits suggérés
-        return suggestedProducts;
-    }
-
-    @Override
     public String AddProduct(MultipartFile file, Cat cat, Product p) {
 
         String fileName = StringUtils.cleanPath((file.getOriginalFilename()));

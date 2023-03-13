@@ -17,8 +17,6 @@ public interface IProductService extends Serializable {
 
     Product AddWishListandAddProductToIt(Integer prod_id, Integer user_id);
 
-    List<Product> suggestProductsByCategory(Integer prod_id);
-
     String AddProduct(MultipartFile file, Cat cat , Product p);
 
 }

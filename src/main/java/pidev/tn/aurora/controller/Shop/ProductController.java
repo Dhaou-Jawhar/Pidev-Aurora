@@ -84,13 +84,7 @@ public class ProductController {
         return iProductService.DisplayProductByID(prod_id);
     }
 
-    @GetMapping("suggestBy/{id}")
-    @ResponseBody
-    public List<Product> suggestProductsByCategory(@PathVariable("id") Integer prod_id) {
-        return iProductService.suggestProductsByCategory(prod_id);
-    }
-
-    @RequestMapping(value = "/uploadPRODUCT/",
+    @RequestMapping(value = "/uploadPRODUCT",
             method = RequestMethod.POST,
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 
