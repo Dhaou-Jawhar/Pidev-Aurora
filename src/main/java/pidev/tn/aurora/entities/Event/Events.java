@@ -41,7 +41,7 @@ public class Events {
     private String nameEv;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "events")
+    @OneToMany(mappedBy = "events",fetch = FetchType.EAGER)
     private List<Activity> activities = new ArrayList<>();
 
     /*------[Event - CampCenter]---------*/

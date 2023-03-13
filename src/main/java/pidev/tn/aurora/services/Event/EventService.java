@@ -4,7 +4,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pidev.tn.aurora.entities.Event.Events;
+import pidev.tn.aurora.entities.User.UserApp;
+import pidev.tn.aurora.entities.enumeration.TypeRole;
 import pidev.tn.aurora.repository.Event.EventsRepository;
+import pidev.tn.aurora.repository.UserApp.UserAppRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,10 +15,17 @@ import java.util.List;
 @Slf4j
 public class EventService implements IEventService{
     @Autowired
+    private UserAppRepository userAppRepository;
+    @Autowired
     private EventsRepository eventsRepository;
     @Override
-    public Events addEv(Events ev) {
-        return eventsRepository.save(ev);
+    public String addEv(Events ev,Integer idUser) {
+        UserApp user=userAppRepository.findById(idUser).get();
+        if(user.getRole().getTypeRole().equals(TypeRole.CampManager)){
+        eventsRepository.save(ev);
+            return "add with Success"+user.getFirstName();}
+
+        return "not your role "+user.getFirstName();
     }
 
     @Override
@@ -39,7 +49,4 @@ public class EventService implements IEventService{
     public void removeEv(Integer idev) {
         eventsRepository.deleteById(idev);
     }
-    /***********************methode suggerer********************/
-
-
 }

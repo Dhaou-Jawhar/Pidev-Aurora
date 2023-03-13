@@ -9,10 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pidev.tn.aurora.entities.Event.Activity;
 import pidev.tn.aurora.entities.enumeration.ActivityType;
-import pidev.tn.aurora.services.CampCenter.ICampCenterService;
 import pidev.tn.aurora.services.Event.IActivityService;
-import pidev.tn.aurora.services.Event.IEventService;
-
 import java.util.List;
 
 @RestController
@@ -21,31 +18,11 @@ import java.util.List;
 public class ActivityController {
     @Autowired
     private IActivityService iActivityService;
-    @Autowired
-    private ICampCenterService iCampCenterService;
-    @Autowired
-    private IEventService iEventService;
 
     @Autowired
     ActivityController(IActivityService iActivityService){this.iActivityService=iActivityService;}
-    @PostMapping("/add")
-    @ResponseBody
-    @Operation(description = "Add Event", summary = "Add 🎰")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200",
-                    description = "Event Added ✅",
-                    content = {@Content(mediaType = "application/json")}),
-            @ApiResponse(responseCode = "404",
-                    description = "Error must be fixed ❌",
-                    content = @Content),
-            @ApiResponse(responseCode = "500",
-                    description = "Code Correct ✅ But there is a Cascad Problem ⚠",
-                    content = @Content)
-    })
-    public Activity addAc(@RequestBody Activity activity) {
-        return iActivityService.addAc(activity);
-    }
-    @PutMapping("update")
+
+    @PutMapping("update/{idUser}")
     @Operation(description = "update activity",summary = "update ✨")
     @ResponseBody
     @ApiResponses(value = {
@@ -59,8 +36,8 @@ public class ActivityController {
                     description = "Code Correct ✅ But there is a Cascad Problem ⚠",
                     content = @Content)
     })
-    public Activity updateAc(@RequestBody Activity activity) {
-        return iActivityService.updateAc(activity);
+    public String updateAc(@RequestBody Activity activity, @PathVariable("idUser") Integer userId) {
+        return iActivityService.updateAc(activity,userId);
     }
     @GetMapping("getone/{id}")
     @Operation(description = "afficher un seul  par ID",summary = "retrieve one ➕")
@@ -96,7 +73,7 @@ public class ActivityController {
     public List<Activity> retrieveAllAc() {
         return iActivityService.retrieveAllAc();
     }
-@DeleteMapping("delete/{id}")
+@DeleteMapping("delete/{id}/{idUser}")
 @Operation(description = "delete Activity",summary = "delete ✖")
 @ResponseBody
 @ApiResponses(value = {
@@ -110,14 +87,8 @@ public class ActivityController {
                 description = "Code Correct ✅ But there is a Cascad Problem ⚠",
                 content = @Content)
 })
-    public void removeAc(@PathVariable("id") Integer id) {
-        iActivityService.removeAc(id);
-    }
-
-    /*----------------------------ASSIGNMENT ACT-TO-EVENT-------------------------*/
-    @PutMapping("assignAcToEv/{idac}/{idev}")
-    public Activity assignActivityToEvent(@PathVariable("idac") Integer idac,@PathVariable("idev") Integer idEv) {
-        return iActivityService.assignActivityToEvent(idac,idEv);
+    public void removeAc(@PathVariable("id") Integer id, @PathVariable("idUser") Integer userId) {
+        iActivityService.removeAc(id,userId);
     }
     /*-----------------------------------CRUD WISHLISTEV---------------------------------*/
     @PutMapping("assignAcToWishListEv/{idac}/{idwishlistev}")
@@ -129,20 +100,21 @@ public class ActivityController {
     public List<Activity> suggestActivityToAdd(@PathVariable("idcampcenter") Integer centreid) {
         return iActivityService.suggestActivityToAdd(centreid);
     }
-@GetMapping("filter/{minP}/{maxP}/{minC}/{maxC}/{type}")
-    public List<Activity> filterActivity(@PathVariable("minP") double minPrice, @PathVariable("maxP") double maxPrice, @PathVariable("minC") int minCapacity, @PathVariable("maxC") int maxCapacity,@PathVariable("type") ActivityType activityType) {
-        return iActivityService.filterActivity(minPrice, maxPrice, minCapacity, maxCapacity,activityType);
+@GetMapping("filter/{minP}/{maxP}/{maxC}/{type}")
+    public List<Activity> filterActivity(@PathVariable("minP") double minPrice, @PathVariable("maxP") double maxPrice, @PathVariable("maxC") int maxCapacity,@PathVariable("type") ActivityType activityType) {
+        return iActivityService.filterActivity(minPrice, maxPrice, maxCapacity,activityType);
     }
-/*@PostMapping("numpbre-of-capacity")
-    public int joinActivity(@RequestBody Activity activity) {
-        return iActivityService.joinActivity(activity);
-    }*/
-@PostMapping("join/{idact}")
-    public int joinActivity(@PathVariable("idact") Integer activityId) {
-        return iActivityService.joinActivity(activityId);
+@PostMapping("join/{idact}/{iduser}")
+    public int joinActivity(@PathVariable("idact") Integer activityId, @PathVariable("iduser") Integer userId) {
+        return iActivityService.joinActivity(activityId,userId);
     }
-    @PostMapping("disjoin/{idact}")
-    public int disjoinActivity(@PathVariable("idact")Integer activityId) {
-        return iActivityService.disjoinActivity(activityId);
+
+    @PostMapping("disjoin/{idact}/{iduser}")
+    public int disjoinActivity(@PathVariable("idact")Integer activityId,@PathVariable("iduser")Integer userId) {
+        return iActivityService.disjoinActivity(activityId, userId);
+    }
+@PostMapping("assacttoevadd/{idev}/{idUser}")
+    public String addAndAffectActToEvent(@RequestBody Activity act, @PathVariable("idev") Integer eventid,@PathVariable("idUser")Integer userId) {
+        return iActivityService.addAndAffectActToEvent(act, eventid,userId);
     }
 }
