@@ -17,6 +17,7 @@ import javax.persistence.*;
 @Table(name = "comment")
 public class Comment {
     @Id
+    @JsonIgnore
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idComment", nullable = false)
     private Integer idComment;
@@ -28,6 +29,7 @@ public class Comment {
     @JoinColumn(name = "publication_id")
     private Publication publication;
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "user_id")
     private UserApp user;
 

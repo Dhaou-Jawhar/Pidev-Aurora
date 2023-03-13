@@ -23,7 +23,7 @@ public class CommentController {
     @Autowired
     private ICommentService iCommentService;
     private ForbiddenWordsDetector forbiddenWordsDetector;
-    @PutMapping("/addAndAsign-Comment/{idPub}")
+    @PutMapping("/addAndAsign-Comment/{idPub}/{idU}")
     @ResponseBody
     @Operation(description = "Add Comment", summary = "Add ✏")
     @ApiResponses(value = {
@@ -40,14 +40,14 @@ public class CommentController {
                     description = "Yezi mel klem el zeyed 😡",
                     content = @Content)
     })
-    public ResponseEntity<Comment> addandAsignCom(@RequestBody Comment comment, @PathVariable("idPub") Integer idPub) {
+    public ResponseEntity<Comment> addandAsignCom(@RequestBody Comment comment, @PathVariable("idPub") Integer idPub, @PathVariable("idU") Integer idU) {
         HttpHeaders responseHeaders = new HttpHeaders();
         if (test(comment.getComment())) {
             return new ResponseEntity<>(null,responseHeaders,403) ;
         }
 
 
-        return new ResponseEntity<>(iCommentService.addandAsignCom(comment, idPub),responseHeaders,200) ;
+        return new ResponseEntity<>(iCommentService.addandAsignCom(comment, idPub,idU),responseHeaders,200) ;
     }
     @GetMapping("/tst")
     public boolean test(String c){

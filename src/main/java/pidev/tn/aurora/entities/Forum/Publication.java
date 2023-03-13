@@ -16,7 +16,6 @@ import java.util.List;
 @Table(name = "publication")
 public class Publication {
     @Id
-    @JsonIgnore
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
@@ -35,7 +34,6 @@ public class Publication {
 
     /*------[User - Publication]---------*/
     @ManyToOne
-    @JsonIgnore
     @JoinColumn(name = "users_id")
     private UserApp userApp;
 
