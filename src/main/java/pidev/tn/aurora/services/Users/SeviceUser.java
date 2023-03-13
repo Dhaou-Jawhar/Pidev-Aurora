@@ -91,30 +91,8 @@ public class SeviceUser implements IServiceUsers, UserDetailsService {
         usersRepository.save(userApp);
 
     }
-
-   @Override
-    public UserApp BestBuyer() {
-        List<UserApp> userAppList = usersRepository.findAll();
-        UserApp bestBuyer = null;
-        double maxOrders = 0;
-        for(UserApp u : userAppList){
-            if ( u.getOrder_Produits().isEmpty()) {
-                log.info("error");
-            }
-            int orderCount = orderRepository.countByUserApp(u);
-            if(orderCount > maxOrders){
-                maxOrders = orderCount;
-                bestBuyer = u;
-                bestBuyer.setDiscount(10);
-            }
-
-            log.info("Best Buyer is : "+bestBuyer.getFirstName());
-        }
-        return usersRepository.save(bestBuyer);
-    }
-
     @Override
-    public UserApp BestBuyerTotalPrice() {
+    public String BestBuyerTotalPrice() {
         UserApp bestBuyer = null;
         double MaxPrice = 0;
         List<UserApp> userAppLists = usersRepository.findAll();
@@ -135,7 +113,8 @@ public class SeviceUser implements IServiceUsers, UserDetailsService {
         }
         if ( bestBuyer != null){
             bestBuyer.setDiscount(10);
+            usersRepository.save(bestBuyer);
         }
-        return usersRepository.save(bestBuyer);
+        return "Congrats : "+bestBuyer.getFirstName()+" You Got 10% Discount for this week";
     }
 }

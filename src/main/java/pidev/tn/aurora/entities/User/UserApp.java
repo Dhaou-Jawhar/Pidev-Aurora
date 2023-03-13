@@ -1,6 +1,8 @@
 package pidev.tn.aurora.entities.User;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import pidev.tn.aurora.entities.CampCenter.Reservation;
 import lombok.*;
 import pidev.tn.aurora.entities.Forum.Publication;
@@ -44,7 +46,6 @@ public class UserApp {
     private String password;
 
     @JsonIgnore
-
     @OneToMany(mappedBy = "userApp")
     private List<Order_Produit> order_Produits = new ArrayList<>();
     /*------[User - Role]---------*/
@@ -64,13 +65,14 @@ public class UserApp {
     Set<Reservation> reservations;
 
     /*----------[User -> Wishlist]-----------*/
+
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "wish_list_id")
     private WishList wishList;
 
 
     /*----------[User -> Cart]-----------*/
-    @OneToOne(mappedBy = "userApp")
-    private Cart cart;
+    @OneToMany(mappedBy = "userApp")
+    private List<Cart> cart;
 
 }

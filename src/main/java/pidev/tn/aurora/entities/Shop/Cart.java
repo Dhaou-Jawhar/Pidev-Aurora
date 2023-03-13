@@ -45,7 +45,7 @@ public class Cart {
     private List<CartItems> items = new ArrayList<>();
 
     /*----------[Cart -> User]-----------*/
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "user_app_id")
     private UserApp userApp;
 
@@ -53,9 +53,6 @@ public class Cart {
     @OneToOne
     @JoinColumn(name = "order_produit_id")
     private Order_Produit order_Produit;
-
-
-    /*-------------[Add to Cart ]-------------*/
 
 
 }

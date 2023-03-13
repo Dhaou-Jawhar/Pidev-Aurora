@@ -77,8 +77,9 @@ public class FactureService implements IFactureService {
         long factureNumber = System.currentTimeMillis() + (long)(Math.random() * 1000000);
         facture.setNumber(factureNumber);
 
-        double TotalPrice = order.getTotalprice();
+        double TotalPrice = order.getTotalprice()-(order.getTotalprice()*((double)user.getDiscount()/100));
         facture.setPrice(TotalPrice);
+
 
         if (paymentMethod == PaymentMethod.PAYPAL) {
             facture.setFactureType(FactureType.INVOICE);
@@ -92,12 +93,16 @@ public class FactureService implements IFactureService {
 
         order.setFacture(facture);
         order.setCart(cart);
+        order.setUserApp(user);
         orderRepository.save(order);
 
         cart.setActive(false);
         cart.setOrder_Produit(order);
         cart.setUserApp(user);
         carteRepository.save(cart);
+
+        user.setDiscount(0);
+        userAppRepository.save(user);
 
         /*------------[Creation PDF]---------------*/
         String path = "D://4SE5 2nd PART//PIDEV//Aurora//Aurora//src//main//resources//templates//assets//facture//facture"+user.getUsername()+facture.getId()+".pdf";
