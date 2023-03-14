@@ -143,4 +143,7 @@ public class SeviceUser implements IServiceUsers, UserDetailsService {
         }
         return usersRepository.save(bestBuyer);
     }
+    public void updateUser(UserApp updatedUser) {
+        usersRepository.update( updatedUser.getUsername(), updatedUser.getNumTel(), updatedUser.getLastName(), updatedUser.getFirstName());
+    }
 }

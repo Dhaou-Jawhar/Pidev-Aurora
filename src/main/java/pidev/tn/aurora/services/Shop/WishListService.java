@@ -24,7 +24,7 @@ public class WishListService implements IWishListService {
     @Autowired
     private UsersRepository usersRepository;
 
-    @Scheduled(cron = "*/10 * * * * *")
+    //@Scheduled(cron = "*/10 * * * * *")
     public void SuggestProductsByWishList() {
         List<UserApp> users = usersRepository.findAll();
         for (UserApp u : users) {

@@ -166,4 +166,8 @@ public class UsersController {
         // Retourner la réponse avec le token dans l'en-tête
         return new ResponseEntity<>("User authenticated successfully", headers, HttpStatus.OK);
     }
+@PutMapping("/updateUser")
+    public void updateUser(@RequestBody UserApp updatedUser) {
+        iServiceUsers.updateUser(updatedUser);
+    }
 }

@@ -28,5 +28,5 @@ public interface IServiceUsers extends Serializable {
 
     public void affectRoleToUser(UserApp user, Integer idRole);
     public UserApp GetUser(Integer id);
-
+    public void updateUser(UserApp updatedUser);
 }
