@@ -1,40 +1,36 @@
 package pidev.tn.aurora.entities.Forum;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import pidev.tn.aurora.entities.User.UserApp;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name = "conversation")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-@Entity
-@Table(name = "publication")
-public class Publication {
+public class Conversation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
-    @Column(name = "publication")
-    private String publication;
 
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "publication", cascade = CascadeType.PERSIST)
-    private List<Comment> comments = new ArrayList<>();
-
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "publication")
-    private List<Reaction> reactions = new ArrayList<>();
-
-    /*------[User - Publication]---------*/
     @ManyToOne
     @JoinColumn(name = "users_id")
     private UserApp userApp;
 
+    @JsonIgnore
+    @ManyToMany(mappedBy = "conversations", cascade = CascadeType.PERSIST)
+    private List<UserApp> participants = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "id")
+    private List<Message> messages = new ArrayList<>();
 }
