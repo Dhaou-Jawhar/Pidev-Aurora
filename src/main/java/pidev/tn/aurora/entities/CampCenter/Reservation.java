@@ -1,10 +1,7 @@
 package pidev.tn.aurora.entities.CampCenter;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import pidev.tn.aurora.entities.User.UserApp;
 
 import javax.persistence.*;
@@ -28,6 +25,7 @@ public class Reservation {
     @Column(name = "nbplace")
     private Integer nbplace ;
 
+    @JsonIgnore
     @Column(name = "price")
     private Double price;
 

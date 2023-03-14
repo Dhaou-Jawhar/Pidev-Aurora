@@ -1,6 +1,7 @@
 package pidev.tn.aurora.services.CampCenter;
 
 
+import pidev.tn.aurora.entities.CampCenter.Reservation;
 import pidev.tn.aurora.entities.CampCenter.Review;
 
 import java.io.Serializable;
@@ -12,6 +13,6 @@ public interface IReviewService extends Serializable {
     Review retrieveReview (Integer idr);
     List<Review> AllReviews ();
     void removeReview(Integer idr);
-
     Review assignReviewToCenter(Integer idRev, Integer idCC);
+
 }

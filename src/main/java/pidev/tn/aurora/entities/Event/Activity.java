@@ -5,9 +5,12 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import pidev.tn.aurora.entities.User.UserApp;
 import pidev.tn.aurora.entities.enumeration.ActivityType;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -49,13 +52,14 @@ public class Activity {
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "events_id")
     private Events events;
+    @JsonIgnore
+    @ManyToMany(mappedBy = "activities", cascade = CascadeType.PERSIST)
+    private List<UserApp> userApps = new ArrayList<>();
 
     @Column(name = "participant")
     private Integer participant;
 
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "wish_list_ev_id")
-    private WishListEv wishListEv;
+    @ManyToMany(mappedBy = "activities", cascade = CascadeType.PERSIST)
+    private List<WishListEv> wishListEvs = new ArrayList<>();
 
 }
