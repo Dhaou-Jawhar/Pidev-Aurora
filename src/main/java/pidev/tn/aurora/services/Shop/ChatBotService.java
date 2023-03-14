@@ -72,6 +72,11 @@ public class ChatBotService {
             String rep = "Our Shop Contains "+hamm+" Cool Hammocks Right now";
             return rep;
         }
+        if (input.toLowerCase().contains("best")){
+            String bestBuyer = chatbot.BestBuyerTotalPrice();
+            String rep = "The Best Buyer in Our Shop is "+bestBuyer;
+            return rep;
+        }
             return chatbot.getResponse(input);
     }
 }

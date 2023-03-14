@@ -72,19 +72,15 @@ public class UserApp {
     Set<Reservation> reservations;
 
     /*----------[User -> Wishlist]-----------*/
-
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "wish_list_id")
-    private WishList wishList;
-
-
-    /*----------[User -> Cart]-----------*/
-    @OneToMany(mappedBy = "userApp")
-    private List<Cart> cart;
     @JsonIgnore
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "wish_list_id")
     private WishList wishList;
+
+    /*----------[User -> Cart]-----------*/
+    @OneToMany(mappedBy = "userApp")
+    private List<Cart> cart;
+
     
     //////////////////user---comment/////////////////////
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
