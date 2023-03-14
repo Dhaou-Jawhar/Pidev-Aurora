@@ -34,16 +34,21 @@ public class Order_Produit {
     @Column(name = "createddate")
     private Date createddate;
 
+    /*----------[Order -> Cart]-----------*/
+
+    @OneToOne(mappedBy = "order_Produit")
+    private Cart cart;
+
+    /*----------[Order -> Facture]-----------*/
     @JsonIgnore
     @OneToOne
     private Facture facture;
-    
-    @JsonIgnore
-    @OneToMany(mappedBy = "order_Produit")
-    private List<Cart> carts = new ArrayList<>();
-
+    /*----------[Order -> User]-----------*/
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "users_id")
     private UserApp userApp;
+
+
+
 }

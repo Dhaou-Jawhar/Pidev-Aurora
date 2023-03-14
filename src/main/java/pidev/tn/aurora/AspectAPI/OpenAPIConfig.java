@@ -42,28 +42,28 @@ public class OpenAPIConfig {
             return new Info().title("Aurora 🏕").description("Taking it step by step, bit by bit").description(API_DESCRIPTION).contact(contactAPI());}
 
         public Contact contactAPI() {
-            Contact contact = new Contact().name("Jawhar Contact") .email("jawher.dhaou@esprit.tn").url("https://dhaou-jawhar.github.io");
+            Contact contact = new Contact().name("Jawhar Contact") .email("jawher.dhaou@esprit.tn").url("http://localhost:8083/aurora/index.html");
             return contact;
         }
 
     @Bean
     public GroupedOpenApi JawharPublicApi() {
         return GroupedOpenApi.builder().group("E-SHOP 🏪")
-                .pathsToMatch("/product/**","/wishlist/**","/order/**","/category/**","/facture/**","/cart/**","/GPT/**","/user/**")
-                .pathsToExclude("/user/add")
+                .pathsToMatch("/wishlist/**","/order/**","/facture/**","/cart/**","/user/BestBuyerReward","/chatbot/**")
+                .pathsToExclude("/product/uploadPRODUCT","/product/addP")
                 .build();}
 
     @Bean
     public GroupedOpenApi HanenPublicApi() {
         return GroupedOpenApi.builder().group("Hanen | Event 🎆🎭")
-                .pathsToMatch("/activity/**","/event/**","/WishLishEv/**")
+                .pathsToMatch("/activity/**","/event/**","/WishLishEv/**","/rating/**")
                 .pathsToExclude("**")
                 .build();}
 
     @Bean
     public GroupedOpenApi InesPublicApi() {
         return GroupedOpenApi.builder().group("Ines | Camping Center 🏕")
-                .pathsToMatch("/camp/**","/rev/**","/reserv/**")
+                .pathsToMatch("/camp/**","/rev/**","/reserv/**","/campSer/**")
                 .pathsToExclude("**")
                 .build();}
     @Bean

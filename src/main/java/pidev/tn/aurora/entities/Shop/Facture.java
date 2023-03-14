@@ -29,6 +29,10 @@ public class Facture {
     @Column(name = "number")
     private Long number;
 
+
+    @Column(name = "state")
+    private Boolean state;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "facture_type")
     private FactureType factureType;

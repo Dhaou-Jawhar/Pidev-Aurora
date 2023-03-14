@@ -9,4 +9,5 @@ import java.util.List;
 public interface IWishListService extends Serializable {
 
     void SuggestProductsByWishList();
+    void removeProductFromWishlist(Integer idw,Integer idp);
 }

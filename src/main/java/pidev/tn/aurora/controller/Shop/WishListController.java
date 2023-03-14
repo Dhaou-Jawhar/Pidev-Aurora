@@ -8,7 +8,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pidev.tn.aurora.entities.Shop.Product;
-import pidev.tn.aurora.entities.Shop.WishList;
 import pidev.tn.aurora.services.Shop.IProductService;
 import pidev.tn.aurora.services.Shop.IWishListService;
 
@@ -39,5 +38,10 @@ public class WishListController {
 
     public Product AddWishListandAddProductToIt(@PathVariable("prod_id") Integer prod_id,@PathVariable("user_id") Integer user_id) {
         return iProductService.AddWishListandAddProductToIt(prod_id, user_id);
+    }
+
+    @DeleteMapping("DelProduct/{idw}/{idp}")
+    public void removeProductFromWishlist(@PathVariable("idw") Integer idw,@PathVariable("idp")Integer idp) {
+        iWishListService.removeProductFromWishlist(idw, idp);
     }
 }

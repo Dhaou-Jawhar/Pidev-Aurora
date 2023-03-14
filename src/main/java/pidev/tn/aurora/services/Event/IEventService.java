@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.util.List;
 
 public interface IEventService extends Serializable {
-    Events addEv(Events ev);
+    String addEv(Events ev,Integer idUser);
     Events updateEv(Events ev);
     Events retrieveEv(Integer idev);
     List<Events> retrieveAllEv();

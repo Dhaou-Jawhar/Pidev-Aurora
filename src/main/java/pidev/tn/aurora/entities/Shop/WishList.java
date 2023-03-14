@@ -25,7 +25,7 @@ public class WishList {
     private Date createddate;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "wishList" , fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "wishList", fetch = FetchType.EAGER)
     private List<Product> products = new ArrayList<>();
     @JsonIgnore
     @OneToOne(mappedBy = "wishList")

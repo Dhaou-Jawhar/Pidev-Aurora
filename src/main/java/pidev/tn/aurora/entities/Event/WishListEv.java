@@ -8,9 +8,7 @@ import lombok.Setter;
 import pidev.tn.aurora.entities.Event.Activity;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -28,8 +26,10 @@ public class WishListEv {
     @Column(name = "created_date")
     private Date created_date;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "wishListEv", cascade = CascadeType.PERSIST)
-    private Set<Activity> activities = new HashSet<>();
+    @ManyToMany
+    @JoinTable(name = "wish_list_ev_activities",
+            joinColumns = @JoinColumn(name = "wish_list_ev_id"),
+            inverseJoinColumns = @JoinColumn(name = "activities_id"))
+    private List<Activity> activities = new ArrayList<>();
 
 }
