@@ -41,16 +41,12 @@ public class UsersController {
         return iServiceUsers.addOrUpdateUser(userApp);
     }
 
-    @GetMapping("GetB")
-    public UserApp BestBuyer() {
-        return iServiceUsers.BestBuyer();
-    }
 
-    @GetMapping("GetBPrice")
-    public UserApp BestBuyerTotalPrice() {
+    @GetMapping("BestBuyerReward")
+    public String BestBuyerTotalPrice() {
         return iServiceUsers.BestBuyerTotalPrice();
     }
-    
+
     @GetMapping("GetAllUsers")
     @ResponseBody
     public List<UserApp> GetAllUser() {

@@ -1,15 +1,18 @@
 package pidev.tn.aurora.entities.User;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import pidev.tn.aurora.entities.Forum.Comment;
 import pidev.tn.aurora.entities.Forum.Conversation;
 import pidev.tn.aurora.entities.CampCenter.FavoritesList;
+
 import pidev.tn.aurora.entities.CampCenter.Reservation;
 import lombok.*;
 import pidev.tn.aurora.entities.Event.Activity;
 import pidev.tn.aurora.entities.Event.Rating;
 import pidev.tn.aurora.entities.Forum.Publication;
+import pidev.tn.aurora.entities.Shop.Cart;
 import pidev.tn.aurora.entities.Forum.Reaction;
 import pidev.tn.aurora.entities.Shop.Order_Produit;
 import pidev.tn.aurora.entities.Shop.WishList;
@@ -50,10 +53,8 @@ public class UserApp {
     private String password;
 
     @JsonIgnore
-
     @OneToMany(mappedBy = "userApp")
     private List<Order_Produit> order_Produits = new ArrayList<>();
-
     /*------[User - Role]---------*/
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.PERSIST)
@@ -69,6 +70,17 @@ public class UserApp {
     @JsonIgnore
     @OneToMany(mappedBy = "userApp")
     Set<Reservation> reservations;
+
+    /*----------[User -> Wishlist]-----------*/
+
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "wish_list_id")
+    private WishList wishList;
+
+
+    /*----------[User -> Cart]-----------*/
+    @OneToMany(mappedBy = "userApp")
+    private List<Cart> cart;
     @JsonIgnore
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "wish_list_id")
@@ -115,6 +127,5 @@ public class UserApp {
 
     @OneToMany(mappedBy = "userApp")
     private List<Rating> ratings = new ArrayList<>();
-
 
 }

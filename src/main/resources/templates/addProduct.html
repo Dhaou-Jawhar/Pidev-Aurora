@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+	<title>E-commerce application</title>
+
+	<!-- Bootstrap CSS  & FontAwsome-->
+	<link href="css/bootstrap.css" rel="stylesheet">
+	<link href="font-awesome/css1/all.css" rel="stylesheet">
+	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+	<link rel="icon" href="images/icon.png" />
+	<!-- Our Custom CSS -->
+	<link rel="stylesheet" href="style4.css">
+	<link rel="stylesheet" href="card.css">
+	<script type="text/javascript" src="font-awesome/js1/fontawesome.js"></script>
+	<script type="text/javascript" src=""></script>
+
+</head>
+<body>
+<div class="wrapper">
+	<!-- Sidebar  -->
+	<nav th:fragment="sidebar" class="active" id="sidebar">
+		<div class="sidebar-header">
+			<img src="images/logo.png" style="width: 50px;height: 50px"></th>
+			<strong><i class="fa fa-shopping-cart" aria-hidden="true"></i></strong>
+		</div>
+
+		<ul class="list-unstyled components">
+			<li class="active"><a href="#homeSubmenu"
+								  data-toggle="collapse" aria-expanded="false"
+								  class="dropdown-toggle"> <i class="fas fa-home"></i> Home
+			</a>
+				<ul class="collapse list-unstyled" id="homeSubmenu">
+					<li><a href="localhost:8083/aurora/swagger-ui/index.html">Back End</a></li>
+					<li><a href="https://github.com/Dhaou-Jawhar/Pidev-Aurora">Github Page</a></li>
+				</ul></li>
+			<li><a href="#"> <i class="fas fa-briefcase"></i> About
+			</a> <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false"
+					class="dropdown-toggle"> <i class="fas fa-copy"></i> pages
+			</a>
+				<ul class="collapse list-unstyled" id="pageSubmenu">
+					<li><a href="/aurora/addProduct.html">Add Product</a></li>
+					<li><a href="/aurora/listProducts.html">products</a></li>
+					<li><a href="/aurora/index.html">more</a></li>
+				</ul></li>
+			<li><a href="https://dhaou-jawhar.github.io"> <i class="fas fa-image"></i> Portfolio
+			</a></li>
+			<li><a href="#"> <i class="fas fa-question"></i> FAQ
+			</a></li>
+			<li><a href="#"> <i class="fas fa-paper-plane"></i> Contact
+			</a></li>
+		</ul>
+	</nav>
+
+	<!-- Page Content  -->
+	<div id="content">
+		<nav th:fragment="topBar"
+			 class="navbar navbar-expand-lg navbar-light"
+			 style="border-bottom: 4px solid #7386D5;">
+			<div class="container-fluid">
+				<button type="button" id="sidebarCollapse"
+						class="btn btn-info mr-4">
+					<i class="fas fa-align-left"></i>
+					<!-- <span>Toggle Sidebar</span> -->
+				</button>
+				<form class="form-inline frm">
+					<input class="form-control mr-sm-2" type="search" value=""
+						   id="search" onkeydown="dropDown(event);" data-toggle="dropdown"
+						   placeholder="Search" aria-label="Search">
+
+					<div class="dropdown-menu ropdown-menu-right ml-4"
+						 id="dropdown-container"></div>
+
+				</form>
+				<button class="btn btn-light d-inline-block d-lg-none ml-auto"
+						type="button" data-toggle="collapse"
+						data-target="#navbarSupportedContent"
+						aria-controls="navbarSupportedContent" aria-expanded="false"
+						aria-label="Toggle navigation">
+					<i class="fas fa-align-justify"></i>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="nav navbar-nav ml-auto">
+
+						<li class="nav-item"><a class="nav-link fl1" href="#"> <i class="fas fa-cart-plus" title="View Cart" style="color: red; font-size: 20px"></i><span
+								class="label">3</span>
+						</a></li>
+						<li class="nav-item"><a class="nav-link fl2" href="#"> <i
+								class="fa fa-user" style="color: #17a2b8; font-size: 20px"></i>
+						</a></li>
+
+					</ul>
+				</div>
+			</div>
+		</nav>
+
+		<hr>
+		<h3 class="text-center">Add a Product</h3>
+		<hr>
+		<div class="row">
+		<div class="col-6 mx-auto">
+			<div class="card">
+				<div class="card-body">
+			<form action="/aurora/addProd" method="Post" enctype="multipart/form-data">
+				<div class="form-group">
+					<label for="name"> Product name</label>
+					<input type="text" name="pname" id="name" class="form-control">
+					<label for="price"> Product Price</label>
+					<input type="text" name="price" id="price" class="form-control">
+					<label for="desc"> Product Description</label>
+					<input type="text" name="desc" id="desc" class="form-control">
+					<br>
+					<label> Add an image</label>
+					<div class="custom-file">
+						<input type="file" name="file" class="custom-file-input" id="customFile">
+						<label class="custom-file-label" for="customFile">Choose file</label>
+					</div>
+					<br>
+					<br>
+					<div class="form-group">
+					<select name="cat" id="cat" class="form-control">
+						<option value="tente" class="form-control">tente</option>
+						<option value="SleepingBag" class="form-control">SleepingBag</option>
+						<option value="sleepingPads" class="form-control">sleepingPads</option>
+						<option value="hammock" class="form-control">hammock</option>
+					</select>
+					</div>
+					<br>
+					<button type="submit" class="btn btn-primary"> Submit </button>
+				</div>
+			</form>
+
+		</div>
+	</div>
+</div>
+			<!-- Bootstrap JS & jQuery -->
+			<script src="js/jquery-3.1.1.min.js"></script>
+			<script src="js/bootstrap.js"></script>
+			<!-- Popper.JS -->
+			<script
+					src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"
+					integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ"
+					crossorigin="anonymous"></script>
+			<script type="text/javascript" src="api/ajaxFetch.js"></script>
+
+			<script type="text/javascript">
+				$(document).ready(function() {
+					$('#sidebarCollapse').on('click', function() {
+						$('#sidebar').toggleClass('active');
+					});
+
+				});
+			</script>
+</body>
+</html>

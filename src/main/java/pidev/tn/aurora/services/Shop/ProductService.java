@@ -3,16 +3,19 @@ package pidev.tn.aurora.services.Shop;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import pidev.tn.aurora.entities.Shop.Category;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 import pidev.tn.aurora.entities.Shop.Product;
 import pidev.tn.aurora.entities.Shop.WishList;
 import pidev.tn.aurora.entities.User.UserApp;
-import pidev.tn.aurora.repository.Shop.CategoryRepository;
+import pidev.tn.aurora.entities.enumeration.Cat;
 import pidev.tn.aurora.repository.Shop.ProductRepository;
 import pidev.tn.aurora.repository.Shop.WishListRepository;
 import pidev.tn.aurora.repository.Users.UsersRepository;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,13 +30,7 @@ public class ProductService implements IProductService {
     private WishListRepository wishListRepository;
 
     @Autowired
-    private CategoryRepository categoryRepository;
-
-    @Autowired
     private UsersRepository usersRepository;
-
-    @Autowired
-    private FactureService factureService;
 
     @Override
     public List<Product> DisplayProduct() {
@@ -53,45 +50,41 @@ public class ProductService implements IProductService {
 
     @Override
     public Product AddWishListandAddProductToIt(Integer prod_id , Integer user_id) {
-        WishList wishList = new WishList();
-
         UserApp u = usersRepository.findById(user_id).get();
-        wishList.setCreateddate(new Date());
         Product p = productRepository.findById(prod_id).get();
-        p.setWishList(wishList);
-        u.setWishList(wishList);
-        wishListRepository.save(wishList);
-        usersRepository.save(u);
-        return productRepository.save(p);
+        if (u.getWishList() == null) {
+            WishList wishList = new WishList();
+            wishList.setCreateddate(new Date());
+            p.setWishList(wishList);
+            u.setWishList(wishList);
+            wishListRepository.save(wishList);
+            usersRepository.save(u);
+            productRepository.save(p);
+        }
+        else{
+            p.setWishList(u.getWishList());
+            productRepository.save(p);
+        }
+
+            return p;
     }
 
     @Override
-    public List<Product> suggestProductsByCategory(Integer prod_id) {
+    public String AddProduct(MultipartFile file, Cat cat, Product p) {
 
-        Product product = productRepository.findById(prod_id).get();
+        String fileName = StringUtils.cleanPath((file.getOriginalFilename()));
+        if(fileName.contains(".."))
+        {
+            System.out.println("not a a valid file");
+        }
+        try {
+            p.setModel(Base64.getEncoder().encodeToString(file.getBytes()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        productRepository.save(p);
 
-        // Récupérer tous les produits de la même catégorie que le produit ajouté
-        List<Product> suggestedProducts = productRepository.findByCategory(product.getCategory());
-
-        // Supprimer le produit ajouté de la liste de suggestions
-        suggestedProducts.remove(product);
-
-        //Limiter le nombre de produits suggérés à 5
-        suggestedProducts = suggestedProducts.stream().limit(5).collect(Collectors.toList());
-
-        // Renvoyer la liste de produits suggérés
-        return suggestedProducts;
-    }
-
-    @Override
-    public Product AddandAssProductToCategory(Product product, Integer id) {
-
-        Product p = productRepository.save(product);
-        Category cat = categoryRepository.findById(id).get();
-
-        p.setCategory(cat);
-
-        return productRepository.save(p);
+        return "✅ "+file.getOriginalFilename() + " : has uploaded successfully !";
     }
 
 }

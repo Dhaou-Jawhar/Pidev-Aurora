@@ -39,4 +39,9 @@ public class WishListController {
     public Product AddWishListandAddProductToIt(@PathVariable("prod_id") Integer prod_id,@PathVariable("user_id") Integer user_id) {
         return iProductService.AddWishListandAddProductToIt(prod_id, user_id);
     }
+
+    @DeleteMapping("DelProduct/{idw}/{idp}")
+    public void removeProductFromWishlist(@PathVariable("idw") Integer idw,@PathVariable("idp")Integer idp) {
+        iWishListService.removeProductFromWishlist(idw, idp);
+    }
 }
