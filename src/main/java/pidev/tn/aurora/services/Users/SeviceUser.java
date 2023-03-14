@@ -68,8 +68,8 @@ public class SeviceUser implements IServiceUsers, UserDetailsService {
     }
 
     @Override
-    public UserApp GetUser(Integer id) {
-        return usersRepository.findById(id).orElse(null);
+    public UserApp GetUserByUsername(String username) {
+        return usersRepository.findByUsername(username);
 
     }
 
@@ -95,6 +95,32 @@ public class SeviceUser implements IServiceUsers, UserDetailsService {
 
         usersRepository.save(userApp);
 
+    }
+
+    @Override
+    public UserApp GetUser(Integer id) {
+        return usersRepository.findById(id).get();
+    }
+
+    @Override
+    public UserApp BestBuyer() {
+        List<UserApp> userAppList = usersRepository.findAll();
+        UserApp bestBuyer = null;
+        double maxOrders = 0;
+        for(UserApp u : userAppList){
+            if ( u.getOrder_Produits().isEmpty()) {
+                log.info("error");
+            }
+            int orderCount = orderRepository.countByUserApp(u);
+            if(orderCount > maxOrders){
+                maxOrders = orderCount;
+                bestBuyer = u;
+                bestBuyer.setDiscount(10);
+            }
+
+            log.info("Best Buyer is : "+bestBuyer.getFirstName());
+        }
+        return usersRepository.save(bestBuyer);
     }
     @Override
     public String BestBuyerTotalPrice() {
@@ -122,5 +148,7 @@ public class SeviceUser implements IServiceUsers, UserDetailsService {
         }
         return "Congrats : "+bestBuyer.getFirstName()+" You Got 10% Discount for this week";
     }
+    public void updateUser(UserApp updatedUser) {
+        usersRepository.update( updatedUser.getUsername(), updatedUser.getNumTel(), updatedUser.getLastName(), updatedUser.getFirstName());
+    }
 
-}
