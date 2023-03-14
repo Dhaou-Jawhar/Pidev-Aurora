@@ -7,5 +7,7 @@ import java.io.Serializable;
 
 public interface IRatingService extends Serializable {
     String addAndassignRatingToCenterOfCampAndUser(Rating r,Integer idEvent,Integer idUser) ;
+    float RatingCalcul(Integer id);
     String findEventWithHighestRating();
+
 }

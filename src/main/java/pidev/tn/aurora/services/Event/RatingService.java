@@ -33,6 +33,11 @@ public class RatingService implements IRatingService{
 
     }
     @Override
+    public float RatingCalcul(Integer id) {
+        return ratingRepository.NbRating(id);
+    }
+
+    @Override
     public String findEventWithHighestRating() {
         List<Events> events = eventsRepository.findAll();
         float highestRating = 0;
@@ -52,8 +57,12 @@ public class RatingService implements IRatingService{
                 }
             }
         }
-            return "L'event avec la note la plus élevée est  "+ nbev.getNameEv()+" avec une moyenne de "+ highestRating;
-}}
+        return "L'event avec la note la plus élevée est  "+ nbev.getNameEv()+" avec une moyenne de "+ highestRating;
+
+    }
+
+
+}
 
 
 

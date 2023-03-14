@@ -8,7 +8,7 @@ import pidev.tn.aurora.services.Event.IEventService;
 import pidev.tn.aurora.services.Event.IRatingService;
 
 @RestController
-@RequestMapping("rating")
+@RequestMapping("/rating")
 public class RatingController {
     @Autowired
     private IRatingService iRatingService;
@@ -16,11 +16,13 @@ public class RatingController {
     RatingController (IRatingService iRatingService){this.iRatingService=iRatingService;}
 
     @PutMapping("/rating/{idev}/{idU}")
+    @ResponseBody
     public String addAndassignRatingToCenterOfCampAndUser(@RequestBody Rating r, @PathVariable("idev") Integer idEvent, @PathVariable("idU") Integer idUser) {
         return iRatingService.addAndassignRatingToCenterOfCampAndUser(r, idEvent, idUser);
     }
-    @GetMapping("findHighestRating ")
-    public String findEventWithHighestRating() {
+    @GetMapping("/hightrating")
+    public String findEventWithHighestRating(){
         return iRatingService.findEventWithHighestRating();
+
     }
 }
