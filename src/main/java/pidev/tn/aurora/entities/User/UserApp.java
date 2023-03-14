@@ -1,6 +1,7 @@
 package pidev.tn.aurora.entities.User;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import pidev.tn.aurora.entities.CampCenter.FavoritesList;
 import pidev.tn.aurora.entities.CampCenter.Reservation;
 import lombok.*;
 import pidev.tn.aurora.entities.Event.Activity;
@@ -69,6 +70,11 @@ public class UserApp {
     @JoinColumn(name = "wish_list_id")
     private WishList wishList;
 
+    /*------[User - FavoritesList]---------*/
+    @JsonIgnore
+    @OneToOne(cascade = CascadeType.ALL)
+    private FavoritesList favoritesList;
+
     @JsonIgnore
     @ManyToMany
     @JoinTable(name = "users_activities",
@@ -78,5 +84,6 @@ public class UserApp {
 
     @OneToMany(mappedBy = "userApp")
     private List<Rating> ratings = new ArrayList<>();
+
 
 }

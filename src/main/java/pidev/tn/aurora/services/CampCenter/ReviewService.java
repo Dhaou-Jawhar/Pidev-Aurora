@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pidev.tn.aurora.entities.CampCenter.CampCenter;
 import pidev.tn.aurora.entities.CampCenter.Review;
+import pidev.tn.aurora.entities.User.UserApp;
 import pidev.tn.aurora.repository.CampCenter.CampCenterRepository;
 import pidev.tn.aurora.repository.CampCenter.ReviewRepository;
+import pidev.tn.aurora.services.Users.IServiceUsers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +21,8 @@ public class ReviewService implements IReviewService {
     @Autowired
     private ReviewRepository reviewRepository;
     private CampCenterRepository campCenterRepository;
+    private CampCenterService campCenterService;
+    private IServiceUsers serviceUser;
 
 
     @Override
@@ -39,6 +43,7 @@ public class ReviewService implements IReviewService {
     public void removeReview(Integer idr) {
         reviewRepository.deleteById(idr);
     }
+
 
     @Override
     public Review assignReviewToCenter(Integer idRev, Integer idCC) {

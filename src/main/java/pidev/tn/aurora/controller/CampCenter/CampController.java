@@ -6,10 +6,13 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pidev.tn.aurora.entities.CampCenter.CampCenter;
+import pidev.tn.aurora.repository.UserApp.UserAppRepository;
+import pidev.tn.aurora.services.CampCenter.AdvancedService;
 import pidev.tn.aurora.services.CampCenter.ICampCenterService;
-
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -107,4 +110,42 @@ public class CampController {
     })
     void deleteCenter(@PathVariable("id") Integer idC){iCampCenterService.removeCenter(idC);}
 
+    @Autowired
+    private AdvancedService advancedService;
+    @GetMapping("/filter")
+    public ResponseEntity<List<CampCenter>> filterCampCenters(@RequestParam String sortBy) {
+        List<CampCenter> filteredCampCenters = advancedService.filterCampCenters(sortBy);
+        return ResponseEntity.ok(filteredCampCenters);
+    }
+
+    @PostMapping("/Add_favorites/{userId}/{campCenterId}")
+    public ResponseEntity<Void> addCampCenterToFavorites(@PathVariable Integer userId, @PathVariable Integer campCenterId) {
+        System.out.println("userId: " + userId);
+        iCampCenterService.addCampCenterToFavoritesList(userId, campCenterId);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping ("/delete_favorites/{idF}/{idC}")
+    void removeCenterFromFavList(@PathVariable Integer idF, @PathVariable Integer idC){
+        iCampCenterService.removeCenterFromFavList(idF,idC);
+    }
+
+    @Autowired
+    private UserAppRepository userRepository;
+
+    @GetMapping("/{userId}/Show_favorites")
+    public ResponseEntity<List<CampCenter>> getFavoriteCampCentersByUser(@PathVariable Integer userId) {
+        List<CampCenter> favoriteCampCenters = userRepository.findFavoriteCampCentersByUserId(userId);
+        if (favoriteCampCenters.isEmpty()) {
+            return ResponseEntity.ok(Collections.emptyList()); // return empty array
+        } else {
+            return ResponseEntity.ok(favoriteCampCenters);
+        }
+    }
+
+    @GetMapping("/suggested/{userId}")
+    public ResponseEntity<List<CampCenter>> suggestCampCentersBasedOnFavorites(@PathVariable Integer userId) {
+        List<CampCenter> suggestedCampCenters = advancedService.suggestCampCentersBasedOnFavorites(userId);
+        return ResponseEntity.ok(suggestedCampCenters);
+    }
 }

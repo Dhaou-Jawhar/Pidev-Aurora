@@ -10,6 +10,8 @@ import pidev.tn.aurora.entities.User.UserApp;
 import pidev.tn.aurora.repository.CampCenter.CampCenterRepository;
 import pidev.tn.aurora.repository.CampCenter.ReservationRepository;
 import pidev.tn.aurora.services.Users.IServiceUsers;
+
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,20 +47,19 @@ public class ReservationService implements IReservationService{
         reservationRepository.deleteById(idrev);
     }
 
-    /*@Override
-    public Reservation assignReservationToCenter(Integer idR, Integer idCC) {
-
-        Reservation reservation = reservationRepository.findById(idR).get();
-        CampCenter campCenter= campCenterRepository.findById(idCC).get();
-        reservation.setCampCenter(campCenter);
-        return reservationRepository.save(reservation);
-    }*/
     @Override
-    public Reservation addAndAssignReservationToCenterAndUser(Reservation r, Integer centerId, Integer userId) {
+    public String addAndAssignReservationToCenterAndUser(Reservation r, Integer centerId, Integer userId) {
         CampCenter center = campCenterService.retrieveCenter(centerId);
         UserApp user = serviceUser.GetUser(userId);
         r.setCampCenter(center);
         r.setUserApp(user);
-        return reservationRepository.save(r);
+        if (center != null && r.getNbplace() != null && r.getDateDeb() != null && r.getDateFin() != null) {
+            long durationInDays = ChronoUnit.DAYS.between(r.getDateDeb().toInstant(), r.getDateFin().toInstant());
+            double price = center.getPrice() * durationInDays * r.getNbplace();
+            r.setPrice(price);
+        }
+        return "Your Reservation to the CampCenter  : "+center.getName()+ " is succesfully added and the price is  : " +r.getPrice()+ " DT " ;
     }
+
+
 }
