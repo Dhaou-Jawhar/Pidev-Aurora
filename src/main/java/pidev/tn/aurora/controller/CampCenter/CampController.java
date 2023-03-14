@@ -6,19 +6,14 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pidev.tn.aurora.entities.CampCenter.CampCenter;
-import pidev.tn.aurora.entities.User.UserApp;
 import pidev.tn.aurora.repository.UserApp.UserAppRepository;
 import pidev.tn.aurora.services.CampCenter.AdvancedService;
 import pidev.tn.aurora.services.CampCenter.ICampCenterService;
-import pidev.tn.aurora.services.Users.IServiceUsers;
-
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @Tag(name = "CampCenter ⛺ Management 💹")
@@ -123,33 +118,18 @@ public class CampController {
         return ResponseEntity.ok(filteredCampCenters);
     }
 
-    /*@PostMapping("/Add_favorites/{userId}/{campCenterId}")
+    @PostMapping("/Add_favorites/{userId}/{campCenterId}")
     public ResponseEntity<Void> addCampCenterToFavorites(@PathVariable Integer userId, @PathVariable Integer campCenterId) {
         System.out.println("userId: " + userId);
-        iCampCenterService.addCampCenterToFavorites(userId, campCenterId);
+        iCampCenterService.addCampCenterToFavoritesList(userId, campCenterId);
         return ResponseEntity.ok().build();
-    }*/
-
-    @Autowired
-    private IServiceUsers userService;
-    @Autowired
-    private ICampCenterService campCenterService;
-    @PostMapping("/{userId}/favorites")
-    public ResponseEntity<String> addCampCenterToFavoritesList(@PathVariable Integer userId, @RequestBody CampCenter campCenter) {
-        UserApp user = userService.GetUser(userId);
-        if (user == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
-        }
-        campCenterService.addCampCenterToFavoritesList(user, campCenter);
-        return ResponseEntity.ok("Camp center added to favorites");
     }
 
+    @DeleteMapping ("/delete_favorites/{idF}/{idC}")
+    void removeCenterFromFavList(@PathVariable Integer idF, @PathVariable Integer idC){
+        iCampCenterService.removeCenterFromFavList(idF,idC);
+    }
 
-    /*@PostMapping("/users/{userId}/favorites/campcenters/{campCenterId}")
-    public ResponseEntity<String> addCampCenterToFavorites(@PathVariable Integer userId, @PathVariable Integer campCenterId) {
-        userService.addCampCenterToFavorites(userId, campCenterId);
-        return ResponseEntity.ok("Camp center added to favorites successfully");
-    }*/
     @Autowired
     private UserAppRepository userRepository;
 

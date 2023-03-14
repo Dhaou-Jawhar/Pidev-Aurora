@@ -8,8 +8,6 @@ import pidev.tn.aurora.entities.CampCenter.Reservation;
 import pidev.tn.aurora.entities.User.UserApp;
 import pidev.tn.aurora.entities.enumeration.ActivityType;
 import pidev.tn.aurora.repository.CampCenter.CampCenterRepository;
-import pidev.tn.aurora.repository.UserApp.UserAppRepository;
-
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -23,8 +21,6 @@ public class AdvancedService implements IAdvancedService{
     private IReservationService reservationService;
     @Autowired
     private CampCenterRepository campCenterRepository;
-    @Autowired
-    private UserAppRepository userRepository;
 
     @Override
 
@@ -45,20 +41,6 @@ public class AdvancedService implements IAdvancedService{
         }
         return groups;
     }
-    /*public List<List<Users>> matchUsersByCampCenter() {
-     List<Reservation> allReservations = reservationService.AllReservations();
-     Map<Integer, List<Reservation>> reservationsByCampCenter = allReservations.stream()
-                .collect(Collectors.groupingBy(r -> r.getCampCenter().getId()));
-        List<List<Users>> groups = new ArrayList<>();
-        for (List<Reservation> reservations : reservationsByCampCenter.values()) {
-            List<Users> group = new ArrayList<>();
-            for (Reservation reservation : reservations) {
-                group.add(reservation.getUsers());
-            }
-            groups.add(group);
-        }
-        return groups;
-    }*/
 
     @Override
     public List<CampCenter> filterCampCenters(String sortBy) {
@@ -77,25 +59,25 @@ public class AdvancedService implements IAdvancedService{
                         .collect(Collectors.toList());
                 break;
             case "rate":
-                // Sort by average rating, by calculating the average rating of all reviews
+                // Sort by rating, by calculating the average rating of all reviews
                 filteredCampCenters = allCampCenters.stream()
                         .sorted(Comparator.comparingDouble(campCenter -> {
                             DoubleSummaryStatistics stats = campCenter.getReviews().stream()
                                     .mapToDouble(review -> review.getNote().getValue())
                                     .summaryStatistics();
                             //return stats.getCount() > 0 ? stats.getAverage() : 0;
-                            return stats.getCount() > 0 ? -stats.getAverage() : 0; // negative sign here to sort in descending order
+                            return stats.getCount() > 0 ? -stats.getAverage() : 0; // - bch ywali l ordre ml good rating lel bad
                         }))
                         .collect(Collectors.toList());
                 break;
             case "price":
-                // Sort by price, for example, by selecting the cheapest Camp Centers first
+                // Sort by price, by selecting the cheapest Camp Centers first
                 filteredCampCenters = allCampCenters.stream()
                         .sorted(Comparator.comparingDouble(CampCenter::getPrice))
                         .collect(Collectors.toList());
                 break;
             case "service":
-                // Sort by services, for example, by sorting the Camp Centers that offer the most services first
+                // Sort by services, by sorting the Camp Centers that offer the most services first
                 filteredCampCenters = allCampCenters.stream()
                         .sorted(Comparator.comparingInt(campCenter -> ((CampCenter)campCenter).getServices().size()).reversed())
                         .collect(Collectors.toList());

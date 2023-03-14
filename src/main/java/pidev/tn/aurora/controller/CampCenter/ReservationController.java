@@ -40,9 +40,9 @@ public class ReservationController {
                     description = "Code Correct ✅ But there is a Cascad Problem ⚠",
                     content = @Content)
     })
-    public Reservation assignReservationToCenter(@RequestBody Reservation r,
-                                                 @PathVariable("idCC")Integer idCC,
-                                                 @PathVariable("idU")Integer idU)
+    public String assignReservationToCenter(@RequestBody Reservation r,
+                                            @PathVariable("idCC")Integer idCC,
+                                            @PathVariable("idU")Integer idU)
     {
         return iReservationService.addAndAssignReservationToCenterAndUser(r,idCC,idU);
     }
@@ -116,10 +116,6 @@ public class ReservationController {
 
     @Autowired
     private AdvancedService advancedService;
-    /*@GetMapping("/users-by-campcenter")
-    public List<List<Users>> getUsersByCampCenter() {
-        return advancedService.matchUsersByCampCenter();
-    }*/
     @GetMapping("/users-by-camp-center")
     public List<Map<String, Object>> getUsersByCampCenter() {
         return advancedService.matchUsersByCampCenter();
