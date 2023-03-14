@@ -20,7 +20,7 @@ public class EventController {
     @Autowired
     EventController (IEventService iEventService){this.iEventService=iEventService;}
 
-    @PostMapping("/addEv")
+    @PostMapping("/addEv/{idUser}")
     @ResponseBody
     @Operation(description = "Add Event", summary = "Add 📦")
     @ApiResponses(value = {
@@ -34,8 +34,8 @@ public class EventController {
                     description = "Code Correct ✅ But there is a Cascad Problem ⚠",
                     content = @Content)
     })
-    public Events addEv(@RequestBody Events ev) {
-        return iEventService.addEv(ev);
+    public String addEv(@RequestBody Events ev,@PathVariable("idUser")Integer idUser) {
+        return iEventService.addEv(ev, idUser);
     }
     @PutMapping("updateEv")
     @Operation(description = "update activity",summary = "update 📦")
