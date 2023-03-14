@@ -30,14 +30,14 @@ public class OpenAPIConfig {
     @Bean
     public GroupedOpenApi HanenPublicApi() {
         return GroupedOpenApi.builder().group("Hanen | Event 🎆🎭")
-                .pathsToMatch("/activity/**","/event/**","/WishLishEv/**")
+                .pathsToMatch("/activity/**","/event/**","/WishLishEv/**","/rating/**")
                 .pathsToExclude("**")
                 .build();}
 
     @Bean
     public GroupedOpenApi InesPublicApi() {
         return GroupedOpenApi.builder().group("Ines | Camping Center 🏕")
-                .pathsToMatch("/camp/**","/rev/**","/reserv/**")
+                .pathsToMatch("/camp/**","/rev/**","/reserv/**","/campSer/**")
                 .pathsToExclude("**")
                 .build();}
     @Bean
