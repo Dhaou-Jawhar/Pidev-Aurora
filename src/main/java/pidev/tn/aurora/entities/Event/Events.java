@@ -49,4 +49,7 @@ public class Events {
     @OneToOne(mappedBy = "events")
     private CampCenter campCenter;
 
+    @OneToMany(mappedBy = "events")
+    private List<Rating> ratings = new ArrayList<>();
+
 }

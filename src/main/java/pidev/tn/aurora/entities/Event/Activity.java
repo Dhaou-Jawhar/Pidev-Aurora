@@ -59,9 +59,7 @@ public class Activity {
     @Column(name = "participant")
     private Integer participant;
 
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "wish_list_ev_id")
-    private WishListEv wishListEv;
+    @ManyToMany(mappedBy = "activities", cascade = CascadeType.PERSIST)
+    private List<WishListEv> wishListEvs = new ArrayList<>();
 
 }

@@ -1,10 +1,8 @@
 package pidev.tn.aurora.services.Event;
 
 import pidev.tn.aurora.entities.Event.Activity;
-import pidev.tn.aurora.entities.Event.Events;
-import pidev.tn.aurora.entities.User.UserApp;
+import pidev.tn.aurora.entities.Event.WishListEv;
 import pidev.tn.aurora.entities.enumeration.ActivityType;
-import pidev.tn.aurora.entities.enumeration.TypeRole;
 
 
 import java.io.Serializable;
@@ -16,7 +14,6 @@ public interface IActivityService extends Serializable {
     Activity retrieveAc(Integer id);
     List<Activity> retrieveAllAc();
     void removeAc(Integer id,Integer userId);
-    Activity assignActivityToWidhLishEv(Integer idac,Integer idWishListEv);
     List<Activity> suggestActivityToAdd(Integer centreid);
     List<Activity> filterActivity(double minPrice, double maxPrice, int maxCapacity, ActivityType activityType);
     int joinActivity(Integer activityId, Integer userId);

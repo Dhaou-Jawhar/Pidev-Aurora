@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import pidev.tn.aurora.entities.CampCenter.Reservation;
 import lombok.*;
 import pidev.tn.aurora.entities.Event.Activity;
+import pidev.tn.aurora.entities.Event.Rating;
 import pidev.tn.aurora.entities.Forum.Publication;
 import pidev.tn.aurora.entities.Shop.Order_Produit;
 import pidev.tn.aurora.entities.Shop.WishList;
@@ -74,5 +75,8 @@ public class UserApp {
             joinColumns = @JoinColumn(name = "user_app_id"),
             inverseJoinColumns = @JoinColumn(name = "activities_id"))
     private List<Activity> activities = new ArrayList<>();
+
+    @OneToMany(mappedBy = "userApp")
+    private List<Rating> ratings = new ArrayList<>();
 
 }

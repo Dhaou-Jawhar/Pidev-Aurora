@@ -26,4 +26,10 @@ public class WishListEv {
     @Column(name = "created_date")
     private Date created_date;
 
+    @ManyToMany
+    @JoinTable(name = "wish_list_ev_activities",
+            joinColumns = @JoinColumn(name = "wish_list_ev_id"),
+            inverseJoinColumns = @JoinColumn(name = "activities_id"))
+    private List<Activity> activities = new ArrayList<>();
+
 }

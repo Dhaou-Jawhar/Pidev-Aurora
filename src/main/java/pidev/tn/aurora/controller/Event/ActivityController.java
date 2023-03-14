@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pidev.tn.aurora.entities.Event.Activity;
+import pidev.tn.aurora.entities.Event.WishListEv;
 import pidev.tn.aurora.entities.enumeration.ActivityType;
 import pidev.tn.aurora.services.Event.IActivityService;
 import java.util.List;
@@ -89,11 +90,6 @@ public class ActivityController {
 })
     public void removeAc(@PathVariable("id") Integer id, @PathVariable("idUser") Integer userId) {
         iActivityService.removeAc(id,userId);
-    }
-    /*-----------------------------------CRUD WISHLISTEV---------------------------------*/
-    @PutMapping("assignAcToWishListEv/{idac}/{idwishlistev}")
-    public Activity assignActivityToWidhLishEv(@PathVariable("idac") Integer idac,@PathVariable("idwishlistev")Integer idWishListEv) {
-        return iActivityService.assignActivityToWidhLishEv(idac,idWishListEv);
     }
     @GetMapping("assAct/{idcampcenter}")
     @ResponseBody

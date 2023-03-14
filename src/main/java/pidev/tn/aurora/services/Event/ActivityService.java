@@ -70,14 +70,6 @@ public class ActivityService implements IActivityService {
             activityRepository.deleteById(id);
         } else log.info("not your role");
     }
-    /*----------------------------ASSIGNMENT ACT-TO-WishListEv-------------------------*/
-    public  Activity assignActivityToWidhLishEv(Integer idac,Integer idWishListEv){
-        Activity activity=activityRepository.findById(idac).orElse(null);
-        WishListEv wishListEv=wishListEvRepository.findById(idWishListEv).orElse(null);
-        activity.setWishListEv(wishListEv);
-        return activityRepository.save(activity);
-    }
-
     @Override
     public List<Activity> suggestActivityToAdd(Integer centreid) {
         List<Activity> suggact= new ArrayList<>();
@@ -173,12 +165,12 @@ public class ActivityService implements IActivityService {
 
    @Override
     public void addActivityToWishlist(Activity activity) {
-        WishListEv wishlist = new WishListEv();
-      // activity.setWishListEvs((List<WishListEv>) wishlist);
-        activity.setWishListEv(wishlist);
+       WishListEv wishlist = new WishListEv();
        wishlist.setCreated_date(new Date());
-        wishListEvRepository.save(wishlist);
-        log.info("Activité ajoutée à la wishlist");
+       wishlist = wishListEvRepository.save(wishlist);
+       wishlist.getActivities().add(activity);
+       wishListEvRepository.save(wishlist);
+       log.info("Activité ajoutée à la wishlist");
     }
 
     @Override
@@ -197,7 +189,7 @@ public class ActivityService implements IActivityService {
     return "Event has reached maximum capacity "+ user.getFirstName();
     }
 
-    //@Scheduled(cron = "*/60 * * * * *")
+    @Scheduled(cron = "*/60 * * * * *")
     public void findSimilarActivities() {
         List<CampCenter> allCenters = campCenterRepository.findAll();
         for (CampCenter center : allCenters) {
@@ -215,12 +207,12 @@ public class ActivityService implements IActivityService {
                     }
                 }
                 if (!sameAct.isEmpty()) {
-                    System.out.println("Similar activities to " + activity.getNameAc() + " in center " + center.getName() + ":");
+                    System.out.println("*Similar activities to " + activity.getNameAc() + " in center " + center.getName() + " 🗺:");
                     for (Activity a : sameAct) {
-                        System.out.println("- " + a.getNameAc() + " in center " + a.getEvents().getCampCenter().getName());
+                        System.out.println("-Name Activity: " + a.getNameAc() + " ,in center: " + a.getEvents().getCampCenter().getName());
                     }
                 } else {
-                    System.out.println("No similar activities found for " + activity.getNameAc() + " in center " + center.getName());
+                    System.out.println("No similar activities found for " + activity.getNameAc() + " ✖,in center " + center.getName());
                 }
             }
         }
