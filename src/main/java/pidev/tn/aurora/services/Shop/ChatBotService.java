@@ -72,9 +72,16 @@ public class ChatBotService {
             String rep = "Our Shop Contains "+hamm+" Cool Hammocks Right now";
             return rep;
         }
-        if (input.toLowerCase().contains("best")){
-            String bestBuyer = chatbot.BestBuyerTotalPrice();
-            String rep = "The Best Buyer in Our Shop is "+bestBuyer;
+        if (input.toLowerCase().contains("name")){
+            String rep = "My name is Aurora Chat BOT";
+            return rep;
+        }
+        if (input.toLowerCase().contains("help")){
+            String rep = "I'm the Chat BOT of Aurora Appilcation type [askAurora] to see what i can offer for you";
+            return rep;
+        }
+        if (input.toLowerCase().contains("ask")){
+            String rep = "I can Offer For You : \n Number Of users we have \n Number of invoices ( Banned and not Banned ) \n Number of Products By Categories";
             return rep;
         }
             return chatbot.getResponse(input);
