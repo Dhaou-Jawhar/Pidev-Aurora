@@ -107,7 +107,7 @@ public class FactureService implements IFactureService {
         userAppRepository.save(user);
 
         /*------------[Creation PDF]---------------*/
-        String path = "D://4SE5 2nd PART//PIDEV//Aurora//Aurora//src//main//resources//templates//assets//facture//facture"+user.getUsername()+facture.getId()+".pdf";
+        String path = "D://4SE5 2nd PART//PIDEV//Aurora//Aurora//src//main//resources//templates//assets//facture//facture"+user.getFirstName()+facture.getId()+".pdf";
         PdfWriter pdfWriter = new PdfWriter(path);
         PdfDocument pdfDocument = new PdfDocument(pdfWriter);
         pdfDocument.addNewPage();
