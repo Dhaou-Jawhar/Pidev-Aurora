@@ -33,7 +33,6 @@ public class ChatBot {
         responses = new HashMap<>();
         responses.put("hi", "Hi How are you");
         responses.put("fine", "good for you how can i help you ?");
-        responses.put("what's your name?", "My name is Chatbot.");
     }
 
     public String getResponse(String input) {
