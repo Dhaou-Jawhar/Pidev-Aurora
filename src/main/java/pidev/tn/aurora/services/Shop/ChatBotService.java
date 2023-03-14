@@ -77,11 +77,15 @@ public class ChatBotService {
             return rep;
         }
         if (input.toLowerCase().contains("help")){
-            String rep = "I'm the Chat BOT of Aurora Appilcation type [askAurora] to see what i can offer for you";
+            String rep = "I'm the Chat BOT of Aurora Appilcation \n type [askAurora] to see what i can offer for you \n type [feature] To see what is the next Update";
             return rep;
         }
         if (input.toLowerCase().contains("ask")){
             String rep = "I can Offer For You : \n Number Of users we have \n Number of invoices ( Banned and not Banned ) \n Number of Products By Categories";
+            return rep;
+        }
+        if (input.toLowerCase().contains("feature")){
+            String rep = "Our Feature update will be : \n chatBot will give the best Buyer \n chatBot will five list of Product of an Invoice by id \n and other cool stuff will be Come ! Get ready ...";
             return rep;
         }
             return chatbot.getResponse(input);
