@@ -244,7 +244,7 @@ public class FactureService implements IFactureService {
             String directoryPath = "src/main/resources/templates/assets/facture";
             File fileToDelete = new File(directoryPath + File.separator + fileName);
             fileToDelete.delete();
-            factureRepository.delete(f);
+            //factureRepository.delete(f);
             log.info("-------[ All Facture With BAN STAMP ]-------");
             log.info("Facture : "+"facture"+f.getOrder_produit().getUserApp().getFirstName()+f.getId()+".pdf"+" Successfully deleted");
         }
