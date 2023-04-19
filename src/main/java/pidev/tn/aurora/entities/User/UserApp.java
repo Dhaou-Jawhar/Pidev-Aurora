@@ -18,7 +18,9 @@ import pidev.tn.aurora.entities.Shop.Order_Produit;
 import pidev.tn.aurora.entities.Shop.WishList;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -28,13 +30,13 @@ import java.util.Set;
 @Setter
 @Entity
 @Table(name = "users")
-public class UserApp {
+public class UserApp implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @Column(name = "email")
+    @Column(name = "username")
     private String username;
 
     @Column(name = "num_tel")
@@ -51,6 +53,30 @@ public class UserApp {
 
     @Column(name = "password")
     private String password;
+
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "profileImageUrl")
+    private String profileImageUrl;
+
+    @Column(name = "LastLoginDate")
+    private Date LastLoginDate;
+
+    @Column(name = "LastLoginDateDisplay")
+    private Date LastLoginDateDisplay;
+
+    @Column(name = "joinDate")
+    private Date joinDate;
+
+    //@Column(name = "joinDate")
+    private String[] authorities;
+
+    @Column(name = "isActive")
+    private boolean isActive;
+
+    @Column(name = "isNotLocked")
+    private boolean isNotLocked;
 
     @JsonIgnore
     @OneToMany(mappedBy = "userApp")

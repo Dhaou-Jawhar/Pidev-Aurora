@@ -12,6 +12,7 @@ import java.util.List;
 public interface IServiceUsers extends Serializable {
 
     public String BestBuyerTotalPrice();
+    public UserApp BestBuyer();
 
     /*------[IServicesUserApp]---------*/
     public UserApp addOrUpdateUser(UserApp userApp);
