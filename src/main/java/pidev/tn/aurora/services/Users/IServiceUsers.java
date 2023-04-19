@@ -10,7 +10,7 @@ import java.io.Serializable;
 import java.util.List;
 
 public interface IServiceUsers extends Serializable {
-
+    public UserApp BestBuyer();
     public String BestBuyerTotalPrice();
 
     /*------[IServicesUserApp]---------*/
