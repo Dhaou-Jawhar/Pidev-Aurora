@@ -4,6 +4,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 
 import static com.auth0.jwt.algorithms.Algorithm.HMAC512;
@@ -15,6 +16,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
+import org.springframework.stereotype.Component;
 import pidev.tn.aurora.entities.User.UserPrincipal;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,6 +26,7 @@ import java.util.List;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
+@Component
 public class JwtTokenProvider {
     @Value("${jwt.secret}")
     private String secret;
@@ -50,7 +53,17 @@ public class JwtTokenProvider {
 
     public  boolean isTokenValid(String username, String token){
         JWTVerifier verifier = getJWTVerifier();
-        return  null;
+        return StringUtils.isNotEmpty(username)&& !isTokenExpired(verifier,token);
+    }
+
+    public String getSubject(String token){
+        JWTVerifier verifier = getJWTVerifier();
+        return verifier.verify(token).getSubject();
+    }
+
+    private boolean isTokenExpired(JWTVerifier verifier, String token) {
+    Date expiration = verifier.verify(token).getExpiresAt();
+    return expiration.before(new Date());
     }
 
     private String[]  getClaimsFromToken(String token){

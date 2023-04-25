@@ -14,10 +14,11 @@ import java.io.File;
 @SpringBootApplication
 public class AuroraApplication {
 
-    public static void main(String[] args) {SpringApplication.run(AuroraApplication.class, args);}
+    public static void main(String[] args) {SpringApplication.run(AuroraApplication.class, args);
+    }
 
     @Bean
-    PasswordEncoder passwordEncoder(){
+    BCryptPasswordEncoder bCryptPasswordEncoder(){
         return new BCryptPasswordEncoder();
     }
     

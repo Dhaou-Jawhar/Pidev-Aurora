@@ -75,7 +75,7 @@ public class OpenAPIConfig {
     @Bean
     public GroupedOpenApi HazemPublicApi() {
         return GroupedOpenApi.builder().group("Hazem | User-Claim 👩‍💻")
-                .pathsToMatch("/api/**","/claim/**")
+                .pathsToMatch("/user/**","/claim/**")
                 .pathsToExclude("**")
                 .build();}
 

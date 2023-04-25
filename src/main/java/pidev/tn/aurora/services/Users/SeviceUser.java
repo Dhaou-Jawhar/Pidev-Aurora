@@ -2,14 +2,15 @@ package pidev.tn.aurora.services.Users;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import pidev.tn.aurora.entities.CampCenter.CampCenter;
+import org.springframework.transaction.annotation.Transactional;
 import pidev.tn.aurora.entities.Shop.Order_Produit;
+import pidev.tn.aurora.entities.User.UserPrincipal;
 import pidev.tn.aurora.repository.Shop.OrderRepository;
 import pidev.tn.aurora.repository.UserApp.UserAppRepository;
 import pidev.tn.aurora.repository.Users.UsersRepository;
@@ -21,8 +22,12 @@ import pidev.tn.aurora.repository.UserApp.RoleRepository;
 import java.util.*;
 
 @Service
+@Transactional
+@Qualifier("userDetailsService")
 @Slf4j
 public class SeviceUser implements IServiceUsers, UserDetailsService {
+
+    private UserAppRepository userAppRepository;
 
     @Autowired
     public UsersRepository usersRepository;
@@ -31,27 +36,29 @@ public class SeviceUser implements IServiceUsers, UserDetailsService {
 
     @Autowired
     public PasswordEncoder passwordEncoder;
-
     @Autowired
     private OrderRepository orderRepository;
-
     @Autowired
-    public UserAppRepository userRepository;
+    public SeviceUser(UserAppRepository userAppRepository) {
+        this.userAppRepository = userAppRepository;
+    }
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserApp userApp = usersRepository.findByUsername(username);
+         UserApp userApp = userAppRepository.findUserAppByUsername(username);
         if (userApp == null) {
             log.error("User not found in the database");
-            throw new UsernameNotFoundException("User not found in the database");
+            throw new UsernameNotFoundException("User not found in the database" + username);
         } else {
-            log.info("User found in the datbase:{}", username);
+            userApp.setLastLoginDate(userApp.getLastLoginDate());
+            userApp.setLastLoginDate(new Date());
+            userAppRepository.save(userApp);
+            UserPrincipal userPrincipal = new UserPrincipal(userApp);
+            log.info("User found in the datbase by username:{}", username);
+            return userPrincipal;
+
         }
-        Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        Role role = userApp.getRole();
-        authorities.add(new SimpleGrantedAuthority(role.getTypeRole().name()));
-        return new org.springframework.security.core.userdetails.User(userApp.getUsername(), userApp.getPassword(),
-                authorities);
     }
 
     /*------[ServicesUserApp]---------*/

@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.*;
 import pidev.tn.aurora.entities.User.Role;
 import pidev.tn.aurora.entities.User.UserApp;
 import pidev.tn.aurora.entities.enumeration.TypeRole;
-import pidev.tn.aurora.filter.CustomAuthentificationFilter;
 import pidev.tn.aurora.services.Users.IServiceUsers;
 
 import javax.servlet.FilterChain;
@@ -36,14 +35,14 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
 @Tag(name = "Users 👤 Management 💹")
-@RequestMapping("/api")
+@RequestMapping("/user")
 public class UsersController {
 
     @Autowired
     public IServiceUsers iServiceUsers;
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
+    //@Autowired
+    //private AuthenticationManager authenticationManager;
 
     @Autowired
     UsersController(IServiceUsers iServiceUsers) {
@@ -55,7 +54,10 @@ public class UsersController {
         return iServiceUsers.addOrUpdateUser(userApp);
     }
 
-
+    @GetMapping("/home")
+    public String ShowUser(){
+        return "application works";
+    }
     @GetMapping("BestBuyerReward")
     public String BestBuyerTotalPrice() {
         return iServiceUsers.BestBuyerTotalPrice();
@@ -99,7 +101,7 @@ public class UsersController {
     public void affectRoleToUser(@RequestBody UserApp user, @PathVariable("idRole") Integer idRole) {
         iServiceUsers.affectRoleToUser(user, idRole);
     }
-
+/*
     @GetMapping("/token/refresh")
     public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String authorizationHeader = request.getHeader(AUTHORIZATION);
@@ -134,36 +136,11 @@ public class UsersController {
             throw new RuntimeException("Refresh token is missing");
         }
     }
-    @PostMapping("/login")
-    public ResponseEntity<String> authenticateUser(@RequestParam(value = "username") String username, @RequestParam(value = "password") String password, HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) {
 
-        // Créer un objet UsernamePasswordAuthenticationToken
-        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username, password);
 
-        // Vérifier l'authentification
-        Authentication authentication = authenticationManager.authenticate(authToken);
 
-        // Créer un CustomAuthentificationFilter pour générer le token JWT
-        CustomAuthentificationFilter authFilter = new CustomAuthentificationFilter(authenticationManager);
-        try {
-            authFilter.successfulAuthentication(request, response, filterChain, authentication);
-        } catch (IOException | ServletException e) {
-            e.printStackTrace();
-            return new ResponseEntity<>("Failed to authenticate user", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-        // Récupérer le token JWT généré par CustomAuthentificationFilter
-        String token = response.getHeader("access_token");
-
-        // Ajouter le token dans l'en-tête Authorization
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Authorization", "Bearer " + token);
-
-        // Retourner la réponse avec le token dans l'en-tête
-        return new ResponseEntity<>("User authenticated successfully", headers, HttpStatus.OK);
-    }
 @PutMapping("/updateUser")
     public void updateUser(@RequestBody UserApp updatedUser) {
         iServiceUsers.updateUser(updatedUser);
-    }
+    }*/
 }
