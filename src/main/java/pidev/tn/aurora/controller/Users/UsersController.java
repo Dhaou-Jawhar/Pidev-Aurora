@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import pidev.tn.aurora.entities.User.Role;
 import pidev.tn.aurora.entities.User.UserApp;
 import pidev.tn.aurora.entities.enumeration.TypeRole;
+import pidev.tn.aurora.exception.domain.ExceptionHandling;
 import pidev.tn.aurora.services.Users.IServiceUsers;
 
 import javax.servlet.FilterChain;
@@ -36,7 +37,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RestController
 @Tag(name = "Users 👤 Management 💹")
 @RequestMapping("/user")
-public class UsersController {
+public class UsersController extends ExceptionHandling {
 
     @Autowired
     public IServiceUsers iServiceUsers;
