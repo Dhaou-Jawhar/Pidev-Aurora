@@ -21,7 +21,9 @@ import org.springframework.web.bind.annotation.*;
 import pidev.tn.aurora.entities.User.Role;
 import pidev.tn.aurora.entities.User.UserApp;
 import pidev.tn.aurora.entities.enumeration.TypeRole;
+import pidev.tn.aurora.exception.domain.EmailExistException;
 import pidev.tn.aurora.exception.domain.ExceptionHandling;
+import pidev.tn.aurora.exception.domain.UserNotFoundException;
 import pidev.tn.aurora.services.Users.IServiceUsers;
 
 import javax.servlet.FilterChain;
@@ -56,8 +58,10 @@ public class UsersController extends ExceptionHandling {
     }
 
     @GetMapping("/home")
-    public String ShowUser(){
-        return "application works";
+    public String ShowUser() throws UserNotFoundException{
+
+        //return "application works";
+        throw new UserNotFoundException("The user was not found");
     }
     @GetMapping("BestBuyerReward")
     public String BestBuyerTotalPrice() {
