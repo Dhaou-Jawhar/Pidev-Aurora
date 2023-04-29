@@ -3,6 +3,8 @@ package pidev.tn.aurora.services.Users;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,8 +24,9 @@ import pidev.tn.aurora.repository.UserApp.UserAppRepository;
 import pidev.tn.aurora.repository.Users.UsersRepository;
 import pidev.tn.aurora.entities.User.UserApp;
 import pidev.tn.aurora.entities.enumeration.Role;
-
 import java.util.*;
+
+import static pidev.tn.aurora.constant.UserImplConstant.*;
 
 
 @Service
@@ -38,7 +41,7 @@ public class SeviceUser implements IServiceUsers, UserDetailsService {
     @Autowired
     public UsersRepository usersRepository;
 
-
+    private Logger LOGGER = LoggerFactory.getLogger(getClass());
     @Autowired
     private OrderRepository orderRepository;
     @Autowired
@@ -52,14 +55,16 @@ public class SeviceUser implements IServiceUsers, UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
          UserApp userApp = userAppRepository.findUserAppByUsername(username);
         if (userApp == null) {
-            log.error("User not found in the database");
-            throw new UsernameNotFoundException("User not found in the database" + username);
+            LOGGER.error(NO_USER_FOUND_BY_USERNAME + username);
+            log.error(NO_USER_FOUND_BY_USERNAME + username);
+            throw new UsernameNotFoundException(NO_USER_FOUND_BY_USERNAME + username);
         } else {
             userApp.setLastLoginDate(userApp.getLastLoginDate());
             userApp.setLastLoginDate(new Date());
             userAppRepository.save(userApp);
             UserPrincipal userPrincipal = new UserPrincipal(userApp);
-            log.info("User found in the datbase by username:{}", username);
+            log.info(FOUND_USER_BY_USERNAME + username);
+            LOGGER.info(FOUND_USER_BY_USERNAME + username);
             return userPrincipal;
 
         }
@@ -91,12 +96,13 @@ public class SeviceUser implements IServiceUsers, UserDetailsService {
         userApp.setAuthorities(Role.ROLE_COSTUMER.getAuthorities());
         userApp.setProfileImageUrl(getTemporaryPrfileImageUrl());
         userAppRepository.save(userApp);
-        log.info("New user password" + password);
-        return null;
+        log.info("New user password: " + password);
+        LOGGER.info("New user password: " + password);
+        return userApp;
     }
 
     private String getTemporaryPrfileImageUrl() {
-        return ServletUriComponentsBuilder.fromCurrentContextPath().path("/user/image/profile/temp").toUriString();
+        return ServletUriComponentsBuilder.fromCurrentContextPath().path(DEFAULT_USER_IMAGE_PATH).toUriString();
     }
 
     private String encodePassword(String password) {
@@ -109,36 +115,34 @@ public class SeviceUser implements IServiceUsers, UserDetailsService {
 
 
     private UserApp validateNewUsernameAndEmail(String currentUsername, String newUsername, String newEmail) throws EmailExistException, UsernameExistException, UserNotFoundException {
-      if (StringUtils.isNotBlank(currentUsername)){
+
+        UserApp userByNewUsername = GetUserByUsername(newUsername);
+        UserApp userByNewEmail = findUserByEmail(newEmail);
+        if (StringUtils.isNotBlank(currentUsername)){
           UserApp currentUser = GetUserByUsername(currentUsername);
           if(currentUser == null){
-              throw new UserNotFoundException("No user found by username" + currentUsername);
+              throw new UserNotFoundException(NO_USER_FOUND_BY_USERNAME + currentUsername);
           }
-          UserApp userByNewUsername = GetUserByUsername(newUsername);
           if (userByNewUsername !=null && !currentUser.getId().equals(userByNewUsername.getId())){
-              throw new UsernameExistException("Username already exists");
+              throw new UsernameExistException(USERNAME_ALREADY_EXISTS);
           }
-          UserApp userByNewEmail = findUserByEmail(newEmail);
           if (userByNewEmail !=null && !currentUser.getId().equals(userByNewEmail.getId())){
-              throw new EmailExistException("Username already exists");
+              throw new EmailExistException(EMAIL_ALREADY_EXISTS);
           }
           return currentUser;
       }else {
-          UserApp userByUsername = GetUserByUsername(newUsername);
-          if (userByUsername != null){
-              throw new UsernameExistException("Username already exists");
+          if (userByNewUsername != null){
+              throw new UsernameExistException(USERNAME_ALREADY_EXISTS);
           }
-          UserApp userByEmail = findUserByEmail(newEmail);
-          if (userByEmail != null ){
-              throw new EmailExistException("Username already exists");
+          if (userByNewEmail != null ){
+              throw new EmailExistException(EMAIL_ALREADY_EXISTS);
           }
           return null;
       }
     }
 
     public List<UserApp> GetAllUser() {
-        List<UserApp> listUsers = usersRepository.findAll();
-        return listUsers;
+        return userAppRepository.findAll();
     }
 
     @Override
@@ -149,7 +153,8 @@ public class SeviceUser implements IServiceUsers, UserDetailsService {
 
     @Override
     public UserApp findUserByEmail(String email) {
-        return null;
+
+        return usersRepository.findUserByEmail(email);
     }
 
     @Override

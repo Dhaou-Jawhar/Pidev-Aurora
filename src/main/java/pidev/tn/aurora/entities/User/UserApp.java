@@ -1,5 +1,6 @@
 package pidev.tn.aurora.entities.User;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
@@ -67,6 +68,7 @@ public class UserApp implements Serializable {
     private Date LastLoginDateDisplay;
 
     @Column(name = "joinDate")
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     private Date joinDate;
 
     //@Column(name = "joinDate")
