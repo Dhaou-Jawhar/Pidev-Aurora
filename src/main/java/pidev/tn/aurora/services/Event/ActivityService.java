@@ -10,12 +10,11 @@ import pidev.tn.aurora.entities.Event.Events;
 import pidev.tn.aurora.entities.Event.WishListEv;
 import pidev.tn.aurora.entities.User.UserApp;
 import pidev.tn.aurora.entities.enumeration.ActivityType;
-import pidev.tn.aurora.entities.enumeration.TypeRole;
+import pidev.tn.aurora.entities.enumeration.Role;
 import pidev.tn.aurora.repository.CampCenter.CampCenterRepository;
 import pidev.tn.aurora.repository.Event.ActivityRepository;
 import pidev.tn.aurora.repository.Event.EventsRepository;
 import pidev.tn.aurora.repository.Event.WishListEvRepository;
-import pidev.tn.aurora.repository.UserApp.RoleRepository;
 import pidev.tn.aurora.repository.UserApp.UserAppRepository;
 
 import java.util.*;
@@ -24,8 +23,7 @@ import java.util.stream.Collectors;
 @Service
 @Slf4j
 public class ActivityService implements IActivityService {
-    @Autowired
-    private RoleRepository roleRepository;
+
     @Autowired
     private UserAppRepository userAppRepository;
 
@@ -41,7 +39,7 @@ public class ActivityService implements IActivityService {
     @Override
     public String updateAc(Activity activity, Integer userId) {
         UserApp user = userAppRepository.findById(userId).get();
-        if (user.getRole().getTypeRole().equals(TypeRole.CampManager)) {
+        if (user.getRole().equals(Role.ROLE_CAMP_MANAGER)) {
             activityRepository.save(activity);
             return "the Activity "+ activity.getNameAc()+" has been updated";
         }else
@@ -66,7 +64,7 @@ public class ActivityService implements IActivityService {
     @Override
     public void removeAc(Integer id, Integer userId) {
         UserApp user =userAppRepository.findById(userId).get();
-        if(user.getRole().getTypeRole().equals(TypeRole.CampManager)){
+        if(user.getRole().equals(Role.ROLE_CAMP_MANAGER)){
             activityRepository.deleteById(id);
         } else log.info("not your role");
     }
@@ -176,7 +174,7 @@ public class ActivityService implements IActivityService {
     @Override
     public String addAndAffectActToEvent(Activity act, Integer eventid,Integer userId) {
         UserApp user = userAppRepository.findById(userId).get();
-        if(user.getRole().getTypeRole().equals(TypeRole.CampManager)){
+        if(user.getRole().equals(Role.ROLE_CAMP_MANAGER)){
         Events ev= eventsRepository.findById(eventid).get();
         if(ev.getActivities().size()<5){
         act.setEvents(ev);

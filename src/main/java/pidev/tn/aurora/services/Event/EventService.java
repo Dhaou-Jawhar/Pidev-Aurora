@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pidev.tn.aurora.entities.Event.Events;
 import pidev.tn.aurora.entities.User.UserApp;
-import pidev.tn.aurora.entities.enumeration.TypeRole;
+import pidev.tn.aurora.entities.enumeration.Role;
 import pidev.tn.aurora.repository.Event.EventsRepository;
 import pidev.tn.aurora.repository.UserApp.UserAppRepository;
 
@@ -21,7 +21,7 @@ public class EventService implements IEventService{
     @Override
     public String addEv(Events ev,Integer idUser) {
         UserApp user=userAppRepository.findById(idUser).get();
-        if(user.getRole().getTypeRole().equals(TypeRole.CampManager)){
+        if(user.getRole().equals(Role.ROLE_CAMP_MANAGER)){
         eventsRepository.save(ev);
             return "add with Success"+user.getFirstName();}
 

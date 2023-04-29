@@ -70,6 +70,7 @@ public class UserApp implements Serializable {
     private Date joinDate;
 
     //@Column(name = "joinDate")
+    private String role;
     private String[] authorities;
 
     @Column(name = "isActive")
@@ -82,10 +83,10 @@ public class UserApp implements Serializable {
     @OneToMany(mappedBy = "userApp")
     private List<Order_Produit> order_Produits = new ArrayList<>();
     /*------[User - Role]---------*/
-    @JsonIgnore
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "role_id")
-    private Role role;
+  // @JsonIgnore
+   //@ManyToOne(cascade = CascadeType.PERSIST)
+   //@JoinColumn(name = "role_id")
+    //private Role roles;
 
     /*------[User - Publication]---------*/
     @JsonIgnore
@@ -104,6 +105,7 @@ public class UserApp implements Serializable {
     private WishList wishList;
 
     /*----------[User -> Cart]-----------*/
+    @JsonIgnore
     @OneToMany(mappedBy = "userApp")
     private List<Cart> cart;
 
@@ -113,10 +115,11 @@ public class UserApp implements Serializable {
     @JsonIgnore
     private List<Comment> comments;
     ////////////////user---reaction/////////////////////
+    @JsonIgnore
     @OneToOne(mappedBy = "user")
     private Reaction reaction;
 
-
+    @JsonIgnore
     @ManyToMany
     @JoinTable(name = "users_conversation",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -147,6 +150,7 @@ public class UserApp implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "activities_id"))
     private List<Activity> activities = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "userApp")
     private List<Rating> ratings = new ArrayList<>();
 

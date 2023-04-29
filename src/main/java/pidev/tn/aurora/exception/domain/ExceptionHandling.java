@@ -11,6 +11,7 @@ import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.LockedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import pidev.tn.aurora.filter.HttpResponse;
 
@@ -32,6 +33,7 @@ public class ExceptionHandling {
     public static final String ERROR_PROCESSING_FILE = "Error occurred while processing file";
     public static final String NOT_ENOUGH_PERMISSION = "You do not have enough permission";
 
+    public static final String ERROR_PATH = "/error";
     @ExceptionHandler(DisabledException.class)
     public ResponseEntity<HttpResponse> accountDisabledException(){
         return createHttpResponse(BAD_REQUEST,ACCOUNT_DISABLED);
@@ -68,6 +70,10 @@ public class ExceptionHandling {
     public ResponseEntity<HttpResponse> userNotFoundException(UserNotFoundException exception){
         return createHttpResponse(BAD_REQUEST, exception.getMessage());
     }
+    /*@ExceptionHandler(NoHandlerFoundException.class)
+    public ResponseEntity<HttpResponse> methodNotSupportedException(NoHandlerFoundException exception){
+        return createHttpResponse(BAD_REQUEST, "This page was not found");
+    }*/
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public ResponseEntity<HttpResponse> methodNotSupportedException(HttpRequestMethodNotSupportedException exception){
         HttpMethod supportedMethod = Objects.requireNonNull(exception.getSupportedHttpMethods().iterator().next());
@@ -87,7 +93,7 @@ public class ExceptionHandling {
     @ExceptionHandler(IOException.class)
     public ResponseEntity<HttpResponse> iOException(IOException exception){
         LOGGER.error(exception.getMessage());
-        return createHttpResponse(NOT_FOUND, exception.getMessage());
+        return createHttpResponse(INTERNAL_SERVER_ERROR, ERROR_PROCESSING_FILE);
     }
 
 
@@ -96,4 +102,13 @@ public class ExceptionHandling {
         return new ResponseEntity<>(new HttpResponse(httpStatus.value(), httpStatus, httpStatus.getReasonPhrase().toUpperCase(),
                 messsage.toUpperCase()), httpStatus);
     }
+    @RequestMapping(ERROR_PATH)
+    public ResponseEntity<HttpResponse> notFound404(){
+        return createHttpResponse(NOT_FOUND, "There is no mapping for this URL");
+    }
+
+    /*@RequestMapping
+    public String getErrorPath(){
+        return ERROR_PATH;
+    }*/
 }

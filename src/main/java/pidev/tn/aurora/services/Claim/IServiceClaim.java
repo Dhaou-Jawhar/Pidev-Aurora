@@ -1,10 +1,8 @@
 package pidev.tn.aurora.services.Claim;
 
 import pidev.tn.aurora.entities.User.Claim;
-import pidev.tn.aurora.entities.User.Role;
 import pidev.tn.aurora.entities.User.UserApp;
 import pidev.tn.aurora.entities.enumeration.ClaimStatus;
-import pidev.tn.aurora.entities.enumeration.TypeRole;
 
 import java.util.List;
 
