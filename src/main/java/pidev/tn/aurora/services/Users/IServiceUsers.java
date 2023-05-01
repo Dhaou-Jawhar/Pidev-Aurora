@@ -19,6 +19,7 @@ public interface IServiceUsers extends Serializable {
     public List<UserApp> GetAllUser();
 
     public UserApp GetUserByUsername(String username);
+    public void register();
 
     public void remove(Integer id);
 

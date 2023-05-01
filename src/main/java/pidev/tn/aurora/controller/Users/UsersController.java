@@ -53,6 +53,10 @@ public class UsersController {
         return iServiceUsers.GetUserByUsername(username);
     }
 
+    public void register() {
+        iServiceUsers.register();
+    }
+
     @DeleteMapping("/deleteUser/{id}")
     @ResponseBody
     public void remove(@PathVariable("id") Integer id) {

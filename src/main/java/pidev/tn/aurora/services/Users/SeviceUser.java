@@ -77,6 +77,18 @@ public class SeviceUser implements IServiceUsers, UserDetailsService {
     }
 
     @Override
+    public void register() {
+        UserApp userApp = new UserApp();
+
+        userApp.setFirstName("user");
+        userApp.setLastName("user");
+        userApp.setUsername("user");
+        userApp.setRole(addRole(TypeRole.Admin));
+        userApp.setPassword(passwordEncoder.encode("user"));
+        usersRepository.save(userApp);
+          }
+
+    @Override
     public void remove(Integer id) {
 
         usersRepository.deleteById(id);
