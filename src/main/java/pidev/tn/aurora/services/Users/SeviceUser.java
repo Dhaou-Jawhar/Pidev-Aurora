@@ -24,19 +24,22 @@ import java.util.*;
 @Slf4j
 public class SeviceUser implements IServiceUsers, UserDetailsService {
 
-    @Autowired
     public UsersRepository usersRepository;
-    @Autowired
     public RoleRepository roleRepository;
 
-    @Autowired
     public PasswordEncoder passwordEncoder;
 
-    @Autowired
+
     private OrderRepository orderRepository;
 
     @Autowired
-    public UserAppRepository userRepository;
+    public SeviceUser(UsersRepository usersRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder, OrderRepository orderRepository) {
+        this.usersRepository = usersRepository;
+        this.roleRepository = roleRepository;
+        this.passwordEncoder = passwordEncoder;
+        this.orderRepository = orderRepository;
+    }
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -81,9 +84,16 @@ public class SeviceUser implements IServiceUsers, UserDetailsService {
 
     @Override
     public Role addRole(TypeRole typeRole) {
-        Role role = new Role();
-        role.setTypeRole(typeRole);
-        return roleRepository.save(role);
+        Role existingRole = roleRepository.getRoleByTypeRole(typeRole);
+        if (existingRole != null) {
+            // un rôle avec ce type existe déjà, donc retourner le rôle existant
+            return existingRole;
+        } else {
+            // créer un nouveau rôle avec le type spécifié
+            Role role = new Role();
+            role.setTypeRole(typeRole);
+            return roleRepository.save(role);
+        }
     }
 
     @Override

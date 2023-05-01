@@ -78,20 +78,24 @@ public class UserApp {
     private WishList wishList;
 
     /*----------[User -> Cart]-----------*/
+    @JsonIgnore
     @OneToMany(mappedBy = "userApp")
     private List<Cart> cart;
 
     
     //////////////////user---comment/////////////////////
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Comment> comments;
     ////////////////user---reaction/////////////////////
+    @JsonIgnore
     @OneToOne(mappedBy = "user")
     private Reaction reaction;
 
 
     @ManyToMany
+    @JsonIgnore
     @JoinTable(name = "users_conversation",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "conversation_id"))
@@ -122,6 +126,7 @@ public class UserApp {
     private List<Activity> activities = new ArrayList<>();
 
     @OneToMany(mappedBy = "userApp")
+    @JsonIgnore
     private List<Rating> ratings = new ArrayList<>();
 
 }
